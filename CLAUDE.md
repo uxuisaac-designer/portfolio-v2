@@ -16,6 +16,7 @@ Text: oklch(0.216 0.004 58)
 Muted: oklch(0.444 0.004 58)
 Border: oklch(0.923 0.003 58)
 Hover: oklch(0.960 0.003 58)
+Underline (link resting): oklch(0.700 0.003 58) — hover goes to Text
 Palette is desaturated Tailwind stone at hue 58. Two text colours only:
 --text and --muted, nothing in between.
 Body: 16px / 1.6 / -0.011em

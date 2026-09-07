@@ -5,6 +5,7 @@
   --muted: oklch(0.444 0.004 58);
   --border: oklch(0.923 0.003 58);
   --hover: oklch(0.960 0.003 58);
+  --underline: oklch(0.700 0.003 58);
 
   /* Layout */
   --max-width: 40rem;
@@ -72,7 +73,7 @@ body {
 .page a {
   color: inherit;
   text-decoration: underline;
-  text-decoration-color: var(--muted);
+  text-decoration-color: var(--underline);
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
   transition: text-decoration-color var(--duration-hover) var(--ease);
