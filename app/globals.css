@@ -5,6 +5,7 @@
   --muted: oklch(0.444 0.004 58);
   --border: oklch(0.923 0.003 58);
   --hover: oklch(0.960 0.003 58);
+  --press: oklch(0.930 0.003 58);
   --underline: oklch(0.700 0.003 58);
 
   /* Layout */
@@ -238,6 +239,10 @@ body {
   padding: 0.75rem 12px;
   margin-inline: -12px;
   border-radius: 8px;
+  /* The row carries the fill; .row-name carries the underline. Without
+     this the page-wide anchor underline would run the row's full width
+     once these become links. */
+  text-decoration: none;
   transition: background-color var(--duration-hover-out) var(--ease-hover);
 }
 
@@ -246,6 +251,24 @@ body {
     background-color: var(--hover);
     transition-duration: var(--duration-hover-in);
   }
+
+  .row:hover .row-name {
+    text-decoration-color: var(--text);
+    transition-duration: var(--duration-hover-in);
+  }
+}
+
+/* Touch has no hover, so press is the only feedback a tap gets. It shows
+   both signals at once, immediately — feedback you wait for is feedback
+   you miss. */
+.row:active {
+  background-color: var(--press);
+  transition-duration: 0s;
+}
+
+.row:active .row-name {
+  text-decoration-color: var(--text);
+  transition-duration: 0s;
 }
 
 /* Applies to .row once the rows become links, and to prose links now. */
@@ -274,6 +297,12 @@ body {
   align-self: end;
   font-weight: 500;
   color: var(--text);
+  /* Present but invisible at rest — colouring it in costs no reflow. */
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: text-decoration-color var(--duration-hover-out) var(--ease-hover);
 }
 
 .row-description {
