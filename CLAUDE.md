@@ -15,7 +15,7 @@ Background: oklch(0.985 0.002 58)
 Text: oklch(0.216 0.004 58)
 Muted: oklch(0.444 0.004 58)
 Border: oklch(0.923 0.003 58)
-Surface hover: derived — color-mix(in oklch, var(--text) 5%, transparent)
+Hover: oklch(0.960 0.003 58)
 Palette is desaturated Tailwind stone at hue 58. Two text colours only:
 --text and --muted, nothing in between.
 Body: 16px / 1.6 / -0.011em
