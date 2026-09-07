@@ -20,8 +20,9 @@ Underline (link resting): oklch(0.700 0.003 58) — hover goes to Text
 Palette is desaturated Tailwind stone at hue 58. Two text colours only:
 --text and --muted, nothing in between.
 Body: 16px / 1.6 / -0.011em
-Easing: cubic-bezier(0.32, 0.72, 0, 1)
-Hover 150ms · entrance 400ms, 8px Y, 40ms stagger
+Easing: hover cubic-bezier(0.4, 0, 0.2, 1) · entrance cubic-bezier(0.23, 1, 0.32, 1)
+Hover is asymmetric: 100ms in, 200ms out
+Entrance 400ms, 8px Y, 40ms stagger (150ms fade only under reduced motion)
 
 ## Hard constraints
 - Single column, left-aligned, no navigation bar, no hero section

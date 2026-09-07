@@ -22,10 +22,14 @@
   --letter-spacing-body: -0.011em;
 
   /* Motion */
-  --ease: cubic-bezier(0.32, 0.72, 0, 1); /* hover and colour changes */
+  --ease-hover: cubic-bezier(0.4, 0, 0.2, 1); /* hover and colour changes */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1); /* entrances */
-  --duration-hover: 150ms;
+  /* Hover is asymmetric: the state arrives fast, leaves slowly. Sweeping
+     across four links in one sentence should not read as flicker. */
+  --duration-hover-in: 100ms;
+  --duration-hover-out: 200ms;
   --duration-entrance: 400ms;
+  --duration-entrance-fade: 150ms; /* reduced-motion entrance, no travel */
   --entrance-distance: 8px;
   --stagger: 40ms;
 }
@@ -88,7 +92,7 @@ body {
 }
 
 .page > * {
-  animation: entrance-fade var(--duration-hover) var(--ease-out) backwards;
+  animation: entrance-fade var(--duration-entrance-fade) var(--ease-out) backwards;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -139,11 +143,12 @@ body {
   text-decoration-color: var(--underline);
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
-  transition: text-decoration-color var(--duration-hover) var(--ease);
+  transition: text-decoration-color var(--duration-hover-out) var(--ease-hover);
 }
 
 .page a:hover {
   text-decoration-color: var(--text);
+  transition-duration: var(--duration-hover-in);
 }
 
 /* Headings sit at body size; hierarchy comes from weight and spacing. */
@@ -222,12 +227,13 @@ body {
   padding: 0.75rem 12px;
   margin-inline: -12px;
   border-radius: 8px;
-  transition: background-color var(--duration-hover) var(--ease);
+  transition: background-color var(--duration-hover-out) var(--ease-hover);
 }
 
 @media (hover: hover) {
   .row:hover {
     background-color: var(--hover);
+    transition-duration: var(--duration-hover-in);
   }
 }
 
