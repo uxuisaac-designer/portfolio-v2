@@ -101,9 +101,8 @@ export default function Home() {
             <h2 className="group-company">{group.company}</h2>
             <span className="group-period">{group.period}</span>
           </div>
-          <p className="group-meta">
-            {group.role} &mdash; {group.context}
-          </p>
+          <p className="group-role">{group.role}</p>
+          <p className="group-context">{group.context}</p>
           <ul className="list group-projects">
             {group.items.map((project) => (
               <li className="row" key={project.name}>

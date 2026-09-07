@@ -4,6 +4,7 @@
   --color-text: rgba(0, 0, 0, 0.92);
   --color-muted: rgba(0, 0, 0, 0.56);
   --color-border: rgba(0, 0, 0, 0.08);
+  --color-surface-hover: rgba(0, 0, 0, 0.04);
 
   /* Layout */
   --max-width: 40rem;
@@ -87,7 +88,7 @@ body {
 .writing-heading {
   margin: 0;
   font-size: var(--font-size-body);
-  font-weight: 500;
+  font-weight: 600;
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-body);
   color: var(--color-text);
@@ -129,8 +130,13 @@ body {
   font-weight: 500;
 }
 
-.group-meta {
-  margin: 0.25rem 0 0.75rem;
+.group-role {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.group-context {
+  margin: 0 0 0.5rem;
   color: var(--color-muted);
   text-wrap: pretty;
 }
@@ -138,8 +144,7 @@ body {
 .group-projects {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding-inline-start: 32px;
+  gap: 0.25rem;
 }
 
 .row {
@@ -148,6 +153,17 @@ body {
   column-gap: 1rem;
   row-gap: 0.125rem;
   align-items: center;
+  /* Content indents to the logo edge; the surface runs to the section edge. */
+  padding-block: 0.75rem;
+  padding-inline: 32px 0.75rem;
+  border-radius: 8px;
+  transition: background-color var(--duration-hover) var(--ease);
+}
+
+@media (hover: hover) {
+  .row:hover {
+    background-color: var(--color-surface-hover);
+  }
 }
 
 .row-thumbnail {
