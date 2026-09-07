@@ -1,15 +1,21 @@
 :root {
   /* Color */
-  --color-background: #f7f7f7;
+  --color-background: #fcfcfc;
   --color-text: rgba(0, 0, 0, 0.92);
-  --color-muted: rgba(0, 0, 0, 0.5);
+  --color-muted: rgba(0, 0, 0, 0.56);
   --color-border: rgba(0, 0, 0, 0.08);
 
   /* Layout */
   --max-width: 40rem;
 
+  /* Space */
+  --space-stack: 1.5rem; /* between blocks within a section */
+  --space-group: 5rem; /* between employers */
+  --space-section: 6rem; /* between top-level sections */
+
   /* Type */
-  --font-size-body: 16px;
+  --font-size-body: 1rem;
+  --font-size-label: 0.75rem;
   --line-height-body: 1.6;
   --letter-spacing-body: -0.011em;
 
@@ -38,12 +44,14 @@ body {
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .page {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-stack);
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 6rem 1.5rem;
@@ -53,33 +61,36 @@ body {
   margin: 0;
 }
 
+/* Reset only — each list supplies its own spacing and separators. */
 .list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.list li {
-  padding: 0.75rem 0;
-  border-top: 1px solid var(--color-border);
-  color: var(--color-muted);
-}
-
-.list li:last-child {
-  border-bottom: 1px solid var(--color-border);
-}
-
-.page p a {
+.page a {
   color: inherit;
   text-decoration: underline;
   text-decoration-color: var(--color-muted);
+  text-decoration-thickness: from-font;
   text-underline-offset: 0.2em;
-  text-decoration-thickness: 1px;
   transition: text-decoration-color var(--duration-hover) var(--ease);
 }
 
-.page p a:hover {
+.page a:hover {
   text-decoration-color: var(--color-text);
+}
+
+/* Headings sit at body size; hierarchy comes from weight and spacing. */
+.lede,
+.group-company,
+.writing-heading {
+  margin: 0;
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+  color: var(--color-text);
 }
 
 .group {
@@ -87,8 +98,14 @@ body {
   flex-direction: column;
 }
 
+/* Section gaps are absolute; subtract the flex gap already in play. */
+.group:first-of-type,
+.writing {
+  margin-top: calc(var(--space-section) - var(--space-stack));
+}
+
 .group + .group {
-  margin-top: 3.5rem;
+  margin-top: calc(var(--space-group) - var(--space-stack));
 }
 
 .group-header {
@@ -106,46 +123,23 @@ body {
   object-fit: cover;
 }
 
-.group-company {
-  margin: 0;
-  font-size: var(--font-size-body);
-  font-weight: 500;
-  line-height: var(--line-height-body);
-  letter-spacing: var(--letter-spacing-body);
-  color: var(--color-text);
-}
-
-.group-tag {
+.group-period {
   color: var(--color-muted);
-  font-size: 0.6875rem;
+  font-size: var(--font-size-label);
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.group-years {
-  color: var(--color-muted);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  font-variant-numeric: tabular-nums;
 }
 
 .group-meta {
   margin: 0.25rem 0 0.75rem;
   color: var(--color-muted);
+  text-wrap: pretty;
 }
 
 .group-projects {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-left: 32px;
-}
-
-.group-projects li {
-  padding: 0;
-  border: 0;
+  padding-inline-start: 32px;
 }
 
 .row {
@@ -164,6 +158,13 @@ body {
   object-fit: cover;
 }
 
+/* Hairline so light-edged images keep a boundary against the page. */
+.group-logo,
+.row-thumbnail {
+  outline: 1px solid oklch(0 0 0 / 0.1);
+  outline-offset: -1px;
+}
+
 .row-name {
   align-self: end;
   font-weight: 500;
@@ -173,4 +174,16 @@ body {
 .row-description {
   align-self: start;
   color: var(--color-muted);
+  text-wrap: pretty;
+}
+
+.writing-heading {
+  margin-bottom: 0.75rem;
+}
+
+.writing-empty {
+  padding: 0.75rem 0;
+  border-block: 1px solid var(--color-border);
+  color: var(--color-muted);
+  text-wrap: pretty;
 }
