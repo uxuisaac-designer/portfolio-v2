@@ -21,8 +21,9 @@
   --line-height-body: 1.6;
   --letter-spacing-body: -0.011em;
 
-  /* Motion (defined for future use — this page applies none) */
-  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  /* Motion */
+  --ease: cubic-bezier(0.32, 0.72, 0, 1); /* hover and colour changes */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1); /* entrances */
   --duration-hover: 150ms;
   --duration-entrance: 400ms;
   --entrance-distance: 8px;
@@ -61,6 +62,68 @@ body {
 
 .page p {
   margin: 0;
+}
+
+/* Page entrance — top-level blocks only, in source order.
+
+   The reduced-motion case is the base rule: a plain fade, no travel. The
+   `no-preference` block layers on the rise and the stagger, so a user who
+   asks for less motion never has a delay to neutralise.
+
+   `backwards` holds the offset state through the delay, otherwise a block
+   would paint in place and then jump back to animate. The stagger caps at
+   the eighth child so the page keeps a fixed entrance length as sections
+   are added. */
+@keyframes entrance-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes entrance-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--entrance-distance));
+  }
+}
+
+.page > * {
+  animation: entrance-fade var(--duration-hover) var(--ease-out) backwards;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page > * {
+    animation-name: entrance-rise;
+    animation-duration: var(--duration-entrance);
+  }
+
+  .page > :nth-child(2) {
+    animation-delay: calc(1 * var(--stagger));
+  }
+
+  .page > :nth-child(3) {
+    animation-delay: calc(2 * var(--stagger));
+  }
+
+  .page > :nth-child(4) {
+    animation-delay: calc(3 * var(--stagger));
+  }
+
+  .page > :nth-child(5) {
+    animation-delay: calc(4 * var(--stagger));
+  }
+
+  .page > :nth-child(6) {
+    animation-delay: calc(5 * var(--stagger));
+  }
+
+  .page > :nth-child(7) {
+    animation-delay: calc(6 * var(--stagger));
+  }
+
+  .page > :nth-child(n + 8) {
+    animation-delay: calc(7 * var(--stagger));
+  }
 }
 
 /* Reset only — each list supplies its own spacing and separators. */
