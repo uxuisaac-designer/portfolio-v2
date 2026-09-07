@@ -6,8 +6,7 @@ const projects = [
   {
     company: "Car & Classic",
     logo: "/logos/car-and-classic.png",
-    tag: "Current",
-    years: null,
+    period: "Present",
     role: "Senior Product Designer",
     context: "Europe's largest classic car marketplace.",
     items: [
@@ -31,8 +30,7 @@ const projects = [
   {
     company: "Kick Game",
     logo: "/logos/kick-game.png",
-    tag: null,
-    years: "2025",
+    period: "2025",
     role: "Senior Product Designer",
     context: "UK & EU's premier sneaker and streetwear store.",
     items: [
@@ -51,8 +49,7 @@ const projects = [
   {
     company: "Klekt",
     logo: "/logos/klekt.png",
-    tag: null,
-    years: "2025",
+    period: "2025",
     role: "UX/UI Designer",
     context: "EU's oldest online marketplace for authentic sneakers and streetwear.",
     items: [
@@ -73,12 +70,12 @@ const projects = [
 export default function Home() {
   return (
     <main className="page">
-      <p>Hi, I&rsquo;m Isaac.</p>
+      <h1 className="lede">Hi, I&rsquo;m Isaac.</h1>
       <p>
         I&rsquo;m a senior product designer at{" "}
-        <a href="https://www.carandclassic.com">Car &amp; Classic</a>,
-        Europe&rsquo;s largest classic car marketplace. I&rsquo;m obsessed with
-        detail and creating interfaces that ask less of the person using them.
+        <a href="https://www.carandclassic.com">Car &amp; Classic</a>. I&rsquo;m
+        obsessed with detail and creating interfaces that ask less of the person
+        using them.
       </p>
       <p>
         Previously at <a href="https://www.kickgame.com">Kick Game</a> and{" "}
@@ -102,11 +99,7 @@ export default function Home() {
           />
           <div className="group-header">
             <h2 className="group-company">{group.company}</h2>
-            {group.tag ? (
-              <span className="group-tag">{group.tag}</span>
-            ) : (
-              <span className="group-years">{group.years}</span>
-            )}
+            <span className="group-period">{group.period}</span>
           </div>
           <p className="group-meta">
             {group.role} &mdash; {group.context}
@@ -129,11 +122,12 @@ export default function Home() {
         </section>
       ))}
 
-      <ul className="list">
-        <li>Lorem ipsum writing one</li>
-        <li>Lorem ipsum writing two</li>
-        <li>Lorem ipsum writing three</li>
-      </ul>
+      <section className="writing">
+        <h2 className="writing-heading">Writing</h2>
+        <p className="writing-empty">
+          Nothing published yet. Notes on interface design will land here.
+        </p>
+      </section>
     </main>
   );
 }
