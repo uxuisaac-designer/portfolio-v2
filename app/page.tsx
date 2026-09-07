@@ -94,8 +94,8 @@ export default function Home() {
             className="group-logo"
             src={group.logo}
             alt=""
-            width={32}
-            height={32}
+            width={24}
+            height={24}
           />
           <div className="group-header">
             <h2 className="group-company">{group.company}</h2>

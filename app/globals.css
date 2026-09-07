@@ -1,10 +1,12 @@
 :root {
-  /* Color */
-  --color-background: #fcfcfc;
-  --color-text: rgba(0, 0, 0, 0.92);
-  --color-muted: rgba(0, 0, 0, 0.56);
-  --color-border: rgba(0, 0, 0, 0.08);
-  --color-surface-hover: rgba(0, 0, 0, 0.04);
+  /* Color — desaturated Tailwind stone, hue 58 */
+  --bg: oklch(0.985 0.002 58);
+  --text: oklch(0.216 0.004 58);
+  --muted: oklch(0.444 0.004 58);
+  --border: oklch(0.923 0.003 58);
+
+  /* Derived, so the palette stays four values */
+  --surface-hover: color-mix(in oklch, var(--text) 5%, transparent);
 
   /* Layout */
   --max-width: 40rem;
@@ -39,8 +41,8 @@ body {
 
 body {
   margin: 0;
-  background: var(--color-background);
-  color: var(--color-text);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
@@ -72,14 +74,14 @@ body {
 .page a {
   color: inherit;
   text-decoration: underline;
-  text-decoration-color: var(--color-muted);
+  text-decoration-color: var(--muted);
   text-decoration-thickness: from-font;
   text-underline-offset: 0.2em;
   transition: text-decoration-color var(--duration-hover) var(--ease);
 }
 
 .page a:hover {
-  text-decoration-color: var(--color-text);
+  text-decoration-color: var(--text);
 }
 
 /* Headings sit at body size; hierarchy comes from weight and spacing. */
@@ -91,7 +93,7 @@ body {
   font-weight: 600;
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-body);
-  color: var(--color-text);
+  color: var(--text);
 }
 
 .group {
@@ -117,27 +119,27 @@ body {
 }
 
 .group-logo {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   margin-bottom: 0.75rem;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .group-period {
-  color: var(--color-muted);
+  color: var(--muted);
   font-size: var(--font-size-label);
   font-weight: 500;
 }
 
 .group-role {
   margin: 0;
-  color: var(--color-text);
+  color: var(--muted);
 }
 
 .group-context {
   margin: 0 0 0.5rem;
-  color: var(--color-muted);
+  color: var(--muted);
   text-wrap: pretty;
 }
 
@@ -153,7 +155,7 @@ body {
   column-gap: 1rem;
   row-gap: 0.125rem;
   align-items: center;
-  /* Content indents to the logo edge; the surface runs to the section edge. */
+  /* Content is indented; the hover surface runs to the section edge. */
   padding-block: 0.75rem;
   padding-inline: 32px 0.75rem;
   border-radius: 16px;
@@ -162,7 +164,7 @@ body {
 
 @media (hover: hover) {
   .row:hover {
-    background-color: var(--color-surface-hover);
+    background-color: var(--surface-hover);
   }
 }
 
@@ -177,19 +179,19 @@ body {
 /* Hairline so light-edged images keep a boundary against the page. */
 .group-logo,
 .row-thumbnail {
-  outline: 1px solid oklch(0 0 0 / 0.1);
+  outline: 1px solid var(--border);
   outline-offset: -1px;
 }
 
 .row-name {
   align-self: end;
   font-weight: 500;
-  color: var(--color-text);
+  color: var(--text);
 }
 
 .row-description {
   align-self: start;
-  color: var(--color-muted);
+  color: var(--muted);
   text-wrap: pretty;
 }
 
@@ -199,7 +201,7 @@ body {
 
 .writing-empty {
   padding: 0.75rem 0;
-  border-block: 1px solid var(--color-border);
-  color: var(--color-muted);
+  border-block: 1px solid var(--border);
+  color: var(--muted);
   text-wrap: pretty;
 }

@@ -11,11 +11,13 @@ list-based project rows, micro-motion, no navigation.
 
 ## Tokens
 Max width: 40rem
-Background: #FCFCFC
-Text: rgba(0,0,0,0.92)
-Muted: rgba(0,0,0,0.56)
-Border: rgba(0,0,0,0.08)
-Surface hover: rgba(0,0,0,0.04)
+Background: oklch(0.985 0.002 58)
+Text: oklch(0.216 0.004 58)
+Muted: oklch(0.444 0.004 58)
+Border: oklch(0.923 0.003 58)
+Surface hover: derived — color-mix(in oklch, var(--text) 5%, transparent)
+Palette is desaturated Tailwind stone at hue 58. Two text colours only:
+--text and --muted, nothing in between.
 Body: 16px / 1.6 / -0.011em
 Easing: cubic-bezier(0.32, 0.72, 0, 1)
 Hover 150ms · entrance 400ms, 8px Y, 40ms stagger
