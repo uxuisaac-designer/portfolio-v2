@@ -1,31 +1,133 @@
+import Image from "next/image";
+
+const placeholder = "/placeholder.png";
+
+const projects = [
+  {
+    company: "Car & Classic",
+    logo: "/logos/car-and-classic.png",
+    tag: "Current",
+    years: null,
+    role: "Senior Product Designer",
+    context: "Europe's largest classic car marketplace.",
+    items: [
+      {
+        name: "Car insurance",
+        description: "Insurance quote flow for classic car owners",
+        thumbnail: placeholder,
+      },
+      {
+        name: "Design system",
+        description: "A system for designers, developers and agents",
+        thumbnail: placeholder,
+      },
+      {
+        name: "Dealer experience",
+        description: "A selling dashboard for professional dealers",
+        thumbnail: placeholder,
+      },
+    ],
+  },
+  {
+    company: "Kick Game",
+    logo: "/logos/kick-game.png",
+    tag: null,
+    years: "2025",
+    role: "Senior Product Designer",
+    context: "UK & EU's premier sneaker and streetwear store.",
+    items: [
+      {
+        name: "Consignment app",
+        description: "An app for consignors selling luxury goods",
+        thumbnail: placeholder,
+      },
+      {
+        name: "Buyer experience",
+        description: "Purchase flow for authenticated premium goods",
+        thumbnail: placeholder,
+      },
+    ],
+  },
+  {
+    company: "Klekt",
+    logo: "/logos/klekt.png",
+    tag: null,
+    years: "2025",
+    role: "UX/UI Designer",
+    context: "EU's oldest online marketplace for authentic sneakers and streetwear.",
+    items: [
+      {
+        name: "Bidding flow",
+        description: "Bidding on a sneaker and streetwear marketplace",
+        thumbnail: placeholder,
+      },
+      {
+        name: "Marketplace improvements",
+        description: "Listings, drops and search",
+        thumbnail: placeholder,
+      },
+    ],
+  },
+];
+
 export default function Home() {
   return (
     <main className="page">
+      <p>Hi, I&rsquo;m Isaac.</p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat.
+        I&rsquo;m a senior product designer at{" "}
+        <a href="https://www.carandclassic.com">Car &amp; Classic</a>,
+        Europe&rsquo;s largest classic car marketplace. I&rsquo;m obsessed with
+        detail and creating interfaces that ask less of the person using them.
       </p>
       <p>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit
-        anim id est laborum.
+        Previously at <a href="https://www.kickgame.com">Kick Game</a> and{" "}
+        <a href="https://www.klekt.com">Klekt</a>.
       </p>
       <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-        quae ab illo inventore veritatis et quasi architecto beatae vitae
-        dicta sunt explicabo.
+        You can reach me by <a href="mailto:uxuisaac@gmail.com">email</a>, or
+        find me on{" "}
+        <a href="https://www.linkedin.com/in/isaactaiwo">LinkedIn</a> and{" "}
+        <a href="https://x.com/ux_uisaac">X</a>.
       </p>
 
-      <ul className="list">
-        <li>Lorem ipsum project one</li>
-        <li>Lorem ipsum project two</li>
-        <li>Lorem ipsum project three</li>
-        <li>Lorem ipsum project four</li>
-      </ul>
+      {projects.map((group) => (
+        <section className="group" key={group.company}>
+          <Image
+            className="group-logo"
+            src={group.logo}
+            alt=""
+            width={32}
+            height={32}
+          />
+          <div className="group-header">
+            <h2 className="group-company">{group.company}</h2>
+            {group.tag ? (
+              <span className="group-tag">{group.tag}</span>
+            ) : (
+              <span className="group-years">{group.years}</span>
+            )}
+          </div>
+          <p className="group-meta">
+            {group.role} &mdash; {group.context}
+          </p>
+          <ul className="list group-projects">
+            {group.items.map((project) => (
+              <li className="row" key={project.name}>
+                <Image
+                  className="row-thumbnail"
+                  src={project.thumbnail}
+                  alt=""
+                  width={64}
+                  height={64}
+                />
+                <span className="row-name">{project.name}</span>
+                <span className="row-description">{project.description}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
 
       <ul className="list">
         <li>Lorem ipsum writing one</li>
