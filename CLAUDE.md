@@ -29,7 +29,7 @@ Hover 150ms · entrance 400ms, 8px Y, 40ms stagger
 
 ## Do not use
 No gradients. No box-shadows. No icon libraries. No component
-libraries (shadcn, MUI, etc). No border-radius above 8px.
+libraries (shadcn, MUI, etc). No border-radius above 16px.
 No emoji. No stock illustration.
 
 ## Working style

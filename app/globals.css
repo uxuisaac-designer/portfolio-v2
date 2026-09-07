@@ -156,7 +156,7 @@ body {
   /* Content indents to the logo edge; the surface runs to the section edge. */
   padding-block: 0.75rem;
   padding-inline: 32px 0.75rem;
-  border-radius: 8px;
+  border-radius: 16px;
   transition: background-color var(--duration-hover) var(--ease);
 }
 
