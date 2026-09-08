@@ -20,6 +20,8 @@ Muted: oklch(0.444 0.004 58)
 Border: oklch(0.923 0.003 58)
 Hover: oklch(0.960 0.003 58)
 Press: oklch(0.930 0.003 58) — row fill on :active
+Segmented nav: --segmented-track (= Hover), --segmented-pill (= Background),
+--segmented-focus (= Text), --segmented-radius 8px, inner radius 6px
 Underline (link resting): oklch(0.700 0.003 58) — the wipe line is Text.
 Keep the resting line light: the gap between the two IS the animation, and
 against Muted it drops to 2.3:1 and stops reading.
@@ -42,9 +44,9 @@ Everything above it lives in the layout and never re-renders.
 
 ## Hard constraints
 - Single column, left-aligned, no hero section
-- Route links are plain text, left-aligned, in the flow — active at
-  --text, inactive at --muted. Never a nav bar: no pills, borders,
-  fills or underlines
+- Route nav is a hand-built segmented control, left-aligned, shrunk to its
+  labels, in the flow. Track one step off --bg, active pill --bg so the
+  selection reads as cut out — no shadow. Never full width, never chrome
 - No accent colour anywhere
 - Projects and writing are text rows, never cards
 - Hierarchy comes from weight and opacity, not size

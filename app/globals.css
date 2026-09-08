@@ -12,6 +12,16 @@
   --underline: oklch(0.700 0.003 58);
   --press: oklch(0.930 0.003 58);
 
+  /* Segmented nav. The track is one step off --bg and the active pill is
+     --bg itself, so the selected segment reads as cut out of the track —
+     no shadow needed to lift it. */
+  --segmented-track: var(--hover);
+  --segmented-pill: var(--bg);
+  --segmented-focus: var(--text);
+  --segmented-radius: 8px;
+  --segmented-font-family: var(--font-geist-sans), Arial, Helvetica,
+    sans-serif;
+
   /* Layout */
   --max-width: 36.375rem;
   /* How far the row fill bleeds past the text column. Trimmed below,
@@ -216,26 +226,48 @@ body {
   }
 }
 
-/* Text only — no underline, pill, border or fill. The active route is the
-   one at full --text; the rest sit back at --muted. */
-.nav {
-  display: flex;
-  gap: 1.5rem;
+/* Shrinks to its labels rather than filling the column. */
+.segmented {
+  align-self: flex-start;
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
   margin-top: calc(3rem - var(--space-stack));
+  background: var(--segmented-track);
+  border-radius: var(--segmented-radius);
+  font-family: var(--segmented-font-family);
 }
 
-.nav a {
+.segmented-item {
+  appearance: none;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--font-size-body);
+  letter-spacing: var(--letter-spacing-body);
   color: var(--muted);
-  transition: color 150ms var(--ease-hover);
+  padding: 0.125rem 0.5rem;
+  /* Concentric with the track: outer radius minus the 2px inset. */
+  border-radius: calc(var(--segmented-radius) - 2px);
+  transition: color var(--duration-hover-out) var(--ease-hover);
 }
 
-.nav a[aria-current="page"] {
+/* The pill does not slide. It is where it is. */
+.segmented-item[aria-current="page"] {
+  background: var(--segmented-pill);
   color: var(--text);
 }
 
+.segmented-item:focus-visible {
+  outline: 2px solid var(--segmented-focus);
+  outline-offset: 2px;
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .nav a:hover {
+  .segmented-item:not([aria-current="page"]):hover {
     color: var(--text);
+    transition-duration: var(--duration-hover-in);
   }
 }
 
