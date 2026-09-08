@@ -430,3 +430,22 @@ body {
   color: var(--muted);
   text-wrap: pretty;
 }
+
+/* Sits a section away, like .writing. Body size, muted, left-aligned with
+   everything else — it is a caption, not a chrome bar. */
+.footer {
+  margin-top: calc(var(--space-section) - var(--space-stack));
+  color: var(--muted);
+}
+
+.footer-face {
+  white-space: nowrap;
+}
+
+/* Raised and smaller so the z's read as drifting off the face rather than
+   sitting on the same line as it. */
+.footer-zzz {
+  font-size: var(--font-size-label);
+  vertical-align: super;
+  letter-spacing: 0.08em;
+}

@@ -1,5 +1,8 @@
 import Image from "next/image";
 
+import Footer from "./footer";
+import { londonTime } from "./london-time";
+
 const placeholder = "/placeholder.png";
 
 const projects = [
@@ -167,6 +170,8 @@ export default function Home() {
           Nothing published yet. Notes on interface design will land here.
         </p>
       </section>
+
+      <Footer initial={londonTime(new Date())} />
     </main>
   );
 }
