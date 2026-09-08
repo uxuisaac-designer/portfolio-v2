@@ -2,7 +2,21 @@
 
 import { useEffect, useState } from "react";
 
-const TEXT = "hello...";
+/* Native script only — the romanisations are how the languages were named
+   to me, not something to put on screen.
+
+   Array.from rather than .length so the count walks characters, not UTF-16
+   code units. */
+const GREETINGS = [
+  { text: "Hello", lang: "en" },
+  { text: "Bonjour", lang: "fr" },
+  { text: "Hola", lang: "es" },
+  { text: "Hallo", lang: "de" },
+  { text: "你好", lang: "zh" },
+  { text: "こんにちは", lang: "ja" },
+  { text: "مرحبا", lang: "ar", dir: "rtl" as const },
+  { text: "Olá", lang: "pt" },
+].map((greeting) => ({ ...greeting, chars: Array.from(greeting.text) }));
 
 const TYPE = 80;
 const DELETE = 40;
@@ -10,34 +24,46 @@ const HOLD_FULL = 12000;
 const HOLD_EMPTY = 800;
 
 export default function Greeting() {
-  /* Starts complete, because the server rendered the whole string. Any
-     other starting point would blink on hydration. The loop therefore
-     enters at the pause before deleting rather than at the first
-     keystroke — the same cycle, joined a beat later. */
-  const [count, setCount] = useState(TEXT.length);
+  /* Starts on English, complete, because that is what the server rendered.
+     The loop therefore enters at the pause before deleting. */
+  const [{ index, count }, setState] = useState({
+    index: 0,
+    count: GREETINGS[0].chars.length,
+  });
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
     let timer: ReturnType<typeof setTimeout> | undefined;
-    let shown = TEXT.length;
+    let at = 0;
+    let shown = GREETINGS[0].chars.length;
     let deleting = true;
 
     const tick = () => {
-      shown += deleting ? -1 : 1;
-      setCount(shown);
-
-      let next: number;
-      if (deleting && shown === 0) {
-        deleting = false;
-        next = HOLD_EMPTY;
-      } else if (!deleting && shown === TEXT.length) {
-        deleting = true;
-        next = HOLD_FULL;
-      } else {
-        next = deleting ? DELETE : TYPE;
+      if (deleting) {
+        shown -= 1;
+        if (shown === 0) {
+          /* Empty is where the handover happens, so the next language
+             types in rather than the current one changing under itself. */
+          deleting = false;
+          at = (at + 1) % GREETINGS.length;
+          setState({ index: at, count: 0 });
+          timer = setTimeout(tick, HOLD_EMPTY);
+          return;
+        }
+        setState({ index: at, count: shown });
+        timer = setTimeout(tick, DELETE);
+        return;
       }
 
-      timer = setTimeout(tick, next);
+      shown += 1;
+      setState({ index: at, count: shown });
+
+      if (shown === GREETINGS[at].chars.length) {
+        deleting = true;
+        timer = setTimeout(tick, HOLD_FULL);
+        return;
+      }
+      timer = setTimeout(tick, TYPE);
     };
 
     const start = () => {
@@ -47,13 +73,12 @@ export default function Greeting() {
     const stop = () => {
       if (timer) clearTimeout(timer);
       timer = undefined;
-      shown = TEXT.length;
+      at = 0;
+      shown = GREETINGS[0].chars.length;
       deleting = true;
-      setCount(TEXT.length);
+      setState({ index: 0, count: GREETINGS[0].chars.length });
     };
 
-    /* No setState on this path — count already holds the full string, so
-       honouring the preference means simply never starting. */
     if (!query.matches) start();
 
     const onChange = () => (query.matches ? stop() : start());
@@ -67,23 +92,38 @@ export default function Greeting() {
 
   return (
     <p className="greeting">
+      {/* Every language is rendered, so the box reserves the width of the
+          longest and nothing reflows as they rotate. Only the current one
+          is visible — and only it reaches the accessibility tree, since
+          visibility:hidden takes the rest out of it. */}
       <span className="greeting-typing">
-        {/* Holds the full width so nothing reflows as characters come and
-            go, and carries the text for screen readers — the visible span
-            changes constantly and would only be noise to announce. */}
-        <span className="greeting-reserve">{TEXT}</span>
-        <span className="greeting-typed" aria-hidden="true">
-          {TEXT.slice(0, count)}
-          {/* Blinks only while the text is resting. A cursor that blinks
-              mid-keystroke reads as noise; editors hold theirs solid
-              while you type for the same reason. Both holds sit at the
-              ends of the string, so the state is derivable from the
-              count and needs nothing tracking it. */}
-          <span
-            className="greeting-cursor"
-            data-resting={count === 0 || count === TEXT.length ? "" : undefined}
-          />
-        </span>
+        {GREETINGS.map((greeting, i) => {
+          const current = i === index;
+          const typed = current ? greeting.chars.slice(0, count) : [];
+
+          return (
+            <span
+              key={greeting.lang}
+              className="greeting-lang"
+              lang={greeting.lang}
+              dir={greeting.dir}
+              data-current={current ? "" : undefined}
+            >
+              <span className="greeting-reserve">{greeting.text}</span>
+              <span className="greeting-typed" aria-hidden="true">
+                {typed.join("")}
+                <span
+                  className="greeting-cursor"
+                  data-resting={
+                    count === 0 || count === greeting.chars.length
+                      ? ""
+                      : undefined
+                  }
+                />
+              </span>
+            </span>
+          );
+        })}
       </span>
     </p>
   );

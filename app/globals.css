@@ -186,15 +186,29 @@ body {
   color: var(--muted);
 }
 
-/* Typed greeting. The reserve holds the full string's width so nothing
-   around it reflows as characters come and go, and carries the text for
-   screen readers — the visible span changes eight times a second and
-   would only be noise to announce. No cursor. */
+/* Typed greeting. Every language is stacked in one grid cell, so the box
+   reserves the width of the longest and nothing reflows as they rotate.
+   justify-items keeps each language's own box at its own width rather
+   than stretched to the cell — which is what lets the Arabic anchor to
+   its own right edge instead of the widest string's. */
 .greeting-typing {
-  position: relative;
-  display: inline-block;
+  display: inline-grid;
+  justify-items: start;
 }
 
+.greeting-lang {
+  position: relative;
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.greeting-lang[data-current] {
+  visibility: visible;
+}
+
+/* Holds this language's width and carries its text for screen readers —
+   the visible span changes many times a second and would only be noise to
+   announce. The hidden languages are out of the tree entirely. */
 .greeting-reserve {
   opacity: 0;
 }
@@ -208,7 +222,8 @@ body {
 
 /* A drawn bar rather than a character, so it does not depend on the font
    having a glyph for it. It sits inside the absolutely positioned span,
-   so it can overhang the reserved width without moving anything. */
+   so it can overhang the reserved width without moving anything, and it
+   follows the text's direction — trailing it on the left in Arabic. */
 .greeting-cursor {
   display: inline-block;
   width: 1px;
