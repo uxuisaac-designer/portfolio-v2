@@ -61,6 +61,24 @@
   --stagger: 40ms;
 }
 
+/* Dark palette. Set outright rather than derived from the light values, so
+   the two can be tuned against each other by eye.
+
+   --press and --underline are here too even though they are not part of the
+   core five: both are literal steps in the light palette, and leaving them
+   out would put a pale press fill and a pale underline on a dark page. The
+   --segmented-* tokens point at --border, --bg and --text, so they follow
+   on their own. */
+.dark {
+  --bg: oklch(0.178 0.004 58);
+  --text: oklch(0.940 0.003 58);
+  --muted: oklch(0.660 0.004 58);
+  --border: oklch(0.290 0.004 58);
+  --hover: oklch(0.245 0.004 58);
+  --press: oklch(0.285 0.004 58);
+  --underline: oklch(0.480 0.004 58);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -612,4 +630,36 @@ body {
   font-size: 0.7em;
   vertical-align: super;
   letter-spacing: 0.08em;
+}
+
+/* Fixed to the viewport rather than the column, so it stays put as the page
+   scrolls. The icon is 16px; the padding is what makes the target big
+   enough to hit. */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem;
+  appearance: none;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--muted);
+  transition: color 150ms var(--ease-hover);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle:hover {
+    color: var(--text);
+  }
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+  border-radius: 4px;
 }

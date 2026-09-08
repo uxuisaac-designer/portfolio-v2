@@ -36,6 +36,10 @@ Keep the resting line light: the gap between the two IS the animation, and
 against Muted it drops to 2.3:1 and stops reading.
 Palette is desaturated Tailwind stone at hue 58. Two text colours only:
 --text and --muted, nothing in between.
+Dark palette lives under .dark in globals.css, set outright rather than
+derived from the light values so the two tune independently. It covers
+--press and --underline as well as the core five; the --segmented-* tokens
+point at --border, --bg and --text and follow on their own.
 Body: 14px / 20px / -0.011em, Geist
 Label: 12px (dates, meta). Only two sizes — headings sit at body size
 and take their weight from 600, so hierarchy stays weight, not scale.
@@ -75,9 +79,22 @@ it. Revisit when ViewTransition ships in a stable React.
   Arabic glyphs, so those three fall back to system fonts
 
 ## Do not use
-No gradients. No box-shadows. No icon libraries. No component
+No gradients. No box-shadows. No component
 libraries (shadcn, MUI, etc). No border-radius above 16px.
 No emoji. No stock illustration.
+
+## Icons
+Lucide is the icon library. Every icon renders through the Icon wrapper in
+app/icons.tsx and is referenced by name — nothing else imports
+lucide-react. Defaults are 16px, stroke 1.5, currentColor. Add to the
+registry in that file to use a new one. It is icons.tsx, not icon.tsx,
+because app/icon.* is a reserved App Router metadata route.
+
+## Theme
+next-themes, class strategy, system preference by default and the choice
+persisted. The provider sits at the top of <body> and writes the class from
+a blocking script before first paint, so nothing flashes; <html> carries
+suppressHydrationWarning because of it.
 
 ## Working style
 Ask before adding any dependency.
