@@ -1,14 +1,5 @@
 import Image from "next/image";
 
-import Footer from "./footer";
-import { londonTime } from "./london-time";
-
-/* The footer prints the London time into the HTML, so the page is
-   regenerated each minute rather than frozen at build time. Without this
-   a visitor with JavaScript disabled would see whenever the site was last
-   built. Must stay a literal — Next needs it statically analyzable. */
-export const revalidate = 60;
-
 const placeholder = "/placeholder.png";
 
 const projects = [
@@ -76,69 +67,9 @@ const projects = [
   },
 ];
 
-export default function Home() {
+export default function Work() {
   return (
-    <main className="page">
-      <div className="intro">
-        <Image
-          className="avatar"
-          src="/Avatar/Avatar-isaac-1.png"
-          alt=""
-          width={896}
-          height={2028}
-          sizes="36px"
-          loading="eager"
-        />
-
-        <p className="greeting">
-          hello
-          <span className="ellipsis" aria-hidden="true">
-            <span className="ellipsis-dot">.</span>
-            <span className="ellipsis-dot">.</span>
-            <span className="ellipsis-dot">.</span>
-          </span>
-        </p>
-      </div>
-
-      <p>
-        I&rsquo;m Isaac, a senior product designer obsessed with detail and
-        creating interfaces that ask less of the person using them.
-      </p>
-      <p>
-        Currently at{" "}
-        <a href="https://www.carandclassic.com">
-          <span className="link-underline">Car &amp; Classic</span>
-        </a>
-        , shaping the buying and selling experience for Europe&rsquo;s largest
-        classic car marketplace.
-      </p>
-      <p>
-        Previously redesigning luxury ecommerce platforms at{" "}
-        <a href="https://www.kickgame.co.uk">
-          <span className="link-underline">Kick Game</span>
-        </a>{" "}
-        and{" "}
-        <a href="https://www.klekt.com">
-          <span className="link-underline">Klekt</span>
-        </a>
-        .
-      </p>
-      <p>
-        You can reach me by{" "}
-        <a href="mailto:uxuisaac@gmail.com">
-          <span className="link-underline">email</span>
-        </a>
-        , or find me on{" "}
-        <a href="https://www.linkedin.com/in/isaactaiwo">
-          <span className="link-underline">LinkedIn</span>
-        </a>{" "}
-        and{" "}
-        <a href="https://x.com/ux_uisaac">
-          <span className="link-underline">X</span>
-        </a>
-        .
-      </p>
-
+    <>
       {projects.map((group) => (
         <section className="group" key={group.company}>
           <Image
@@ -171,15 +102,6 @@ export default function Home() {
           </ul>
         </section>
       ))}
-
-      <section className="writing">
-        <h2 className="writing-heading">Writing</h2>
-        <p className="writing-empty">
-          Nothing published yet. Notes on interface design will land here.
-        </p>
-      </section>
-
-      <Footer initial={londonTime(new Date())} />
-    </main>
+    </>
   );
 }

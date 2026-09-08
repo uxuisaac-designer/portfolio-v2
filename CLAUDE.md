@@ -37,9 +37,14 @@ from the left over 300ms on cubic-bezier(0.32, 0.72, 0, 1) and exits off
 the right. No skip-ink, so the offset is measured against the type scale to
 clear descenders — re-measure it if that scale moves.
 Greeting ellipsis: 2.4s linear loop, 0.2s between dots, opacity only
+Route change: cross-fades .section-content only, 200ms on the wipe curve.
+Everything above it lives in the layout and never re-renders.
 
 ## Hard constraints
-- Single column, left-aligned, no navigation bar, no hero section
+- Single column, left-aligned, no hero section
+- Route links are plain text, left-aligned, in the flow — active at
+  --text, inactive at --muted. Never a nav bar: no pills, borders,
+  fills or underlines
 - No accent colour anywhere
 - Projects and writing are text rows, never cards
 - Hierarchy comes from weight and opacity, not size

@@ -42,6 +42,7 @@
      and more room than a hover — the line has a distance to cover. */
   --ease-wipe: cubic-bezier(0.32, 0.72, 0, 1);
   --duration-wipe: 300ms;
+  --duration-section: 200ms; /* route cross-fade */
   --duration-entrance: 400ms;
   --duration-entrance-fade: 150ms; /* reduced-motion entrance, no travel */
   --entrance-distance: 8px;
@@ -215,6 +216,56 @@ body {
   }
 }
 
+/* Text only — no underline, pill, border or fill. The active route is the
+   one at full --text; the rest sit back at --muted. */
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: calc(3rem - var(--space-stack));
+}
+
+.nav a {
+  color: var(--muted);
+  transition: color 150ms var(--ease-hover);
+}
+
+.nav a[aria-current="page"] {
+  color: var(--text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav a:hover {
+    color: var(--text);
+  }
+}
+
+/* The only region that changes between routes. .section is the stable flex
+   child — it keeps the page entrance and never replays it. .section-content
+   is keyed on the route, so it remounts and fades. 200ms reads as a tab
+   switch; longer starts to read as a page load. */
+.section {
+  margin-top: calc(3rem - var(--space-stack));
+}
+
+.section-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack);
+  animation: section-fade var(--duration-section) var(--ease-wipe);
+}
+
+@keyframes section-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-content {
+    animation: none;
+  }
+}
+
 /* Reset only — each list supplies its own spacing and separators. */
 .list {
   list-style: none;
@@ -313,12 +364,6 @@ body {
 .group {
   display: flex;
   flex-direction: column;
-}
-
-/* Section gaps are absolute; subtract the flex gap already in play. */
-.group:first-of-type,
-.writing {
-  margin-top: calc(var(--space-section) - var(--space-stack));
 }
 
 .group + .group {
