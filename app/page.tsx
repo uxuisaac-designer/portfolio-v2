@@ -6,7 +6,7 @@ const projects = [
   {
     company: "Car & Classic",
     logo: "/logos/car-and-classic.png",
-    period: "Present",
+    period: "2024–Present",
     role: "Senior Product Designer",
     context: "Europe's largest classic car marketplace.",
     items: [
@@ -30,7 +30,7 @@ const projects = [
   {
     company: "Kick Game",
     logo: "/logos/kick-game.png",
-    period: "2025",
+    period: "2022–2024",
     role: "Senior Product Designer",
     context: "UK & EU's premier sneaker and streetwear store.",
     items: [
@@ -49,7 +49,7 @@ const projects = [
   {
     company: "Klekt",
     logo: "/logos/klekt.png",
-    period: "2025",
+    period: "2021–2022",
     role: "UX/UI Designer",
     context: "EU's oldest online marketplace for authentic sneakers and streetwear.",
     items: [
