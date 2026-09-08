@@ -90,13 +90,13 @@ body {
   }
 }
 
-/* Avatar and greeting are one unit; the copy below is another. The gap
-   between them is 2x the gap inside the copy, so the grouping reads. */
+/* Avatar and greeting are one unit; the copy below is another. The gap to
+   the copy is absolute, so subtract the flex gap already in play. */
 .intro {
   display: flex;
   flex-direction: column;
   gap: var(--space-tight);
-  margin-bottom: var(--space-stack);
+  margin-bottom: calc(2rem - var(--space-stack));
 }
 
 /* Page entrance — top-level blocks only, in source order.
