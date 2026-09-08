@@ -22,6 +22,8 @@ Hover: oklch(0.960 0.003 58)
 Press: oklch(0.930 0.003 58) — row fill on :active
 Segmented nav: --segmented-track (= Hover), --segmented-pill (= Background),
 --segmented-focus (= Text), --segmented-radius 8px, inner radius 6px
+Pill slides 250ms on cubic-bezier(0.32, 0.72, 0, 1) — transform and width
+only, never scale, and off entirely under reduced motion.
 Underline (link resting): oklch(0.700 0.003 58) — the wipe line is Text.
 Keep the resting line light: the gap between the two IS the animation, and
 against Muted it drops to 2.3:1 and stops reading.
