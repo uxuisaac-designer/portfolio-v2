@@ -85,7 +85,7 @@ export default function Home() {
         alt=""
         width={896}
         height={2028}
-        sizes="40px"
+        sizes="36px"
         loading="eager"
       />
 

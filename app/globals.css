@@ -143,7 +143,7 @@ body {
    the intrinsic dimensions so the browser reserves the right box, and
    sizes="40px" keeps it from pulling the full-resolution file. */
 .avatar {
-  width: 40px;
+  width: 36px;
   height: auto;
   border-radius: 8px;
 }
