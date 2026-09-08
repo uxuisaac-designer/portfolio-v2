@@ -8,14 +8,17 @@ import { useEffect, useState } from "react";
    Array.from rather than .length so the count walks characters, not UTF-16
    code units. */
 const GREETINGS = [
-  { text: "Hello", lang: "en" },
-  { text: "Bonjour", lang: "fr" },
-  { text: "Hola", lang: "es" },
-  { text: "Hallo", lang: "de" },
-  { text: "你好", lang: "zh" },
-  { text: "こんにちは", lang: "ja" },
+  { text: "Hello...", lang: "en" },
+  { text: "Bonjour...", lang: "fr" },
+  { text: "Hola...", lang: "es" },
+  { text: "Hallo...", lang: "de" },
+  { text: "你好...", lang: "zh" },
+  { text: "こんにちは...", lang: "ja" },
+  /* No ellipsis here: in a right-to-left run the dots would sit at the
+     left, reading as though they came before the word rather than after
+     it. */
   { text: "مرحبا", lang: "ar", dir: "rtl" as const },
-  { text: "Olá", lang: "pt" },
+  { text: "Olá...", lang: "pt" },
 ].map((greeting) => ({ ...greeting, chars: Array.from(greeting.text) }));
 
 const TYPE = 80;
