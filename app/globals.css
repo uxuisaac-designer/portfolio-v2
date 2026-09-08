@@ -6,7 +6,6 @@
   --border: oklch(0.923 0.003 58);
   --hover: oklch(0.960 0.003 58);
   --press: oklch(0.930 0.003 58);
-  --underline: oklch(0.700 0.003 58);
 
   /* Layout */
   --max-width: 40rem;
@@ -29,6 +28,10 @@
      across four links in one sentence should not read as flicker. */
   --duration-hover-in: 100ms;
   --duration-hover-out: 200ms;
+  /* The wipe is travel, not a colour change, so it gets a stronger curve
+     and more room than a hover — the line has a distance to cover. */
+  --ease-wipe: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-wipe: 300ms;
   --duration-entrance: 400ms;
   --duration-entrance-fade: 150ms; /* reduced-motion entrance, no travel */
   --entrance-distance: 8px;
@@ -138,29 +141,75 @@ body {
   padding: 0;
 }
 
+/* Prose links — a two-layer underline the dark line passes through.
+
+   The rules live on .link-underline, an inline-block span inside the
+   anchor, not on the anchor itself. An inline box is not a reliable
+   containing block for absolutely positioned children; the span gives
+   the pseudo-elements a real box to measure 100% against. It also makes
+   the link atomic, so it can never break across two lines and draw one
+   rule spanning both.
+
+   ::before is the resting line and never animates. ::after is the dark
+   line: it grows from the left on hover, and on exit it keeps going and
+   leaves by the right edge instead of retracting the way it came.
+
+   The origin flip is what buys that. transform-origin is deliberately
+   NOT in the transition list, so it switches instantly — and it only
+   ever switches while the line sits at scaleX(1) or scaleX(0), where a
+   left and a right origin render the same box. Nothing jumps. */
 .page a {
   color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--underline);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-  transition: text-decoration-color var(--duration-hover-out) var(--ease-hover);
+  text-decoration: none;
 }
 
-/* Gated so a tap on touch does not leave the link stuck in its hover
-   state until something else is tapped. */
-@media (hover: hover) and (pointer: fine) {
-  .page a:hover {
-    text-decoration-color: var(--text);
-    transition-duration: var(--duration-hover-in);
-  }
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::before,
+.link-underline::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.link-underline::before {
+  background: var(--muted);
+}
+
+.link-underline::after {
+  background: var(--text);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-wipe) var(--ease-wipe);
+}
+
+.page a:hover .link-underline::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 /* Touch never fires hover, so press is the only acknowledgement a tap
-   gets before the page leaves. It is immediate by design. */
-.page a:active {
-  text-decoration-color: var(--text);
+   gets before the page leaves. It shows the finished line, no travel. */
+.page a:active .link-underline::after {
+  transform: scaleX(1);
+  transform-origin: left;
   transition-duration: 0s;
+}
+
+/* The wipe is real movement, unlike the colour changes elsewhere on the
+   page, so this one genuinely does come off under reduced motion. The
+   line still arrives — it just stops travelling. */
+@media (prefers-reduced-motion: reduce) {
+  .link-underline::after {
+    transition: none;
+  }
 }
 
 /* Headings sit at body size; hierarchy comes from weight and spacing. */
@@ -239,10 +288,6 @@ body {
   padding: 0.75rem 12px;
   margin-inline: -12px;
   border-radius: 8px;
-  /* The row carries the fill; .row-name carries the underline. Without
-     this the page-wide anchor underline would run the row's full width
-     once these become links. */
-  text-decoration: none;
   transition: background-color var(--duration-hover-out) var(--ease-hover);
 }
 

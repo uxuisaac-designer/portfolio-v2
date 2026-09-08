@@ -73,19 +73,31 @@ export default function Home() {
       <h1 className="lede">Hi, I&rsquo;m Isaac.</h1>
       <p>
         I&rsquo;m a senior product designer at{" "}
-        <a href="https://www.carandclassic.com">Car &amp; Classic</a>. I&rsquo;m
+        <a href="https://www.carandclassic.com">
+          <span className="link-underline">Car &amp; Classic</span>
+        </a>. I&rsquo;m
         obsessed with detail and creating interfaces that ask less of the person
         using them.
       </p>
       <p>
-        Previously at <a href="https://www.kickgame.com">Kick Game</a> and{" "}
-        <a href="https://www.klekt.com">Klekt</a>.
+        Previously at <a href="https://www.kickgame.com">
+          <span className="link-underline">Kick Game</span>
+        </a> and{" "}
+        <a href="https://www.klekt.com">
+          <span className="link-underline">Klekt</span>
+        </a>.
       </p>
       <p>
-        You can reach me by <a href="mailto:uxuisaac@gmail.com">email</a>, or
+        You can reach me by <a href="mailto:uxuisaac@gmail.com">
+          <span className="link-underline">email</span>
+        </a>, or
         find me on{" "}
-        <a href="https://www.linkedin.com/in/isaactaiwo">LinkedIn</a> and{" "}
-        <a href="https://x.com/ux_uisaac">X</a>.
+        <a href="https://www.linkedin.com/in/isaactaiwo">
+          <span className="link-underline">LinkedIn</span>
+        </a> and{" "}
+        <a href="https://x.com/ux_uisaac">
+          <span className="link-underline">X</span>
+        </a>.
       </p>
 
       {projects.map((group) => (
