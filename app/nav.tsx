@@ -4,12 +4,10 @@ import { usePathname, useRouter } from "next/navigation";
 
 import SegmentedPill, { type Segment } from "./segmented-pill";
 
-/* Writing and Lab are built and routable; they stay out of the nav until
-   each has something worth visiting. */
 const SEGMENTS: Segment[] = [
   { value: "/", label: "Work" },
-  // { value: "/writing", label: "Writing" },
-  // { value: "/lab", label: "Lab" },
+  { value: "/writing", label: "Writing" },
+  { value: "/lab", label: "Lab" },
 ];
 
 export default function Nav() {
