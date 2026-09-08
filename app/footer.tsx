@@ -20,8 +20,8 @@ export default function Footer({ initial }: { initial: LondonTime }) {
   useEffect(() => {
     const tick = () => setTime(londonTime(new Date()));
 
-    /* The page is statically rendered, so `initial` was computed at build
-       time. Correct it as soon as we are on the client. */
+    /* The page revalidates every 60s, so `initial` is at most a minute
+       stale. Correct it as soon as we are on the client. */
     tick();
 
     /* Line the interval up with the wall clock, otherwise the display can

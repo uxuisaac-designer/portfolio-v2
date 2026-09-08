@@ -3,6 +3,12 @@ import Image from "next/image";
 import Footer from "./footer";
 import { londonTime } from "./london-time";
 
+/* The footer prints the London time into the HTML, so the page is
+   regenerated each minute rather than frozen at build time. Without this
+   a visitor with JavaScript disabled would see whenever the site was last
+   built. Must stay a literal — Next needs it statically analyzable. */
+export const revalidate = 60;
+
 const placeholder = "/placeholder.png";
 
 const projects = [
