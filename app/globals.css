@@ -310,8 +310,11 @@ body {
    child — it keeps the page entrance and never replays it. .section-content
    is keyed on the route, so it remounts and fades. 200ms reads as a tab
    switch; longer starts to read as a page load. */
+/* No margin: the control sits 48px below the copy but only the flex gap
+   above the content, so it reads as belonging to what it switches rather
+   than floating between the two. */
 .section {
-  margin-top: calc(3rem - var(--space-stack));
+  margin-top: 0;
 }
 
 .section-content {
