@@ -1,4 +1,4 @@
-import { Contrast } from "lucide-react";
+import { Contrast, CornerUpLeft } from "lucide-react";
 
 /* The only place lucide-react is imported. Icons are referenced by name so
    nothing else in the app touches the library, and the defaults live here
@@ -11,6 +11,7 @@ import { Contrast } from "lucide-react";
    Add to this registry to use a new icon. */
 const ICONS = {
   contrast: Contrast,
+  return: CornerUpLeft,
 } as const;
 
 export type IconName = keyof typeof ICONS;

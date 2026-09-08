@@ -679,3 +679,157 @@ body {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* Case study layout.
+
+   The column is centred in the viewport exactly like .page, and the sidebar
+   is taken out of flow and fixed to the left edge — a real two-column grid
+   would push the column off centre as the viewport grew, and the column is
+   meant not to move. */
+.case-column {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 5rem 1rem 2.5rem;
+}
+
+/* The width is measured from the gutter beside the centred column, so the
+   sidebar can never reach the text however wide the viewport gets. */
+.case-sidebar {
+  display: none;
+  position: fixed;
+  top: 5rem;
+  inset-inline-start: 0;
+  width: calc((100vw - var(--max-width)) / 2 - 1.5rem);
+  max-width: 16rem;
+  max-height: calc(100vh - 7rem);
+  overflow-y: auto;
+  padding-inline-start: 4rem;
+}
+
+/* Shown only once the gutter is wide enough to hold it: 64rem leaves about
+   13rem beside the column, which fits the 4rem inset and a line of text.
+   Below that the page is a single column and the sidebar is gone. */
+@media (min-width: 64rem) {
+  .case-sidebar {
+    display: block;
+  }
+}
+
+.case-index {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 150ms var(--ease-hover);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-index:hover {
+    color: var(--text);
+  }
+}
+
+.case-index:focus-visible,
+.case-toc-item:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.case-toc {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: var(--space-stack);
+}
+
+.case-toc-item {
+  color: var(--muted);
+  text-decoration: none;
+  text-wrap: pretty;
+  transition: color 150ms var(--ease-hover);
+}
+
+.case-toc-item[data-active] {
+  color: var(--text);
+  font-weight: 500;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-toc-item:hover {
+    color: var(--text);
+  }
+}
+
+/* Title sits at body size; the weight is what marks it, as everywhere. */
+.case-title {
+  margin: 0;
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+}
+
+.case-date {
+  margin: 0 0 var(--space-section);
+  color: var(--muted);
+}
+
+.case-body > * {
+  margin: 0 0 var(--space-stack);
+}
+
+.case-body > :last-child {
+  margin-bottom: 0;
+}
+
+/* The rule starts after the heading text and runs to the column's edge.
+   No optical nudge: measured against Geist at 14/20 the cap-to-baseline
+   centre lands at 10.05px and the line box centre at 10.00px, so
+   align-items: center is already optically right. A nudge here moved it
+   visibly off. */
+.case-body h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: var(--space-section) 0 var(--space-stack);
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+  scroll-margin-top: 5rem;
+}
+
+.case-body h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.case-figure {
+  margin: 0 0 var(--space-stack);
+}
+
+.case-figure-frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--hover);
+}
+
+.case-figure-frame img {
+  object-fit: cover;
+}
+
+.case-caption {
+  margin-top: var(--space-tight);
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* Zero-height marker at the foot of the article; see case-sidebar.tsx. */
+.case-end {
+  height: 1px;
+}

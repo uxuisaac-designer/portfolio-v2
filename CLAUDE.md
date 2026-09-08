@@ -69,7 +69,12 @@ types, and it would fail at runtime rather than at build if Next changed
 it. Revisit when ViewTransition ships in a stable React.
 
 ## Hard constraints
-- Single column, left-aligned, no hero section
+- Single column, left-aligned, no hero section. Case studies at
+  /work/[slug] are the exception: a centred content column with a
+  sidebar fixed to the viewport's left edge, which disappears below
+  64rem. The sidebar is fixed rather than a grid column so the content
+  stays centred and never shifts as the viewport widens. The homepage
+  rule is unchanged.
 - Route nav is a hand-built segmented control, left-aligned, shrunk to its
   labels, in the flow. Track one step off --bg, active pill --bg so the
   selection reads as cut out — no shadow. Never full width, never chrome
@@ -84,6 +89,14 @@ No gradients. No box-shadows. No component
 libraries (shadcn, MUI, etc). No border-radius above 16px.
 No stock illustration. No emoji, except the flag in the footer — which
 is the one piece of colour on the page and a deliberate exception.
+
+## Case studies
+Content is MDX in content/work/*.mdx, rendered by app/work/[slug]. Each
+file exports a `meta` with title and date. Headings are extracted from the
+source on the server with the same slugger rehype-slug uses, so the
+contents list ships in the HTML and its links match the heading ids; only
+the active item is client work. The list appears at four headings or more.
+Images go through <Figure>, which is exposed to MDX via mdx-components.tsx.
 
 ## Icons
 Lucide is the icon library. Every icon renders through the Icon wrapper in
