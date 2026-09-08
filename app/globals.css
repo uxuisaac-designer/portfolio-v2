@@ -178,7 +178,13 @@ body {
   content: "";
   display: block;
   position: absolute;
-  bottom: -2px;
+  /* Measured from the span's box, not the baseline. With line-height 1.6
+     the box bottom sits 7.3px under the baseline (2.3 half-leading + 5
+     descent), so 3px puts the rule 4.3px below it — tight, but still
+     clear of Geist's descenders. These pseudo-elements have no
+     text-decoration-skip-ink to save us, so going tighter than 4px
+     starts cutting through a g or a p. */
+  bottom: 3px;
   left: 0;
   width: 100%;
   height: 1px;
