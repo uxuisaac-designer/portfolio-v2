@@ -14,8 +14,13 @@
 
   /* Layout */
   --max-width: 36.375rem;
+  /* How far the row fill bleeds past the text column. Trimmed below,
+     where the page is edge-constrained and 12px leaves the fill almost
+     touching the viewport. */
+  --row-bleed: 12px;
 
   /* Space */
+  --space-tight: 0.75rem; /* image to the text it belongs to */
   --space-stack: 1.5rem; /* between blocks within a section */
   --space-group: 5rem; /* between employers */
   --space-section: 6rem; /* between top-level sections */
@@ -75,6 +80,23 @@ body {
 
 .page p {
   margin: 0;
+}
+
+/* Below max-width + 2x padding the column is edge-constrained, and a
+   12px bleed leaves the row fill 4px off the viewport. */
+@media (max-width: 38.5rem) {
+  :root {
+    --row-bleed: 8px;
+  }
+}
+
+/* Avatar and greeting are one unit; the copy below is another. The gap
+   between them is 2x the gap inside the copy, so the grouping reads. */
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-tight);
+  margin-bottom: var(--space-stack);
 }
 
 /* Page entrance — top-level blocks only, in source order.
@@ -313,7 +335,7 @@ body {
 .group-logo {
   width: 24px;
   height: 24px;
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-tight);
   border-radius: 50%;
   object-fit: cover;
 }
@@ -330,15 +352,18 @@ body {
 }
 
 .group-context {
-  margin: 0 0 0.5rem;
   color: var(--muted);
   text-wrap: pretty;
 }
 
+/* The separation from .group-context lives here rather than on that
+   paragraph: `.page p { margin: 0 }` outranks a single class and was
+   silently zeroing it. */
 .group-projects {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  margin-top: 0.5rem;
 }
 
 .row {
@@ -347,10 +372,10 @@ body {
   column-gap: 1rem;
   row-gap: 0.125rem;
   align-items: center;
-  /* The fill bleeds 12px past the content; the matching negative
-     margin keeps the row aligned with the rest of the page. */
-  padding: 0.75rem 12px;
-  margin-inline: -12px;
+  /* The fill bleeds past the content; the matching negative margin
+     keeps the row aligned with the rest of the page. */
+  padding: 0.75rem var(--row-bleed);
+  margin-inline: calc(-1 * var(--row-bleed));
   border-radius: 8px;
   transition: background-color var(--duration-hover-out) var(--ease-hover);
 }

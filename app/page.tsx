@@ -79,24 +79,26 @@ const projects = [
 export default function Home() {
   return (
     <main className="page">
-      <Image
-        className="avatar"
-        src="/Avatar/Avatar-isaac-1.png"
-        alt=""
-        width={896}
-        height={2028}
-        sizes="36px"
-        loading="eager"
-      />
+      <div className="intro">
+        <Image
+          className="avatar"
+          src="/Avatar/Avatar-isaac-1.png"
+          alt=""
+          width={896}
+          height={2028}
+          sizes="36px"
+          loading="eager"
+        />
 
-      <p className="greeting">
-        hello
-        <span className="ellipsis" aria-hidden="true">
-          <span className="ellipsis-dot">.</span>
-          <span className="ellipsis-dot">.</span>
-          <span className="ellipsis-dot">.</span>
-        </span>
-      </p>
+        <p className="greeting">
+          hello
+          <span className="ellipsis" aria-hidden="true">
+            <span className="ellipsis-dot">.</span>
+            <span className="ellipsis-dot">.</span>
+            <span className="ellipsis-dot">.</span>
+          </span>
+        </p>
+      </div>
 
       <p>
         I&rsquo;m Isaac, a senior product designer obsessed with detail and

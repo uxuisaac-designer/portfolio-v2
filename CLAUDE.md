@@ -12,6 +12,9 @@ list-based project rows, micro-motion, no navigation.
 ## Tokens
 Max width: 36.375rem
 Page padding: 5rem 1rem 2.5rem, margin 0 auto
+Stack rhythm: 12px image-to-text, 24px between blocks, 48px between
+groups, 80px between employers, 96px between sections. Group gaps are
+at least 2x the gap inside the group, or the grouping stops reading.
 Background: oklch(0.985 0.002 58)
 Text: oklch(0.216 0.004 58)
 Muted: oklch(0.444 0.004 58)
