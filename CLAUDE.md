@@ -81,7 +81,8 @@ it. Revisit when ViewTransition ships in a stable React.
 ## Do not use
 No gradients. No box-shadows. No component
 libraries (shadcn, MUI, etc). No border-radius above 16px.
-No emoji. No stock illustration.
+No stock illustration. No emoji, except the flag in the footer — which
+is the one piece of colour on the page and a deliberate exception.
 
 ## Icons
 Lucide is the icon library. Every icon renders through the Icon wrapper in

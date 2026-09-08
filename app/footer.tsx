@@ -41,6 +41,9 @@ export default function Footer({ initial }: { initial: LondonTime }) {
   return (
     <footer className="footer">
       {time.clock} in London, England{" "}
+      {/* Decorative: it repeats what the sentence already says, so it is
+          hidden rather than announced as "flag: United Kingdom". */}
+      <span aria-hidden="true">🇬🇧</span>{" "}
       <span className="footer-face" aria-hidden="true">
         {FACES[time.mood]}
         {time.mood === "asleep" && <span className="footer-zzz">zzz</span>}
