@@ -22,6 +22,9 @@ Muted: oklch(0.444 0.004 58)
 Border: oklch(0.923 0.003 58)
 Hover: oklch(0.960 0.003 58)
 Press: oklch(0.930 0.003 58) — row fill on :active
+Segmented nav is driven by useSelectedLayoutSegment, not usePathname: the
+segment maps totally (null is the index route), and the control falls back
+to its first item, so exactly one is always selected.
 Segmented nav: --segmented-track (= Border), --segmented-pill (= Background),
 --segmented-focus (= Text), --segmented-radius 8px, inner radius 6px
 The track has to be Border, not Hover: against Hover the pill sits at

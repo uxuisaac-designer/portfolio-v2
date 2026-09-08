@@ -36,6 +36,12 @@ export default function SegmentedPill({
   onValueChange: (value: string) => void;
   label: string;
 }) {
+  /* A segmented control always has exactly one selection — zero is not a
+     state it can be in. If `value` matches nothing, the first segment
+     stands in rather than leaving the control blank. */
+  const matched = segments.findIndex((segment) => segment.value === value);
+  const activeIndex = matched === -1 ? 0 : matched;
+
   const listRef = useRef<HTMLElement>(null);
   const [pill, setPill] = useState<Geometry | null>(null);
   const placed = useRef(false);
@@ -85,8 +91,8 @@ export default function SegmentedPill({
         />
       )}
 
-      {segments.map((segment) => {
-        const active = segment.value === value;
+      {segments.map((segment, i) => {
+        const active = i === activeIndex;
 
         return (
           <button
