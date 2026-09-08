@@ -139,11 +139,13 @@ body {
   }
 }
 
+/* Width is fixed; height follows the image's own ratio. next/image gets
+   the intrinsic dimensions so the browser reserves the right box, and
+   sizes="40px" keeps it from pulling the full-resolution file. */
 .avatar {
   width: 40px;
-  height: 40px;
+  height: auto;
   border-radius: 8px;
-  object-fit: cover;
 }
 
 .greeting {
@@ -394,7 +396,6 @@ body {
 }
 
 /* Hairline so light-edged images keep a boundary against the page. */
-.avatar,
 .group-logo,
 .row-thumbnail {
   outline: 1px solid var(--border);

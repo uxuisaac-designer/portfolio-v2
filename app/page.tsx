@@ -72,11 +72,12 @@ export default function Home() {
     <main className="page">
       <Image
         className="avatar"
-        src={placeholder}
+        src="/Avatar/Avatar-isaac-1.png"
         alt=""
-        width={40}
-        height={40}
-        priority
+        width={896}
+        height={2028}
+        sizes="40px"
+        loading="eager"
       />
 
       <p className="greeting">
