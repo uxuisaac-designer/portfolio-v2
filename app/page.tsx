@@ -70,34 +70,61 @@ const projects = [
 export default function Home() {
   return (
     <main className="page">
-      <h1 className="lede">Hi, I&rsquo;m Isaac.</h1>
+      <Image
+        className="avatar"
+        src={placeholder}
+        alt=""
+        width={40}
+        height={40}
+        priority
+      />
+
+      <p className="greeting">
+        hello
+        <span className="ellipsis" aria-hidden="true">
+          <span className="ellipsis-dot">.</span>
+          <span className="ellipsis-dot">.</span>
+          <span className="ellipsis-dot">.</span>
+        </span>
+      </p>
+
       <p>
-        I&rsquo;m a senior product designer at{" "}
+        I&rsquo;m Isaac, a senior product designer obsessed with detail and
+        creating interfaces that ask less of the person using them.
+      </p>
+      <p>
+        Currently at{" "}
         <a href="https://www.carandclassic.com">
           <span className="link-underline">Car &amp; Classic</span>
-        </a>. I&rsquo;m
-        obsessed with detail and creating interfaces that ask less of the person
-        using them.
+        </a>
+        , shaping the buying and selling experience for Europe&rsquo;s largest
+        classic car marketplace.
       </p>
       <p>
-        Previously at <a href="https://www.kickgame.com">
+        Previously redesigning luxury ecommerce platforms at{" "}
+        <a href="https://www.kickgame.co.uk">
           <span className="link-underline">Kick Game</span>
-        </a> and{" "}
+        </a>{" "}
+        and{" "}
         <a href="https://www.klekt.com">
           <span className="link-underline">Klekt</span>
-        </a>.
+        </a>
+        .
       </p>
       <p>
-        You can reach me by <a href="mailto:uxuisaac@gmail.com">
+        You can reach me by{" "}
+        <a href="mailto:uxuisaac@gmail.com">
           <span className="link-underline">email</span>
-        </a>, or
-        find me on{" "}
+        </a>
+        , or find me on{" "}
         <a href="https://www.linkedin.com/in/isaactaiwo">
           <span className="link-underline">LinkedIn</span>
-        </a> and{" "}
+        </a>{" "}
+        and{" "}
         <a href="https://x.com/ux_uisaac">
           <span className="link-underline">X</span>
-        </a>.
+        </a>
+        .
       </p>
 
       {projects.map((group) => (

@@ -139,6 +139,58 @@ body {
   }
 }
 
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.greeting {
+  color: var(--muted);
+}
+
+/* Ambient ellipsis — each dot fades up in turn, then the line rests before
+   the cycle repeats. Opacity only, no movement, and slow: this runs
+   forever in the corner of the eye, so it has to stay quiet enough to
+   ignore. The dots are aria-hidden; the line reads as "hello".
+
+   2.4s cycle, 0.2s between dots. `backwards` holds the delayed dots at
+   opacity 0 rather than letting them flash on before their turn. */
+@keyframes ellipsis-dot {
+  0% {
+    opacity: 0;
+  }
+  25%,
+  50% {
+    opacity: 1;
+  }
+  75%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.ellipsis-dot {
+  animation: ellipsis-dot 2.4s linear infinite backwards;
+}
+
+.ellipsis-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.ellipsis-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Dots default to opacity 1, so dropping the animation leaves the line
+   reading "hello..." in full rather than blank. */
+@media (prefers-reduced-motion: reduce) {
+  .ellipsis-dot {
+    animation: none;
+  }
+}
+
 /* Reset only — each list supplies its own spacing and separators. */
 .list {
   list-style: none;
@@ -224,7 +276,6 @@ body {
 }
 
 /* Headings sit at body size; hierarchy comes from weight and spacing. */
-.lede,
 .group-company,
 .writing-heading {
   margin: 0;
@@ -343,6 +394,7 @@ body {
 }
 
 /* Hairline so light-edged images keep a boundary against the page. */
+.avatar,
 .group-logo,
 .row-thumbnail {
   outline: 1px solid var(--border);
