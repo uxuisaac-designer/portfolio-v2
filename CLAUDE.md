@@ -54,6 +54,11 @@ from its own right edge. Under reduced motion it is a static "Hello" with
 a steady cursor.
 Route change: cross-fades .section-content only, 200ms on the wipe curve.
 Everything above it lives in the layout and never re-renders.
+This is a CSS fade by choice, not for want of the View Transitions API.
+React's ViewTransition is reachable — Next vendors a canary and aliases
+react to it — but only through that packaging detail and opt-in canary
+types, and it would fail at runtime rather than at build if Next changed
+it. Revisit when ViewTransition ships in a stable React.
 
 ## Hard constraints
 - Single column, left-aligned, no hero section
