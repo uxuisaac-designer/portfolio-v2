@@ -206,6 +206,40 @@ body {
   white-space: pre;
 }
 
+/* A drawn bar rather than a character, so it does not depend on the font
+   having a glyph for it. It sits inside the absolutely positioned span,
+   so it can overhang the reserved width without moving anything. */
+.greeting-cursor {
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  margin-inline-start: 1px;
+  vertical-align: text-bottom;
+  background: var(--muted);
+}
+
+/* step-end so it snaps on and off the way a cursor does, rather than
+   breathing. */
+.greeting-cursor[data-resting] {
+  animation: cursor-blink 1.06s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Steady, not gone — the cursor still marks where the text ends. Matches
+   the blink rule's specificity: a bare .greeting-cursor loses to
+   [data-resting] and the cursor would keep blinking, sometimes stopping
+   invisible. */
+@media (prefers-reduced-motion: reduce) {
+  .greeting-cursor[data-resting] {
+    animation: none;
+  }
+}
+
 /* Shrinks to its labels rather than filling the column. */
 .segmented {
   position: relative;

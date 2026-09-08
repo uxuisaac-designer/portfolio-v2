@@ -6,7 +6,7 @@ const TEXT = "hello...";
 
 const TYPE = 80;
 const DELETE = 40;
-const HOLD_FULL = 1500;
+const HOLD_FULL = 3000;
 const HOLD_EMPTY = 800;
 
 export default function Greeting() {
@@ -74,6 +74,15 @@ export default function Greeting() {
         <span className="greeting-reserve">{TEXT}</span>
         <span className="greeting-typed" aria-hidden="true">
           {TEXT.slice(0, count)}
+          {/* Blinks only while the text is resting. A cursor that blinks
+              mid-keystroke reads as noise; editors hold theirs solid
+              while you type for the same reason. Both holds sit at the
+              ends of the string, so the state is derivable from the
+              count and needs nothing tracking it. */}
+          <span
+            className="greeting-cursor"
+            data-resting={count === 0 || count === TEXT.length ? "" : undefined}
+          />
         </span>
       </span>
     </p>
