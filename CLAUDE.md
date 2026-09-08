@@ -13,8 +13,9 @@ list-based project rows, micro-motion, no navigation.
 Max width: 36.375rem
 Page padding: 5rem 1rem 2.5rem, margin 0 auto
 Stack rhythm: 12px image-to-text, 24px between blocks, 32px intro to
-copy, 48px copy to the nav, 24px nav to content, 80px between
-employers, 96px between sections. The nav sits closer to what it
+copy, 48px copy to the nav, 24px nav to content, 48px between
+employers, 96px between sections. Each level doubles the one below it —
+24, 48, 96 — so the three read as three. The nav sits closer to what it
 switches than to what precedes it.
 Background: oklch(0.985 0.002 58)
 Text: oklch(0.216 0.004 58)

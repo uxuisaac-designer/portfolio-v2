@@ -32,9 +32,12 @@
   --row-bleed: 12px;
 
   /* Space */
+  /* Each step doubles the one below it: 24 between blocks, 48 between
+     employers, 96 between sections. The doubling is what keeps the
+     three levels reading as three levels. */
   --space-tight: 0.75rem; /* image to the text it belongs to */
   --space-stack: 1.5rem; /* between blocks within a section */
-  --space-group: 5rem; /* between employers */
+  --space-group: 3rem; /* between employers */
   --space-section: 6rem; /* between top-level sections */
 
   /* Type */
