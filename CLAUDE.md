@@ -42,7 +42,10 @@ span, not text-decoration: a resting line plus a Text line that wipes in
 from the left over 300ms on cubic-bezier(0.32, 0.72, 0, 1) and exits off
 the right. No skip-ink, so the offset is measured against the type scale to
 clear descenders — re-measure it if that scale moves.
-Greeting ellipsis: 2.4s linear loop, 0.2s between dots, opacity only
+Greeting types and deletes on a loop: 80ms per character in, 1500ms
+held, 40ms per character out, 800ms empty. No cursor. The full string's
+width is reserved so nothing reflows, and under reduced motion it is
+simply the static string.
 Route change: cross-fades .section-content only, 200ms on the wipe curve.
 Everything above it lives in the layout and never re-renders.
 

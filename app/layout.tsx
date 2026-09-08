@@ -4,6 +4,7 @@ import Image from "next/image";
 import "./globals.css";
 
 import Footer from "./footer";
+import Greeting from "./greeting";
 import { londonTime } from "./london-time";
 import Nav from "./nav";
 import Section from "./section";
@@ -39,14 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               loading="eager"
             />
 
-            <p className="greeting">
-              hello
-              <span className="ellipsis" aria-hidden="true">
-                <span className="ellipsis-dot">.</span>
-                <span className="ellipsis-dot">.</span>
-                <span className="ellipsis-dot">.</span>
-              </span>
-            </p>
+            <Greeting />
           </div>
 
           <p>
