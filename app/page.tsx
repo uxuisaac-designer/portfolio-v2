@@ -17,7 +17,7 @@ const projects = [
     logo: "/logos/car-and-classic.png",
     period: "2024–Present",
     role: "Senior Product Designer",
-    context: "Europe's largest classic car marketplace.",
+    context: "Europe’s largest classic car marketplace.",
     items: [
       {
         name: "Car insurance",
@@ -41,7 +41,7 @@ const projects = [
     logo: "/logos/kick-game.png",
     period: "2022–2024",
     role: "Senior Product Designer",
-    context: "UK & EU's premier sneaker and streetwear store.",
+    context: "UK & EU’s premier sneaker and streetwear store.",
     items: [
       {
         name: "Consignment app",
@@ -60,7 +60,7 @@ const projects = [
     logo: "/logos/klekt.png",
     period: "2021–2022",
     role: "UX/UI Designer",
-    context: "EU's oldest online marketplace for authentic sneakers and streetwear.",
+    context: "EU’s oldest online marketplace for authentic sneakers and streetwear.",
     items: [
       {
         name: "Bidding flow",
