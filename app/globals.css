@@ -13,7 +13,7 @@
   --press: oklch(0.930 0.003 58);
 
   /* Layout */
-  --max-width: 40rem;
+  --max-width: 36.375rem;
 
   /* Space */
   --space-stack: 1.5rem; /* between blocks within a section */
@@ -21,10 +21,10 @@
   --space-section: 6rem; /* between top-level sections */
 
   /* Type */
-  --font-size-body: 1rem;
-  --font-size-label: 0.75rem;
-  --line-height-body: 1.6;
-  --letter-spacing-body: -0.011em;
+  --font-size-body: 0.875rem; /* 14px */
+  --font-size-label: 0.75rem; /* 12px — a gentle step, hierarchy is weight */
+  --line-height-body: 1.4286; /* 20px at 14px */
+  --letter-spacing-body: -0.011em; /* em-relative, so it tracks the size */
 
   /* Motion */
   --ease-hover: cubic-bezier(0.4, 0, 0.2, 1); /* hover and colour changes */
@@ -70,7 +70,7 @@ body {
   gap: var(--space-stack);
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 6rem 1.5rem;
+  padding: 5rem 1rem 2.5rem;
 }
 
 .page p {
@@ -232,13 +232,13 @@ body {
   content: "";
   display: block;
   position: absolute;
-  /* Measured from the span's box, not the baseline. With line-height 1.6
-     the box bottom sits 7.3px under the baseline (2.3 half-leading + 5
-     descent), so 3px puts the rule 4.3px below it — tight, but still
-     clear of Geist's descenders. These pseudo-elements have no
-     text-decoration-skip-ink to save us, so going tighter than 4px
-     starts cutting through a g or a p. */
-  bottom: 3px;
+  /* Measured from the span's box, not the baseline. At 14px/20px the box
+     bottom sits 5px under the baseline (0.6 half-leading + 4.4 descent),
+     so 1px puts the rule 4px below it — 1.7px clear of Geist's 2.3px
+     descenders. These pseudo-elements have no text-decoration-skip-ink to
+     save us, so 2.5px and beyond cuts through a g or a p. Re-measure this
+     if the type scale moves again. */
+  bottom: 1px;
   left: 0;
   width: 100%;
   height: 1px;
@@ -445,7 +445,7 @@ body {
 /* Raised and smaller so the z's read as drifting off the face rather than
    sitting on the same line as it. */
 .footer-zzz {
-  font-size: var(--font-size-label);
+  font-size: 0.7em;
   vertical-align: super;
   letter-spacing: 0.08em;
 }
