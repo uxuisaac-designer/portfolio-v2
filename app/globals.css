@@ -5,6 +5,11 @@
   --muted: oklch(0.444 0.004 58);
   --border: oklch(0.923 0.003 58);
   --hover: oklch(0.960 0.003 58);
+  /* The resting underline is light on purpose: the wipe line is --text,
+     and the gap between the two IS the animation. Against --muted the
+     pair sits at 2.3:1 and the wipe is invisible at speed; here it is
+     6.6:1. */
+  --underline: oklch(0.700 0.003 58);
   --press: oklch(0.930 0.003 58);
 
   /* Layout */
@@ -180,7 +185,7 @@ body {
 }
 
 .link-underline::before {
-  background: var(--muted);
+  background: var(--underline);
 }
 
 .link-underline::after {
