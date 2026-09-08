@@ -12,10 +12,11 @@
   --underline: oklch(0.700 0.003 58);
   --press: oklch(0.930 0.003 58);
 
-  /* Segmented nav. The track is one step off --bg and the active pill is
-     --bg itself, so the selected segment reads as cut out of the track —
-     no shadow needed to lift it. */
-  --segmented-track: var(--hover);
+  /* Segmented nav. The active pill is --bg cut out of the track, so no
+     shadow is needed to lift it — but that only works if the two are far
+     enough apart. Against --hover the pair sat at 1.08:1 and vanished on
+     a phone; --border takes it to 1.20:1. */
+  --segmented-track: var(--border);
   --segmented-pill: var(--bg);
   --segmented-focus: var(--text);
   --segmented-radius: 8px;

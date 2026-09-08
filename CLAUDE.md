@@ -22,8 +22,10 @@ Muted: oklch(0.444 0.004 58)
 Border: oklch(0.923 0.003 58)
 Hover: oklch(0.960 0.003 58)
 Press: oklch(0.930 0.003 58) — row fill on :active
-Segmented nav: --segmented-track (= Hover), --segmented-pill (= Background),
+Segmented nav: --segmented-track (= Border), --segmented-pill (= Background),
 --segmented-focus (= Text), --segmented-radius 8px, inner radius 6px
+The track has to be Border, not Hover: against Hover the pill sits at
+1.08:1 and disappears on a phone.
 Pill slides 250ms on cubic-bezier(0.32, 0.72, 0, 1) — transform and width
 only, never scale, and off entirely under reduced motion.
 Underline (link resting): oklch(0.700 0.003 58) — the wipe line is Text.
