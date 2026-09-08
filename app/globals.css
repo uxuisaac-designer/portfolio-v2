@@ -187,8 +187,9 @@ body {
 }
 
 /* Typed greeting. The reserve holds the full string's width so nothing
-   around it reflows as characters come and go; the typed span sits over
-   it. No cursor. */
+   around it reflows as characters come and go, and carries the text for
+   screen readers — the visible span changes eight times a second and
+   would only be noise to announce. No cursor. */
 .greeting-typing {
   position: relative;
   display: inline-block;
@@ -203,6 +204,115 @@ body {
   inset-inline-start: 0;
   top: 0;
   white-space: pre;
+}
+
+/* Shrinks to its labels rather than filling the column. */
+.segmented {
+  position: relative;
+  align-self: flex-start;
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  margin-top: calc(3rem - var(--space-stack));
+  background: var(--segmented-track);
+  border-radius: var(--segmented-radius);
+  font-family: var(--segmented-font-family);
+}
+
+.segmented-item {
+  /* Above the pill, so the label is never painted over. */
+  position: relative;
+  appearance: none;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--font-size-body);
+  letter-spacing: var(--letter-spacing-body);
+  color: var(--muted);
+  padding: 0.125rem 0.5rem;
+  /* Concentric with the track: outer radius minus the 2px inset. */
+  border-radius: calc(var(--segmented-radius) - 2px);
+  transition: color var(--duration-hover-out) var(--ease-hover);
+}
+
+/* One element that moves, measured from the rendered labels. A plain
+   slide: transform and width only, no scale — a stretch would distort the
+   corner radius and read as playful against the rest of the page. Width is
+   animated because the labels differ in length; the element is absolutely
+   positioned, so nothing reflows around it. */
+.segmented-pill {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 0;
+  background: var(--segmented-pill);
+  border-radius: calc(var(--segmented-radius) - 2px);
+}
+
+.segmented-pill[data-sliding] {
+  transition: transform var(--duration-segmented) var(--ease-wipe),
+    width var(--duration-segmented) var(--ease-wipe);
+}
+
+/* Nothing handles this for us — the slide is real movement, so it comes
+   off entirely and the pill simply appears where it belongs. */
+@media (prefers-reduced-motion: reduce) {
+  .segmented-pill[data-sliding] {
+    transition: none;
+  }
+}
+
+/* Until the pill has been measured — server render, and no-JS — the active
+   segment paints its own background so the control is never unmarked. */
+.segmented:not([data-measured]) .segmented-item[aria-current="page"] {
+  background: var(--segmented-pill);
+}
+
+.segmented-item[aria-current="page"] {
+  color: var(--text);
+}
+
+.segmented-item:focus-visible {
+  outline: 2px solid var(--segmented-focus);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .segmented-item:not([aria-current="page"]):hover {
+    color: var(--text);
+    transition-duration: var(--duration-hover-in);
+  }
+}
+
+/* The only region that changes between routes. .section is the stable flex
+   child — it keeps the page entrance and never replays it. .section-content
+   is keyed on the route, so it remounts and fades. 200ms reads as a tab
+   switch; longer starts to read as a page load. */
+/* No margin: the control sits 48px below the copy but only the flex gap
+   above the content, so it reads as belonging to what it switches rather
+   than floating between the two. */
+.section {
+  margin-top: 0;
+}
+
+.section-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack);
+  animation: section-fade var(--duration-section) var(--ease-wipe);
+}
+
+@keyframes section-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-content {
+    animation: none;
+  }
 }
 
 /* Reset only — each list supplies its own spacing and separators. */
