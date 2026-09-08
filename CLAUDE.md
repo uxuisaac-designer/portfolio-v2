@@ -103,6 +103,26 @@ persisted. The provider sits at the top of <body> and writes the class from
 a blocking script before first paint, so nothing flashes; <html> carries
 suppressHydrationWarning because of it.
 
+## Deferred
+Known-open, deliberately. Each says what unblocks it, so none of these get
+rediscovered or re-litigated.
+
+- **Project rows are not links.** The hover fill, name underline, press
+  state and .row:focus-visible are all built and waiting. Unblocked when
+  the case studies exist and the rows get hrefs.
+- **Nav segments are buttons, not links.** Driven by router.push, as
+  specified. The cost is real now that Writing and Lab are reachable: no
+  middle-click, no open-in-new-tab, nothing for a crawler to follow.
+  Styled <Link>s look identical if that becomes worth it.
+- **Dark-mode row thumbnails are bright.** placeholder.png is a light
+  block, so each row shows a white rectangle on the dark background. Goes
+  away when real case-study images land.
+- **Route change is a CSS fade, not the View Transitions API.** Reasoning
+  under Tokens above. Revisit when ViewTransition ships in a stable React.
+- **CJK and Arabic greetings fall back to system fonts.** Noted under Hard
+  constraints. Only fixable by dropping those languages or loading Noto
+  faces for three words.
+
 ## Working style
 Ask before adding any dependency.
 Small commits, one change at a time.
