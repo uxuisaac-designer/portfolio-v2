@@ -577,6 +577,19 @@ body {
   object-fit: cover;
 }
 
+/* Only one logo variant is visible at a time; the other is not laid out. */
+.group-logo-dark {
+  display: none;
+}
+
+.dark .group-logo-light {
+  display: none;
+}
+
+.dark .group-logo-dark {
+  display: block;
+}
+
 /* Hairline so light-edged images keep a boundary against the page. */
 .group-logo,
 .row-thumbnail {

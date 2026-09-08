@@ -30,6 +30,7 @@ const projects = [
   {
     company: "Kick Game",
     logo: "/logos/kick-game.png",
+    logoDark: "/logos/kick-game-darkmode.png",
     period: "2022–2024",
     role: "Senior Product Designer",
     context: "UK & EU’s premier sneaker and streetwear store.",
@@ -49,6 +50,7 @@ const projects = [
   {
     company: "Klekt",
     logo: "/logos/klekt.png",
+    logoDark: "/logos/klekt-darkmode.png",
     period: "2021–2022",
     role: "UX/UI Designer",
     context: "EU’s oldest online marketplace for authentic sneakers and streetwear.",
@@ -72,13 +74,28 @@ export default function Work() {
     <>
       {projects.map((group) => (
         <section className="group" key={group.company}>
+          {/* Both variants are rendered and swapped in CSS rather than
+              picked in JS: the theme class is on <html> before first paint,
+              so this can never show the wrong one or flash. Car & Classic
+              reads on either background and has no dark variant. */}
           <Image
-            className="group-logo"
+            className={
+              group.logoDark ? "group-logo group-logo-light" : "group-logo"
+            }
             src={group.logo}
             alt=""
             width={24}
             height={24}
           />
+          {group.logoDark && (
+            <Image
+              className="group-logo group-logo-dark"
+              src={group.logoDark}
+              alt=""
+              width={24}
+              height={24}
+            />
+          )}
           <div className="group-header">
             <h2 className="group-company">{group.company}</h2>
             <span className="group-period">{group.period}</span>

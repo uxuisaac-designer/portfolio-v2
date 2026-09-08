@@ -92,6 +92,11 @@ registry in that file to use a new one. It is icons.tsx, not icon.tsx,
 because app/icon.* is a reserved App Router metadata route.
 
 ## Theme
+Brand logos with a dark variant ship both files and swap in CSS
+(.group-logo-light / .group-logo-dark), never in JS — the theme class is on
+<html> before first paint, so the right one is there from the start. A logo
+that reads on either background needs no variant.
+
 next-themes, class strategy, system preference by default and the choice
 persisted. The provider sits at the top of <body> and writes the class from
 a blocking script before first paint, so nothing flashes; <html> carries
