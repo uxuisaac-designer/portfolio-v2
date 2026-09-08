@@ -44,7 +44,7 @@ the right. No skip-ink, so the offset is measured against the type scale to
 clear descenders — re-measure it if that scale moves.
 Greeting cycles eight languages, English first, each trailing "..." except
 Arabic: 80ms per character in,
-12000ms held, 40ms per character out, 800ms empty. A 1px cursor blinks at
+6000ms held, 40ms per character out, 800ms empty. A 1px cursor blinks at
 1.06s step-end while the text rests and stays solid while it moves. All
 eight are stacked in one grid cell so the box reserves the widest and
 nothing reflows; each keeps its own dir, so Arabic types right to left

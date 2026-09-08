@@ -23,7 +23,7 @@ const GREETINGS = [
 
 const TYPE = 80;
 const DELETE = 40;
-const HOLD_FULL = 12000;
+const HOLD_FULL = 6000;
 const HOLD_EMPTY = 800;
 
 export default function Greeting() {
