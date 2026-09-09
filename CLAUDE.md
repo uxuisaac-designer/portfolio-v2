@@ -110,6 +110,27 @@ eyebrow and the fact strip already carry those.
 Title, tagline and strip sit in one <header>, so the 96px section gap
 falls below the group rather than inside it.
 
+The contents list carries a 6px square at the active label, --text and
+square-cornered. It travels a quadratic Bézier whose control point sits
+beside the midpoint of the straight line, pushed right by 12px at a
+one-step move and further with distance, capped at 32px — so it bows toward
+the content column rather than back through the text. The path is diagonal
+because the labels are ragged and the square sits after the text, so x and
+y both interpolate. It also turns 90° clockwise on the same t, matching the
+bow, so the turn lands exactly when the travel does; a square looks the
+same at both ends, so the turn is something seen in flight and never at
+rest. The angle accumulates, so an interrupted move carries it forward
+instead of starting the quarter again. The curve is cubic-bezier(0.77, 0,
+0.175, 1) solved in JS — a strong ease-in-out, because this is movement
+between two on-screen positions rather than a reveal, and because the path
+is a curve and not a value; 400ms on requestAnimationFrame, one combined
+translate() rotate() per frame. A change mid-flight re-targets from where
+the square actually is, so a fast scroll neither snaps nor queues. Clicking
+an item suspends the observer for 700ms and the click owns the active
+section, so a smooth scroll past four headings is one move rather than five
+and one quarter turn rather than five. Under reduced motion it moves
+instantly, does not turn, and only the opacity fade remains.
+
 Every case study opens with an Overview. The template renders that heading
 and prepends it to the contents list, so a file starts straight into its
 prose and cannot forget one. A file that writes its own `## Overview` keeps

@@ -742,10 +742,36 @@ body {
 }
 
 .case-toc {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-top: var(--space-stack);
+}
+
+/* The anchor stretches to the column so the target stays easy to hit; the
+   label is the inline box the marker is measured against. */
+.case-toc-label {
+  display: inline;
+}
+
+/* Positioned from the nav's origin and moved with transform alone, so the
+   travel never touches layout. It fades in once placed — before the first
+   observer callback there is no active section to mark. */
+.case-toc-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--text);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms var(--ease-hover);
+}
+
+.case-toc-marker[data-placed] {
+  opacity: 1;
 }
 
 .case-toc-item {
