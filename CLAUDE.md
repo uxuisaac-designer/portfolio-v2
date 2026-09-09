@@ -150,6 +150,13 @@ a flex column whose 24px gap .footer's margin is measured against, and the
 case column is a plain block, so it takes the whole 96px step there
 instead.
 
+content/work/_case-study.mdx is the blank to copy. A leading underscore
+means the route generator and the draft scan both skip it, and
+dynamicParams is false so only generated slugs are served — a URL with no
+file behind it is a 404 rather than a 500 from the dynamic import. The
+template is a starting point, not a guarantee: nothing validates a case
+study against it, and every meta field is optional at render time.
+
 `draft: true` in a case study's meta keeps it out of the homepage rows and
 the previous/next chain in production; in development it is linked as
 normal, which is the point — a draft is something being worked on. The

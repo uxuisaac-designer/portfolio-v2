@@ -24,10 +24,15 @@ const META_FIELDS = [
   ["Software", "software"],
 ] as const;
 
+/* Only the slugs below are served. Without this a URL with no file behind it
+   reaches the dynamic import and fails as a 500 rather than a 404 — and the
+   leading-underscore template would be a live page. */
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const files = await readdir(CONTENT);
   return files
-    .filter((file) => file.endsWith(".mdx"))
+    .filter((file) => file.endsWith(".mdx") && !file.startsWith("_"))
     .map((file) => ({ slug: file.replace(/\.mdx$/, "") }));
 }
 

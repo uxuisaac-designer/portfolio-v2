@@ -1,0 +1,45 @@
+export const meta = {
+  /* Shown as the page title, and as the name in previous/next. */
+  title: "Project name",
+  /* The eyebrow above the title. The employer, not the project. */
+  company: "Company",
+  /* A sentence saying what the work was for. Not a subtitle naming the
+     employer and year — the eyebrow and the fact strip carry those. */
+  tagline: "What the work was for, in one sentence.",
+  /* The fact strip. Any of these can be left out; a missing one leaves no
+     gap rather than an empty column. */
+  role: "Senior Product Designer",
+  timeline: "2026",
+  team: "Solo design",
+  software: "Figma",
+  /* true keeps it out of the homepage rows and the previous/next chain in
+     production. The route is still built, so it stays reachable by URL. */
+  draft: true,
+};
+
+Opening prose goes here, with no heading above it — the template renders the
+Overview heading itself, so every case study has one and no file has to
+remember it.
+
+## First section
+
+Body copy. Headings are h2 only; the contents list is built from them, and it
+appears once there are four including the Overview.
+
+<Figure
+  src="/placeholder.png"
+  caption="What the image shows. Optional — a figure without one is fine."
+/>
+
+## Second section
+
+Images go through Figure, which is exposed to MDX in mdx-components.tsx. The
+frame holds 16:9, so the block is the right size before the image loads.
+
+## Third section
+
+Body copy.
+
+## Fourth section
+
+Body copy.

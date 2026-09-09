@@ -17,7 +17,9 @@ export async function hiddenHrefs(): Promise<ReadonlySet<string>> {
   const hidden = new Set<string>();
 
   for (const file of files) {
-    if (!file.endsWith(".mdx")) continue;
+    /* A leading underscore marks the authoring template, which is not a
+       case study and has no route. */
+    if (!file.endsWith(".mdx") || file.startsWith("_")) continue;
 
     const slug = file.replace(/\.mdx$/, "");
     /* The flag is read from the module rather than matched in the source, so
