@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { hiddenHrefs } from "../case-studies";
 import { groups } from "../projects";
 
-export default function Work() {
+export default async function Work() {
+  const hidden = await hiddenHrefs();
+
   return (
     <>
       {groups.map((group) => (
@@ -52,18 +55,18 @@ export default function Work() {
                 </>
               );
 
-              /* Only the rows with a case study behind them are links. The
-                 rest carry the same markup as a plain div, so the hover and
-                 press states read identically and nothing moves when the
-                 remaining case studies land and each one gains an href. */
+              /* A draft case study is not linked from here in production. The
+                 row then carries the same markup as a plain div, so the hover
+                 and press states read identically and nothing moves when the
+                 draft flag flips. */
               return (
                 <li key={project.name}>
-                  {"href" in project && project.href ? (
+                  {hidden.has(project.href) ? (
+                    <div className="row">{content}</div>
+                  ) : (
                     <Link className="row" href={project.href}>
                       {content}
                     </Link>
-                  ) : (
-                    <div className="row">{content}</div>
                   )}
                 </li>
               );

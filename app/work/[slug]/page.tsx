@@ -7,6 +7,7 @@ import Link from "next/link";
 import Footer from "../../footer";
 import Icon from "../../icons";
 import { londonTime } from "../../london-time";
+import { hiddenHrefs } from "../../case-studies";
 import { neighboursFor, type TimelineEntry } from "../../projects";
 
 import CaseSidebar, { type Heading } from "./case-sidebar";
@@ -87,7 +88,10 @@ export default async function CaseStudy({
   params,
 }: PageProps<"/work/[slug]">) {
   const { slug } = await params;
-  const { previous, next } = neighboursFor(`/work/${slug}`);
+  const { previous, next } = neighboursFor(
+    `/work/${slug}`,
+    await hiddenHrefs(),
+  );
   const { default: Content, meta } = await import(
     `../../../content/work/${slug}.mdx`
   );

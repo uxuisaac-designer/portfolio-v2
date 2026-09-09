@@ -150,6 +150,16 @@ a flex column whose 24px gap .footer's margin is measured against, and the
 case column is a plain block, so it takes the whole 96px step there
 instead.
 
+`draft: true` in a case study's meta keeps it out of the homepage rows and
+the previous/next chain in production; in development it is linked as
+normal, which is the point — a draft is something being worked on. The
+route is built either way, so a draft is always reachable by its own URL:
+unlinked, not unreachable. A hidden entry drops out of the chain rather
+than leaving a gap, so a draft in the middle joins the two either side of
+it. The flag is read from the module in app/case-studies.ts, so it is the
+value the page itself renders with rather than a second copy kept in step
+by hand.
+
 Every case study opens with an Overview. The template renders that heading
 and prepends it to the contents list, so a file starts straight into its
 prose and cannot forget one. A file that writes its own `## Overview` keeps

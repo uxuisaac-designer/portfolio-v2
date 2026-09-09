@@ -8,9 +8,9 @@ export type Project = {
   name: string;
   description: string;
   thumbnail: string;
-  /* Present once a case study exists. Without one the row is not a link and
-     the project is not part of the previous/next chain. */
-  href?: string;
+  /* Every project has a page. Whether it is linked depends on the case
+     study's own `draft` flag — see app/case-studies.ts. */
+  href: string;
 };
 
 export type Group = {
@@ -35,16 +35,19 @@ export const groups: Group[] = [
         name: "Car insurance",
         description: "Insurance quote flow for classic car owners",
         thumbnail: placeholder,
+        href: "/work/car-insurance",
       },
       {
         name: "Design system",
         description: "A system for designers, developers and agents",
         thumbnail: placeholder,
+        href: "/work/design-system",
       },
       {
         name: "Dealer experience",
         description: "A selling dashboard for professional dealers",
         thumbnail: placeholder,
+        href: "/work/dealer-experience",
       },
     ],
   },
@@ -60,6 +63,7 @@ export const groups: Group[] = [
         name: "Consignment app",
         description: "An app for consignors selling luxury goods",
         thumbnail: placeholder,
+        href: "/work/consignment-app",
       },
       {
         name: "Buyer experience",
@@ -82,11 +86,13 @@ export const groups: Group[] = [
         name: "Bidding flow",
         description: "Bidding on a sneaker and streetwear marketplace",
         thumbnail: placeholder,
+        href: "/work/bidding-flow",
       },
       {
         name: "Marketplace improvements",
         description: "Listings, drops and search",
         thumbnail: placeholder,
+        href: "/work/marketplace-improvements",
       },
     ],
   },
@@ -99,16 +105,18 @@ export const timeline: TimelineEntry[] = groups.flatMap((group) =>
   group.items.map((item) => ({ ...item, company: group.company })),
 );
 
-/* Only projects with a case study take part. Walking the full list would
-   point at pages that do not exist, and a previous/next that 404s is worse
-   than one that is not there. Neighbours are list positions, not dates:
-   previous is the entry above on the homepage, so it is the more recent
-   piece of work. */
-export function neighboursFor(href: string): {
+/* Neighbours are list positions, not dates: previous is the entry above on
+   the homepage, so it is the more recent piece of work. Hidden entries drop
+   out of the chain entirely rather than leaving a gap, so a draft in the
+   middle joins the two either side of it. */
+export function neighboursFor(
+  href: string,
+  hidden: ReadonlySet<string> = new Set(),
+): {
   previous: TimelineEntry | null;
   next: TimelineEntry | null;
 } {
-  const published = timeline.filter((entry) => entry.href);
+  const published = timeline.filter((entry) => !hidden.has(entry.href));
   const index = published.findIndex((entry) => entry.href === href);
 
   if (index === -1) return { previous: null, next: null };
