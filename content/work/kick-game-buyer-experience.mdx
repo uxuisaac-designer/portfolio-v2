@@ -11,8 +11,12 @@ export const meta = {
 };
 
 Kick Game sells rare and collectible sneakers and streetwear — seven stores in
-the UK, shipping globally. I was brought in to improve the buying experience
-across the site.
+the UK, shipping globally, on roughly 85,000 to 110,000 sessions a month
+against a catalogue of about 1,200 products from more than 40 brands. I was
+brought in to improve the buying experience across the site.
+
+When I started, complaints about not being able to find a size or a colourway
+were running at 20–30 a week. By week 10 after launch they were isolated.
 
 <Figure
   src="/placeholder.png"
@@ -21,14 +25,22 @@ across the site.
 
 ## Two kinds of buyer
 
-Interviews and a customer survey surfaced the same friction from two
-directions. Some buyers arrive knowing exactly what they want: a specific
-model, a specific size, often something they’ve been hunting for months. Others
-arrive to see what’s landed.
+Eight moderated, task-based interview sessions told me why people struggled.
+Two surveys told me how widely it was felt — 340 responses after purchase, and
+210 intercepted mid-session about search and findability.
 
-The site served neither well. Search returned poor results for the first group.
-Navigation was unintuitive for the second. Both were failing at the same job —
-helping someone find a pair — from opposite ends.
+Both pointed at the same friction. Some buyers arrive knowing exactly what
+they want: a specific model, a specific size, often something they’ve been
+hunting for months. Others arrive to see what’s landed.
+
+The site served neither well. Search returned poor results for the first
+group: only 41% of searches led to a product view. Navigation was unintuitive
+for the second. Both were failing at the same job — helping someone find a
+pair — from opposite ends.
+
+A catalogue of 1,200 products is not a scale problem. At that size anything
+the shop stocks should be findable, which made the failure a structural one rather than
+something more inventory would explain away.
 
 ## What the business wanted
 
@@ -44,6 +56,11 @@ That gave the work two problems rather than six features.
 Search and navigation together. I rebuilt the mega menu around how people
 actually browse — streamlined categories, clearer priority, visual cues for the
 sections that mattered most.
+
+<Figure
+  src="/placeholder.png"
+  caption="The navigation before the rebuild: every category at the same weight."
+/>
 
 <Figure
   src="/placeholder.png"
@@ -63,15 +80,16 @@ precision; the browsers got a reason to keep looking.
 
 The product display page carried the most weight. Higher-quality imagery,
 tighter descriptions, and the ability to see alternative colourways without
-leaving the page — the single change that most affected how long people stayed.
+leaving the page.
 
 <Figure
   src="/placeholder.png"
   caption="The product display page, with alternative colourways inline."
 />
 
-Then the size selector, which was the clearest source of hesitation in
-interviews, and the checkout flow behind it. Fewer steps, clearer state.
+Then the size selector, where 5 of the 8 interview participants stalled or
+visibly hesitated — the clearest single point of friction in the sessions.
+Behind it, the checkout flow. Fewer steps, clearer state.
 
 <Figure
   src="/placeholder.png"
@@ -81,13 +99,36 @@ interviews, and the checkout flow behind it. Fewer steps, clearer state.
 Collection pages were rebuilt alongside: better filtering, clearer
 categorisation, a more consistent grid.
 
-## What I’d do differently
+## What changed
 
 Search and navigation shipped first, with the PDP and checkout work following
-over the next quarter. The complaint that started the project — customers
-unable to find pairs they knew Kick Game stocked — stopped coming up.
+over the next quarter.
 
-I don’t have the post-launch numbers. If I ran this again I’d instrument
+The complaint that started the project — customers unable to find pairs they
+knew Kick Game stocked — arrived through Trustpilot reviews and support
+tickets, and came back second-hand from store staff fielding the same confusion
+in person. It ran at 20–30 a week before the work. Within 6 weeks of launch it
+was down to 3–8, and by week 10 it was isolated rather than routine.
+
+<Figure
+  src="/placeholder.png"
+  caption="Search as it shipped, with autocomplete and product detail in the results."
+/>
+
+<Figure
+  src="/placeholder.png"
+  caption="The size selector and the checkout behind it, at the end of the work."
+/>
+
+Complaint volume is a proxy, not a funnel. It tells me people stopped
+struggling to find things. It doesn’t tell me they bought more.
+
+## What I’d do differently
+
+I have the complaint volume and little else. If I ran this again I’d instrument
 zero-result searches, add-to-cart rate and cart-to-purchase before shipping
-anything. The changes were right and the reasoning held, but I couldn’t prove
-it, and that’s the part I’d fix.
+anything, so I could say what the work did to revenue rather than only to
+frustration.
+
+The changes were right and the reasoning held. I can prove half of it, and the
+half I can’t is the half a business would ask about first.
