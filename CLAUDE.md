@@ -116,20 +116,24 @@ beside the midpoint of the straight line, pushed right by 12px at a
 one-step move and further with distance, capped at 32px — so it bows toward
 the content column rather than back through the text. The path is diagonal
 because the labels are ragged and the square sits after the text, so x and
-y both interpolate. It also turns 90° clockwise on the same t, matching the
-bow, so the turn lands exactly when the travel does; a square looks the
-same at both ends, so the turn is something seen in flight and never at
-rest. The angle accumulates, so an interrupted move carries it forward
-instead of starting the quarter again. The curve is cubic-bezier(0.77, 0,
-0.175, 1) solved in JS — a strong ease-in-out, because this is movement
-between two on-screen positions rather than a reveal, and because the path
-is a curve and not a value; 400ms on requestAnimationFrame, one combined
-translate() rotate() per frame. A change mid-flight re-targets from where
-the square actually is, so a fast scroll neither snaps nor queues. Clicking
-an item suspends the observer for 700ms and the click owns the active
-section, so a smooth scroll past four headings is one move rather than five
-and one quarter turn rather than five. Under reduced motion it moves
-instantly, does not turn, and only the opacity fade remains.
+y both interpolate. It also turns a quarter clockwise on the same t,
+matching the bow, so the turn lands exactly when the travel does; a square
+looks the same at both ends of a quarter, so the turn is something seen in
+flight and never at rest. The angle accumulates and always lands on the
+next multiple of 90 — adding 90 to an interrupted angle instead would knock
+it off the grid for good, and one move cut short at 45° would leave it
+resting as a diamond from then on. Progress is driven by a critically
+damped spring (stiffness 157.9, damping 25.13) rather than a fixed
+duration, so an interruption bends the motion instead of restarting it from
+a standing start; carried velocity is rescaled by the ratio of the old path
+to the new and clamped below √stiffness, which is what guarantees no
+overshoot rather than merely making it unlikely. Half the path is covered
+in 133ms and 90% by 317ms; the rest is a sub-pixel settle. transform only,
+one combined translate() rotate() per frame. Clicking an item suspends the
+observer for 700ms and the click owns the active section, so a smooth
+scroll past four headings is one move rather than five. Under reduced
+motion it moves instantly, does not turn, and only the opacity fade
+remains.
 
 Every case study opens with an Overview. The template renders that heading
 and prepends it to the contents list, so a file starts straight into its

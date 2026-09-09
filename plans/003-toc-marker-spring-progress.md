@@ -1,6 +1,6 @@
 # 003 — Carry velocity through interruptions with a spring-driven progress
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: 637b518 (the animation itself is uncommitted working-tree state at
   the time of writing)
 - **Severity**: MEDIUM

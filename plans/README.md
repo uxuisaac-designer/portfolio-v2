@@ -12,7 +12,7 @@ need `improve-animations reconcile` before use.
 | --- | --- | --- | --- | --- |
 | [001](001-toc-marker-movement-easing.md) | Swap the contents marker to an ease-in-out movement curve | HIGH | Easing & duration | DONE |
 | [002](002-toc-marker-click-chase.md) | Stop the contents marker chasing every section on a click | MEDIUM | Purpose / Interruptibility | DONE |
-| [003](003-toc-marker-spring-progress.md) | Carry velocity through interruptions with a spring-driven progress | MEDIUM | Interruptibility | TODO |
+| [003](003-toc-marker-spring-progress.md) | Carry velocity through interruptions with a spring-driven progress | MEDIUM | Interruptibility | DONE |
 
 ## Recommended order
 

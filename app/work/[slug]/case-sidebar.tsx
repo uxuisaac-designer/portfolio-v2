@@ -4,11 +4,10 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import Icon from "../../icons";
-import { controlFor, ease, pointOn, type Point } from "./toc-marker";
+import { controlFor, pointOn, type Point } from "./toc-marker";
+import { advance, atRest, retarget, type Spring } from "./toc-spring";
 
 export type Heading = { id: string; text: string };
-
-const DURATION = 400;
 
 /* A quarter turn per move, clockwise — the same direction the path bows, so
    the square reads as being carried around the bend rather than spun in
@@ -37,6 +36,12 @@ export default function CaseSidebar({ headings }: { headings: Heading[] }) {
      the rotation accumulate instead of restarting at zero. */
   const positionRef = useRef<Point | null>(null);
   const angleRef = useRef(0);
+
+  /* Progress along the current path and its velocity, carried across
+     interruptions, alongside the length of that path so the carried velocity
+     can be rescaled to the new one. */
+  const springRef = useRef<Spring>({ value: 1, velocity: 0 });
+  const spanRef = useRef(0);
 
   /* Read by the resize observer, which must not be rebuilt every time the
      active section changes — re-observing fires the callback immediately,
@@ -167,20 +172,37 @@ export default function CaseSidebar({ headings }: { headings: Heading[] }) {
 
     const control = controlFor(from, to, distance);
 
-    /* Continues from wherever the last turn got to, so an interrupted move
-       carries its angle forward rather than starting the quarter again. */
+    /* Continues from wherever the last turn got to, and lands on the next
+       quarter of the circle rather than a quarter further on. Adding 90 to an
+       interrupted angle knocks the square off the grid permanently — one move
+       cut short at 45° and it rests as a diamond from then on. */
     const fromAngle = angleRef.current;
-    const start = performance.now();
+    const toAngle = (Math.floor(angleRef.current / TURN) + 1) * TURN;
+
+    springRef.current = retarget(springRef.current, spanRef.current, distance);
+    spanRef.current = distance;
+
+    let last = performance.now();
 
     const step = (now: number) => {
-      const fraction = Math.min(1, (now - start) / DURATION);
-      const t = ease(fraction);
+      springRef.current = advance(springRef.current, 1, (now - last) / 1000);
+      last = now;
+
+      const t = springRef.current.value;
 
       /* One t drives both, so the turn finishes exactly when the travel
          does. */
-      draw(pointOn(from, control, to, t), fromAngle + TURN * t);
+      draw(pointOn(from, control, to, t), fromAngle + (toAngle - fromAngle) * t);
 
-      frameRef.current = fraction < 1 ? requestAnimationFrame(step) : null;
+      if (atRest(springRef.current, 1)) {
+        /* Landed exactly, so the square is square and the next move starts
+           from a clean grid angle. */
+        draw(to, toAngle);
+        frameRef.current = null;
+        return;
+      }
+
+      frameRef.current = requestAnimationFrame(step);
     };
 
     frameRef.current = requestAnimationFrame(step);
