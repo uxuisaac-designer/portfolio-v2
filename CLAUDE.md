@@ -148,17 +148,18 @@ remains.
 The work itself lives in app/projects.ts, one list read two ways: the
 homepage renders it grouped by employer, case studies read it flattened to
 find their neighbours, so adding a project updates both. Only projects with
-an href join the previous/next chain — walking the full list would point at
-pages that do not exist, and navigation that 404s is worse than navigation
-that is not there. Neighbours are list positions rather than dates, so
-previous is the entry above on the homepage and therefore the more recent
-work. Neither end wraps, and a missing side leaves no empty slot: a lone
-next still sits right. Below 64rem the sidebar is gone, so the Index link
-is repeated at the top of the content column and hidden again once the
-sidebar returns. The footer is the homepage's, shared from app/ — .page is
-a flex column whose 24px gap .footer's margin is measured against, and the
-case column is a plain block, so it takes the whole 96px step there
-instead.
+an href join the chain — walking the full list would point at pages that do
+not exist, and navigation that 404s is worse than navigation that is not
+there. The list runs most recent first, so the entry above is Newer and the
+entry below Older, and they are named that in the code as well as the UI:
+"previous" read either way, which is the ambiguity the labels exist to
+settle. Newer sits left, Older right. Neither end wraps, and a missing side
+leaves no empty slot — a lone Older keeps its column and stays right. Below
+64rem the sidebar is gone, so the Index link is repeated at the top of the
+content column and hidden again once the sidebar returns. The footer is the
+homepage's, shared from app/ — .page is a flex column whose 24px gap
+.footer's margin is measured against, and the case column is a plain block,
+so it takes the whole 96px step there instead.
 
 content/work/_case-study.mdx is the blank to copy. A leading underscore
 means the route generator and the draft scan both skip it, and

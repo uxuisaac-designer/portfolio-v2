@@ -105,24 +105,25 @@ export const timeline: TimelineEntry[] = groups.flatMap((group) =>
   group.items.map((item) => ({ ...item, company: group.company })),
 );
 
-/* Neighbours are list positions, not dates: previous is the entry above on
-   the homepage, so it is the more recent piece of work. Hidden entries drop
-   out of the chain entirely rather than leaving a gap, so a draft in the
-   middle joins the two either side of it. */
+/* The list runs most recent first, so the entry above is the newer work and
+   the entry below the older. Named for that rather than for list direction:
+   "previous" read either way, which is the ambiguity these labels exist to
+   settle. Hidden entries drop out of the chain entirely rather than leaving a
+   gap, so a draft in the middle joins the two either side of it. */
 export function neighboursFor(
   href: string,
   hidden: ReadonlySet<string> = new Set(),
 ): {
-  previous: TimelineEntry | null;
-  next: TimelineEntry | null;
+  newer: TimelineEntry | null;
+  older: TimelineEntry | null;
 } {
   const published = timeline.filter((entry) => !hidden.has(entry.href));
   const index = published.findIndex((entry) => entry.href === href);
 
-  if (index === -1) return { previous: null, next: null };
+  if (index === -1) return { newer: null, older: null };
 
   return {
-    previous: published[index - 1] ?? null,
-    next: published[index + 1] ?? null,
+    newer: published[index - 1] ?? null,
+    older: published[index + 1] ?? null,
   };
 }

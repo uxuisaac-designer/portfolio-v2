@@ -966,9 +966,9 @@ body {
     gap: 1rem;
   }
 
-  /* A lone next sits right, where next always sits — the missing previous
+  /* A lone older sits right, where older always sits — the missing newer
      does not pull it across into the empty half. */
-  .case-nav-item[data-direction="next"] {
+  .case-nav-item[data-direction="older"] {
     grid-column: 2;
     text-align: right;
   }

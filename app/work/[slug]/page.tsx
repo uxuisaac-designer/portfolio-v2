@@ -67,14 +67,14 @@ async function outlineFor(slug: string) {
   };
 }
 
-/* Previous sits left and next right on a wide column; below the breakpoint
-   they stack, previous first, which is the source order. */
+/* Newer sits left and older right on a wide column; below the breakpoint they
+   stack, newer first, which is the source order. */
 function CaseNavLink({
   entry,
   direction,
 }: {
   entry: TimelineEntry;
-  direction: "Previous" | "Next";
+  direction: "Newer" | "Older";
 }) {
   return (
     <Link
@@ -115,7 +115,7 @@ export default async function CaseStudy({
   params,
 }: PageProps<"/work/[slug]">) {
   const { slug } = await params;
-  const { previous, next } = neighboursFor(
+  const { newer, older } = neighboursFor(
     `/work/${slug}`,
     await hiddenHrefs(),
   );
@@ -174,10 +174,10 @@ export default async function CaseStudy({
             become the current section. */}
         <div className="case-end" aria-hidden="true" />
 
-        {(previous || next) && (
+        {(newer || older) && (
           <nav className="case-nav" aria-label="Other case studies">
-            {previous ? <CaseNavLink entry={previous} direction="Previous" /> : null}
-            {next ? <CaseNavLink entry={next} direction="Next" /> : null}
+            {newer ? <CaseNavLink entry={newer} direction="Newer" /> : null}
+            {older ? <CaseNavLink entry={older} direction="Older" /> : null}
           </nav>
         )}
 
