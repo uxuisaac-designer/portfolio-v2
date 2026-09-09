@@ -49,7 +49,15 @@ need `improve-animations reconcile` before use.
   the segmented pill because "a stretch would distort the label"; the same
   reasoning applies to a 6px square, and the site's personality is restrained
   monochrome rather than playful.
-- **Two LOW findings** were raised in the audit and not selected for plans: no
-  `will-change: transform` on `.case-toc-marker` (`app/globals.css:759`), and
-  `150ms` hand-typed four times in `app/globals.css` (lines 673, 729, 770, 781)
-  where seven duration tokens already exist.
+- **The two LOW findings** raised in the audit were settled directly rather than
+  planned. `will-change: transform` was added to `.case-toc-marker`. The
+  "hand-typed 150ms" finding was rejected as framed — tokenising the number was
+  tidying, and the real defect underneath was that `.case-index` and
+  `.case-toc-item` transitioned symmetrically while CLAUDE.md documents hover as
+  asymmetric, 100ms in and 200ms out. Both now use `--duration-hover-in` and
+  `--duration-hover-out`, which removes the hardcoded values as a side effect.
+
+  Two uses of `150ms` remain and are correct: `.case-toc-marker`'s one-time
+  opacity fade is not a hover, and `.theme-toggle` (`app/globals.css:673`) is
+  the same asymmetry defect outside the sidebar — still open, deliberately, as
+  it was out of scope for this pass.

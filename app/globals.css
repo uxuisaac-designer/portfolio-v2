@@ -726,12 +726,13 @@ body {
   gap: 0.5rem;
   color: var(--muted);
   text-decoration: none;
-  transition: color 150ms var(--ease-hover);
+  transition: color var(--duration-hover-out) var(--ease-hover);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .case-index:hover {
     color: var(--text);
+    transition-duration: var(--duration-hover-in);
   }
 }
 
@@ -767,6 +768,10 @@ body {
   background: var(--text);
   opacity: 0;
   pointer-events: none;
+  /* A frame loop writes transform on this element throughout a scroll, which
+     is when the main thread is busiest. One small element promoted on purpose
+     is what this property is for. */
+  will-change: transform;
   transition: opacity 150ms var(--ease-hover);
 }
 
@@ -778,7 +783,7 @@ body {
   color: var(--muted);
   text-decoration: none;
   text-wrap: pretty;
-  transition: color 150ms var(--ease-hover);
+  transition: color var(--duration-hover-out) var(--ease-hover);
 }
 
 .case-toc-item[data-active] {
@@ -789,6 +794,7 @@ body {
 @media (hover: hover) and (pointer: fine) {
   .case-toc-item:hover {
     color: var(--text);
+    transition-duration: var(--duration-hover-in);
   }
 }
 
