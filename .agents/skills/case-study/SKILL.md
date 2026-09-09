@@ -1,6 +1,6 @@
 ---
 name: case-study
-description: Rewrite a case study for this portfolio into polished MDX aimed at design recruiters and hiring managers, then interrogate it for the numbers that make it credible. Use this whenever the user wants to write, rewrite, polish, tighten or restructure a case study, or gives a URL or slug and asks for it to be turned into a case study page — including phrasings like "make this read better", "write up the Klekt project", "this page is weak", or "add stats to this". Also use it when replacing placeholder content in content/work/*.mdx with real writing.
+description: Rewrite a case study for this portfolio into polished MDX aimed at design recruiters and hiring managers, then interrogate the draft for the numbers that make it credible — writing the file, wiring app/projects.ts, and reporting what evidence is still missing. Only runs when explicitly invoked; it does not trigger on its own.
 ---
 
 # Writing a case study
