@@ -135,6 +135,21 @@ scroll past four headings is one move rather than five. Under reduced
 motion it moves instantly, does not turn, and only the opacity fade
 remains.
 
+The work itself lives in app/projects.ts, one list read two ways: the
+homepage renders it grouped by employer, case studies read it flattened to
+find their neighbours, so adding a project updates both. Only projects with
+an href join the previous/next chain — walking the full list would point at
+pages that do not exist, and navigation that 404s is worse than navigation
+that is not there. Neighbours are list positions rather than dates, so
+previous is the entry above on the homepage and therefore the more recent
+work. Neither end wraps, and a missing side leaves no empty slot: a lone
+next still sits right. Below 64rem the sidebar is gone, so the Index link
+is repeated at the top of the content column and hidden again once the
+sidebar returns. The footer is the homepage's, shared from app/ — .page is
+a flex column whose 24px gap .footer's margin is measured against, and the
+case column is a plain block, so it takes the whole 96px step there
+instead.
+
 Every case study opens with an Overview. The template renders that heading
 and prepends it to the contents list, so a file starts straight into its
 prose and cannot forget one. A file that writes its own `## Overview` keeps

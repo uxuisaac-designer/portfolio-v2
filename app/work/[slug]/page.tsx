@@ -2,6 +2,12 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
 import GithubSlugger from "github-slugger";
+import Link from "next/link";
+
+import Footer from "../../footer";
+import Icon from "../../icons";
+import { londonTime } from "../../london-time";
+import { neighboursFor, type TimelineEntry } from "../../projects";
 
 import CaseSidebar, { type Heading } from "./case-sidebar";
 
@@ -55,10 +61,33 @@ async function outlineFor(slug: string) {
   };
 }
 
+/* Previous sits left and next right on a wide column; below the breakpoint
+   they stack, previous first, which is the source order. */
+function CaseNavLink({
+  entry,
+  direction,
+}: {
+  entry: TimelineEntry;
+  direction: "Previous" | "Next";
+}) {
+  return (
+    <Link
+      className="case-nav-item"
+      href={entry.href as string}
+      data-direction={direction.toLowerCase()}
+    >
+      <span className="case-nav-direction">{direction}</span>
+      <span className="case-nav-name">{entry.name}</span>
+      <span className="case-nav-company">{entry.company}</span>
+    </Link>
+  );
+}
+
 export default async function CaseStudy({
   params,
 }: PageProps<"/work/[slug]">) {
   const { slug } = await params;
+  const { previous, next } = neighboursFor(`/work/${slug}`);
   const { default: Content, meta } = await import(
     `../../../content/work/${slug}.mdx`
   );
@@ -74,6 +103,14 @@ export default async function CaseStudy({
       <CaseSidebar headings={headings} />
 
       <article className="case-column">
+        {/* The sidebar, and the Index link inside it, are gone below 64rem.
+            This puts the way back at the top of the column instead, and is
+            hidden again once the sidebar returns. */}
+        <Link className="case-index case-index-inline" href="/">
+          <Icon name="return" />
+          Index
+        </Link>
+
         <header className="case-header">
           {meta.company ? (
             <p className="case-company">{meta.company}</p>
@@ -103,6 +140,15 @@ export default async function CaseStudy({
             is not enough content beneath it — so without this it could never
             become the current section. */}
         <div className="case-end" aria-hidden="true" />
+
+        {(previous || next) && (
+          <nav className="case-nav" aria-label="Other case studies">
+            {previous ? <CaseNavLink entry={previous} direction="Previous" /> : null}
+            {next ? <CaseNavLink entry={next} direction="Next" /> : null}
+          </nav>
+        )}
+
+        <Footer initial={londonTime(new Date())} />
       </article>
     </div>
   );

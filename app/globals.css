@@ -641,6 +641,14 @@ body {
   color: var(--muted);
 }
 
+/* .page is a flex column with a 24px gap, and .footer's margin is the
+   section step minus that gap. The case column is a plain block with no gap
+   to make up the difference, so the footer takes the whole step here and
+   lands the same 96px from the content as it does on the homepage. */
+.case-column .footer {
+  margin-top: var(--space-section);
+}
+
 .footer-face {
   white-space: nowrap;
 }
@@ -740,6 +748,18 @@ body {
 .case-toc-item:focus-visible {
   outline: 2px solid var(--text);
   outline-offset: 2px;
+}
+
+/* The mirror of .case-sidebar's breakpoint: this one is present until the
+   sidebar arrives, and stands down when it does. */
+.case-index-inline {
+  margin-bottom: var(--space-stack);
+}
+
+@media (min-width: 64rem) {
+  .case-index-inline {
+    display: none;
+  }
 }
 
 .case-toc {
@@ -923,6 +943,72 @@ body {
   margin-top: var(--space-tight);
   color: var(--muted);
   text-wrap: pretty;
+}
+
+/* Stacked below the breakpoint, previous first because that is source
+   order; side by side above it, previous left and next right. */
+.case-nav {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: var(--space-section);
+}
+
+@media (min-width: 40rem) {
+  .case-nav {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  /* A lone next sits right, where next always sits — the missing previous
+     does not pull it across into the empty half. */
+  .case-nav-item[data-direction="next"] {
+    grid-column: 2;
+    text-align: right;
+  }
+}
+
+/* The project row's fill, bleed and press, on a different layout. */
+.case-nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 0.75rem var(--row-bleed);
+  margin-inline: calc(-1 * var(--row-bleed));
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--duration-hover-out) var(--ease-hover);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-nav-item:hover {
+    background-color: var(--hover);
+    transition-duration: var(--duration-hover-in);
+  }
+}
+
+.case-nav-item:active {
+  background-color: var(--press);
+  transition-duration: 0s;
+}
+
+.case-nav-item:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.case-nav-direction {
+  font-size: var(--font-size-label);
+  color: var(--muted);
+}
+
+.case-nav-name {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.case-nav-company {
+  color: var(--muted);
 }
 
 /* Zero-height marker at the foot of the article; see case-sidebar.tsx. */

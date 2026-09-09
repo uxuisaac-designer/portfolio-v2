@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 
 import Image from "next/image";
 
-import Footer from "./footer";
+import Footer from "../footer";
 import Greeting from "./greeting";
-import { londonTime } from "./london-time";
+import { londonTime } from "../london-time";
 import Nav from "./nav";
 import Section from "./section";
 
