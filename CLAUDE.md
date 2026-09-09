@@ -110,6 +110,16 @@ eyebrow and the fact strip already carry those.
 Title, tagline and strip sit in one <header>, so the 96px section gap
 falls below the group rather than inside it.
 
+<Figure> takes .mp4 or .webm as well as an image and renders a muted,
+looping clip: preload is none and an IntersectionObserver plays it only
+while a quarter of it is on screen, so nothing is fetched before it is near
+and nothing runs behind the reader. It does not stand down under reduced
+motion — a deliberate exception, since the motion is the evidence rather
+than decoration. GIFs are converted rather than embedded; a screen
+recording is many times smaller as video and a GIF cannot be paused at all.
+`ratio` overrides the 16:9 frame per figure, which is what portrait phone
+recordings need — 16:9 with object-fit cover would crop them to a strip.
+
 The contents list carries a 6px square at the active label, --text and
 square-cornered. It travels a quadratic Bézier whose control point sits
 beside the midpoint of the straight line, pushed right by 12px at a

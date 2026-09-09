@@ -2,78 +2,103 @@ export const meta = {
   title: "Consignment app",
   company: "Kick Game",
   tagline:
-    "An app for consignors tracking luxury goods they have handed over to sell.",
+    "Giving the consignors who supply the platform an app built for selling, not browsing.",
   role: "Senior Product Designer",
   timeline: "2023",
   team: "Solo design",
-  software: "Figma, TestFlight, Maze.io",
+  software: "Figma, Notion, Maze.io",
   draft: false,
 };
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
-erat a ante venenatis dapibus posuere velit aliquet. Cras mattis consectetur
-purus sit amet fermentum, vestibulum id ligula porta felis euismod.
-
-Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac
-cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-amet risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Pellentesque ornare sem lacinia quam venenatis vestibulum.
-
-## Handing over stock
-
-Maecenas sed diam eget risus varius blandit sit amet non magna. Donec
-ullamcorper nulla non metus auctor fringilla. Nullam quis risus eget urna
-mollis ornare vel eu leo, cum sociis natoque penatibus et magnis dis
-parturient montes, nascetur ridiculus mus.
+Kick Game’s consignors are its supply. They list rare pairs on the platform and
+take a cut when they sell — some casually, some as a full income. The app they
+used to do it was an afterthought of the buyer experience.
 
 <Figure
   src="/placeholder.png"
-  caption="The paper intake form the app replaced."
+  caption="The consignment app as it stood, built out of the buyer experience."
 />
 
-Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac
-cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-amet risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Pellentesque ornare sem lacinia quam venenatis vestibulum.
+## Consignors were leaving
 
-Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque
-ornare sem lacinia quam venenatis vestibulum. Integer posuere erat a ante
-venenatis dapibus posuere velit aliquet.
-
-## What consignors asked
-
-Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta
-gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat
-porttitor ligula, eget lacinia odio sem nec elit.
+I interviewed consignors from Kick Game’s own list, then ran usability tests on
+our app and on the competitors they were also selling through.
 
 <Figure
   src="/placeholder.png"
-  caption="Status, from intake through to payout."
+  caption="Interviews and usability tests, ours alongside the platforms they were also selling on."
 />
 
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla.
+Testing both was the useful part. Our flows were unclear and the interface
+confused people, but that alone doesn’t lose you sellers. What did was the
+feature gap — things consignors had elsewhere and couldn’t do here. They
+weren’t choosing between platforms on taste. They were choosing on capability.
 
-## Payouts
+## Sellers aren’t shoppers
 
-Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac
-cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-amet risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Pellentesque ornare sem lacinia quam venenatis vestibulum.
+The pattern across the interviews: consignors are operators. They’re tracking
+what’s listed, what’s sold, what’s about to expire, and what needs repricing.
+That’s a business, and the app was built as though they were browsing.
+
+I mapped the consignor journey from that — not the ideal path, but the one they
+were actually walking, with the points where they gave up and opened a
+competitor instead.
 
 <Figure
   src="/placeholder.png"
-  caption="The payout screen and its statement."
+  caption="The consignor journey as walked, with the points where people left for a competitor."
 />
 
-Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-Aenean lacinia bibendum nulla sed consectetur.
+## A system first
 
-Curabitur blandit tempus porttitor. Nullam id dolor id nibh ultricies
-vehicula ut id elit.
+Before any screens, I built the design system and UI library — colour, type,
+iconography, interaction patterns, and a full dark mode set.
 
-## What I would change
+<Figure
+  src="/placeholder.png"
+  caption="The UI library: colour, type, iconography and interaction patterns, light and dark."
+/>
 
-Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque
-ornare sem lacinia quam venenatis vestibulum. Integer posuere erat a ante
-venenatis dapibus posuere velit aliquet.
+Doing this first was a decision about pace. I was the only designer on it, and a
+component library meant the later features cost hours instead of days.
+
+## Listing something
+
+Sign-up and sign-in came first, with social logins, since that was the point new
+consignors dropped off before ever listing.
+
+Then the sell flow, which is the thing consignors do most and had the most
+friction. Faster search, fewer steps, less to think about between having a pair
+and having it listed.
+
+{/* Clip slot. Swap src for /clips/sell-flow.mp4 and add ratio="9 / 16" when
+    the converted recording lands — see CLAUDE.md under Case studies. */}
+<Figure
+  src="/placeholder.png"
+  caption="The sell flow, from searching for a pair to having it listed."
+/>
+
+## Staying informed and in control
+
+A notification centre with push, so consignors know when something sells or
+needs attention without opening the app to check.
+
+{/* Clip slot. Swap src for /clips/notifications.mp4 and add ratio="9 / 16". */}
+<Figure
+  src="/placeholder.png"
+  caption="The notification centre, and a push arriving as a pair sells."
+/>
+
+Then manage listings — pause and extend. Small features, and the ones that came
+up most in interviews. A consignor who’s sold a pair elsewhere needs to pull it
+here, immediately.
+
+## What I’d do differently
+
+I designed this solo, which meant I could move quickly and it also meant nobody
+was checking my reasoning. I’d want a second designer on the flows now, or at
+least a structured critique.
+
+I don’t have the post-launch numbers. If I ran it again I’d instrument listing
+completion rate and time-from-open-to-listed before shipping — the sell flow was
+the whole point of the project and I can’t tell you by how much it improved.

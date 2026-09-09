@@ -935,7 +935,14 @@ body {
   background: var(--hover);
 }
 
-.case-figure-frame img {
+/* A clip fills the frame the way an Image with `fill` does, so the two are
+   interchangeable inside it. */
+.case-figure-frame img,
+.case-figure-frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
