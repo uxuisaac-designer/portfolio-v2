@@ -92,14 +92,29 @@ is the one piece of colour on the page and a deliberate exception.
 
 ## Case studies
 Content is MDX in content/work/*.mdx, rendered by app/work/[slug]. Each
-file exports a `meta` with title and date. Headings are extracted from the
-source on the server with the same slugger rehype-slug uses, so the
-contents list ships in the HTML and its links match the heading ids; only
-the active item is client work. The list appears at four headings or more.
+file exports a `meta` with title, company and tagline, plus optional role,
+timeline, team and software — these render as the fact strip under the
+title. Label and value both sit at label size; the pair separates on colour
+and the --hover pill at 6px, not on scale. A field left out leaves no gap
+rather than an empty column. Headings are extracted from the source on the
+server with the same slugger rehype-slug uses, so the contents list ships
+in the HTML and its links match the heading ids; only the active item is
+client work. The list appears at four headings or more.
 Images go through <Figure>, which is exposed to MDX via mdx-components.tsx.
 The frame holds a 16:9 ratio, so a block is the right size before the image
 loads and the layout never depends on the file's own dimensions.
-`meta.date` carries the subtitle, not just a date — "Kick Game · 2022".
+The company sits above the title as an eyebrow at label size in --muted, so
+the title stays the first thing read. The tagline below is a sentence saying
+what the work was for, not a subtitle naming the employer and year — the
+eyebrow and the fact strip already carry those.
+Title, tagline and strip sit in one <header>, so the 96px section gap
+falls below the group rather than inside it.
+
+Every case study opens with an Overview. The template renders that heading
+and prepends it to the contents list, so a file starts straight into its
+prose and cannot forget one. A file that writes its own `## Overview` keeps
+it and the template stands down — two headings at id="overview" would break
+both the contents link and the scroll spy.
 
 ## Icons
 Lucide is the icon library. Every icon renders through the Icon wrapper in

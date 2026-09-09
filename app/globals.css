@@ -766,6 +766,14 @@ body {
   }
 }
 
+/* An eyebrow above the title: label size and muted, so the title stays the
+   first thing read. It names the employer, which the fact strip does not. */
+.case-company {
+  margin: 0;
+  font-size: var(--font-size-label);
+  color: var(--muted);
+}
+
 /* Title sits at body size; the weight is what marks it, as everywhere. */
 .case-title {
   margin: 0;
@@ -775,9 +783,54 @@ body {
   letter-spacing: var(--letter-spacing-body);
 }
 
-.case-date {
-  margin: 0 0 var(--space-section);
+/* Title, date and the fact strip are one block, so the section gap sits
+   below the group rather than between the date and the strip. */
+.case-header {
+  margin-bottom: var(--space-section);
+}
+
+/* A sentence, not a date line — it wraps, so it gets pretty balancing. */
+.case-tagline {
+  margin: 0;
   color: var(--muted);
+  text-wrap: pretty;
+}
+
+.case-meta {
+  display: flex;
+  flex-wrap: wrap;
+  /* Row gap is genuinely the larger of the two, so a wrapped strip still
+     reads as rows of facts rather than as columns with a wide split. The
+     label-above-pill pairing does the rest of the grouping. */
+  gap: var(--space-stack) 1.25rem;
+  margin: var(--space-stack) 0 0;
+}
+
+.case-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.case-meta-label {
+  font-size: var(--font-size-label);
+  color: var(--muted);
+}
+
+/* align-self keeps the pill the width of its own text; stretched to the
+   column it would read as a field, not a value. dd carries a UA indent
+   that has to go. */
+.case-meta-value {
+  align-self: start;
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  background: var(--hover);
+  /* Label size, matching the label above it. The pair separates on colour
+     and the pill, not on scale — the type system has two sizes and this
+     whole strip is meta, which is what the smaller one is for. */
+  font-size: var(--font-size-label);
+  color: var(--text);
 }
 
 .case-body > * {
@@ -803,6 +856,12 @@ body {
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-body);
   scroll-margin-top: 5rem;
+}
+
+/* The Overview heading opens the body, so the header's section gap below
+   it is the whole gap — the heading must not add a second one on top. */
+.case-body h2:first-child {
+  margin-top: 0;
 }
 
 .case-body h2::after {
