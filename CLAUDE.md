@@ -153,9 +153,14 @@ instead.
 content/work/_case-study.mdx is the blank to copy. A leading underscore
 means the route generator and the draft scan both skip it, and
 dynamicParams is false so only generated slugs are served — a URL with no
-file behind it is a 404 rather than a 500 from the dynamic import. The
-template is a starting point, not a guarantee: nothing validates a case
-study against it, and every meta field is optional at render time.
+file behind it is a 404 rather than a 500 from the dynamic import. Copying
+the template is not enforced, but a published case study must carry a
+title, company and tagline: the page throws at build if one is missing, and
+every case study is prerendered, so the build fails rather than shipping a
+blank heading. Drafts are exempt, so unfinished work can be half-written.
+The fact strip's fields stay optional — it omits a missing one rather than
+showing an empty column. The failure this really catches is a typo in a
+field name, which renders as silent nothing and reads as a styling bug.
 
 `draft: true` in a case study's meta keeps it out of the homepage rows and
 the previous/next chain in production; in development it is linked as
