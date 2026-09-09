@@ -89,6 +89,28 @@ function CaseNavLink({
   );
 }
 
+/* A draft can be half-written; a published one cannot. These three make the
+   header, and a missing one renders as silent nothing rather than an error,
+   which reads as a styling bug rather than a data one — the usual cause is a
+   typo in the field name. Every case study is prerendered, so throwing here
+   fails the build rather than shipping a blank heading.
+
+   The fact strip's fields are deliberately not required: it omits a missing
+   one rather than showing an empty column. */
+const REQUIRED = ["title", "company", "tagline"] as const;
+
+function assertPublishable(slug: string, meta: Record<string, unknown>) {
+  if (meta.draft) return;
+
+  const missing = REQUIRED.filter((field) => !meta[field]);
+  if (missing.length === 0) return;
+
+  throw new Error(
+    `content/work/${slug}.mdx is published but missing ${missing.join(", ")}. ` +
+      `Add the field, or set draft: true while it is unfinished.`,
+  );
+}
+
 export default async function CaseStudy({
   params,
 }: PageProps<"/work/[slug]">) {
@@ -100,6 +122,8 @@ export default async function CaseStudy({
   const { default: Content, meta } = await import(
     `../../../content/work/${slug}.mdx`
   );
+  assertPublishable(slug, meta);
+
   const { headings, renderOverview } = await outlineFor(slug);
 
   const facts = META_FIELDS.flatMap(([label, key]) => {
