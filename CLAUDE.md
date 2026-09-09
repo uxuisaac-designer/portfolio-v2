@@ -97,6 +97,9 @@ source on the server with the same slugger rehype-slug uses, so the
 contents list ships in the HTML and its links match the heading ids; only
 the active item is client work. The list appears at four headings or more.
 Images go through <Figure>, which is exposed to MDX via mdx-components.tsx.
+The frame holds a 16:9 ratio, so a block is the right size before the image
+loads and the layout never depends on the file's own dimensions.
+`meta.date` carries the subtitle, not just a date — "Kick Game · 2022".
 
 ## Icons
 Lucide is the icon library. Every icon renders through the Icon wrapper in
@@ -120,9 +123,10 @@ suppressHydrationWarning because of it.
 Known-open, deliberately. Each says what unblocks it, so none of these get
 rediscovered or re-litigated.
 
-- **Project rows are not links.** The hover fill, name underline, press
-  state and .row:focus-visible are all built and waiting. Unblocked when
-  the case studies exist and the rows get hrefs.
+- **Six of the seven project rows are still not links.** Buyer experience
+  points at its case study; the rest render the same markup as a div, so
+  the hover fill, name underline, press state and focus ring already read
+  identically either way. Each becomes a link as its case study lands.
 - **Nav segments are buttons, not links.** Driven by router.push, as
   specified. The cost is real now that Writing and Lab are reachable: no
   middle-click, no open-in-new-tab, nothing for a crawler to follow.

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const placeholder = "/placeholder.png";
 
@@ -44,6 +45,7 @@ const projects = [
         name: "Buyer experience",
         description: "Purchase flow for authenticated premium goods",
         thumbnail: placeholder,
+        href: "/work/kick-game-buyer-experience",
       },
     ],
   },
@@ -103,19 +105,37 @@ export default function Work() {
           <p className="group-role">{group.role}</p>
           <p className="group-context">{group.context}</p>
           <ul className="list group-projects">
-            {group.items.map((project) => (
-              <li className="row" key={project.name}>
-                <Image
-                  className="row-thumbnail"
-                  src={project.thumbnail}
-                  alt=""
-                  width={64}
-                  height={64}
-                />
-                <span className="row-name">{project.name}</span>
-                <span className="row-description">{project.description}</span>
-              </li>
-            ))}
+            {group.items.map((project) => {
+              const content = (
+                <>
+                  <Image
+                    className="row-thumbnail"
+                    src={project.thumbnail}
+                    alt=""
+                    width={64}
+                    height={64}
+                  />
+                  <span className="row-name">{project.name}</span>
+                  <span className="row-description">{project.description}</span>
+                </>
+              );
+
+              /* Only the rows with a case study behind them are links. The
+                 rest carry the same markup as a plain div, so the hover and
+                 press states read identically and nothing moves when the
+                 remaining case studies land and each one gains an href. */
+              return (
+                <li key={project.name}>
+                  {"href" in project && project.href ? (
+                    <Link className="row" href={project.href}>
+                      {content}
+                    </Link>
+                  ) : (
+                    <div className="row">{content}</div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
       ))}

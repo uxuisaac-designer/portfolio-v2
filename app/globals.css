@@ -537,6 +537,11 @@ body {
   padding: 0.75rem var(--row-bleed);
   margin-inline: calc(-1 * var(--row-bleed));
   border-radius: 8px;
+  /* A row is a link where a case study exists and a div where one does not.
+     These two keep the anchor from bringing its own colour and underline,
+     so both render identically — .row-name draws the only underline. */
+  color: inherit;
+  text-decoration: none;
   transition: background-color var(--duration-hover-out) var(--ease-hover);
 }
 
@@ -813,7 +818,7 @@ body {
 
 .case-figure-frame {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   border-radius: 8px;
   overflow: hidden;
   background: var(--hover);
