@@ -1214,3 +1214,29 @@ body {
 .case-end {
   height: 1px;
 }
+
+/* Note pages.
+
+   A plain centred column — .case-column with no sidebar beside it, which
+   that class already supports: it is centred on its own and does not know
+   the sidebar exists. No contents list either. A case study is scanned by
+   someone looking for evidence, so it earns a jump list; a note is read
+   top to bottom. Dropping it also lifts the 24-character heading limit,
+   which exists only to stop the contents list rewrapping as you scroll. */
+
+/* The case route splits the Index link in two: .case-index styles it, and
+   .case-index-inline adds the bottom margin and then hides it above 64rem
+   where the sidebar takes the link over. A note has no sidebar, so it
+   needs the margin without the hiding. */
+.note-index {
+  margin-bottom: var(--space-stack);
+}
+
+/* Date and read time on one line under the title, at label size and muted
+   — the same pair the row's read time takes. It is metadata about the
+   title, not a second thing to read. */
+.note-date {
+  margin: 0;
+  font-size: var(--font-size-label);
+  color: var(--muted);
+}

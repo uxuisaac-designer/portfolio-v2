@@ -234,6 +234,50 @@ constructions, how to handle evidence, and why headings stay under about 24
 characters. It is the source; the case-study skill points at it rather than
 restating it, so the two cannot drift.
 
+## Notes
+Content is MDX in content/notes/*.mdx, rendered by app/notes/[slug]. Each
+file exports a `meta` with title, published and draft — three fields, not
+the case study's eight. A note belongs to nobody, so there is no company
+eyebrow and no fact strip.
+
+The reading page is a plain centred column: .case-column with no sidebar
+beside it and no contents list. A case study is scanned by someone hunting
+for evidence, so it earns a jump list; a note is read top to bottom. That
+also lifts the 24-character heading limit, which exists only to stop the
+contents list rewrapping as it gains weight 500 — a note's headings are
+free to run long, or to be absent entirely.
+
+The reading-page classes are shared rather than copied: .case-column,
+.case-body, .case-title, .case-header, .case-index and .case-nav all carry
+both routes. The case- prefix is inaccurate for half of what it now styles,
+and that is preferred to renaming twenty selectors for a name nobody reads.
+Two classes are the note's own — .note-index, which is .case-index-inline's
+margin without its hiding, and .note-date.
+
+app/notes.ts reads the directory rather than listing the notes by hand,
+the way app/case-studies.ts reads the work. Read time is the body's word
+count over 200 words a minute, floored at one so an empty file reads
+1 min read rather than 0. The meta block is stripped by counting braces
+rather than by regex, so a nested object cannot leave half a JavaScript
+literal in the count. Dates are formatted in UTC so a build machine's zone
+cannot shift one across midnight.
+
+The date does not appear on the /notes row. That row is a 1fr auto grid
+with a stacking breakpoint measured at a 343px column; a third item means
+redoing that measurement for nothing. The date sits on the note's own page,
+under the title, beside the read time.
+
+Newer/Older is its own chain over notes — a note's neighbour is a note,
+never a case study. .case-nav-item is a flex column of three spans, and the
+third, which holds the company on a case study, holds the read time here.
+
+Back goes to /notes, not to the index: a case study returns to the homepage
+because that is where the work is listed, and a note's list is its own page.
+
+`draft: true` behaves exactly as it does for a case study — out of the rows
+and the chain in production, linked as normal in development, and the route
+built either way so a draft is always reachable by URL.
+
 ## Icons
 Lucide is the icon library. Every icon renders through the Icon wrapper in
 app/icons.tsx and is referenced by name — nothing else imports
@@ -256,21 +300,6 @@ suppressHydrationWarning because of it.
 Known-open, deliberately. Each says what unblocks it, so none of these get
 rediscovered or re-litigated.
 
-- **Six of the seven project rows are still not links.** Buyer experience
-  points at its case study; the rest render the same markup as a div, so
-  the hover fill, name underline, press state and focus ring already read
-  identically either way. Each becomes a link as its case study lands.
-- **None of the five note rows are links.** No note is written yet, so each
-  is a div wearing the markup a link will wear — the wipe and the press
-  already read identically. This one costs more than the project rows do:
-  note titles wear the prose-link underline, which is visible at rest, so a
-  row reads as a link before it is one. They also have no focus ring, since
-  a div is not focusable; .page a:focus-visible picks them up the moment
-  they become anchors. Accepted deliberately —
-  the rows are the point of the page and a page of unmarked text would read
-  as a list of nothing. The read times in app/notes.ts are written by hand
-  for the same reason; they become a word count once there is prose to
-  count. Each row becomes a link as its note lands.
 - **Nav segments are buttons, not links.** Driven by router.push, as
   specified. The cost is real now that Notes and Lab are reachable: no
   middle-click, no open-in-new-tab, nothing for a crawler to follow.
