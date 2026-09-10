@@ -296,6 +296,17 @@ persisted. The provider sits at the top of <body> and writes the class from
 a blocking script before first paint, so nothing flashes; <html> carries
 suppressHydrationWarning because of it.
 
+The toggle shows the theme you are in — sun in light, moon in dark — and
+swaps the same way the logos do: both glyphs are rendered, stacked in one
+grid cell, and .dark picks which is up. The outgoing one turns a quarter
+clockwise, shrinks to half and fades while the incoming one turns in from a
+quarter behind, 300ms on the entrance curve, so the pair reads as one dial
+turning; going back it turns the other way. A transition rather than
+keyframes, so a double-click reverses from mid-swap. Under reduced motion
+only the cross-fade is left. This relies on the provider not setting
+disableTransitionOnChange, which would kill the swap along with everything
+else.
+
 ## Deferred
 Known-open, deliberately. Each says what unblocks it, so none of these get
 rediscovered or re-litigated.

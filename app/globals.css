@@ -874,6 +874,53 @@ body {
   border-radius: 4px;
 }
 
+/* The icon shows the theme you are in: sun in light, moon in dark. Both
+   glyphs sit in one grid cell and the .dark class picks which one is up.
+   A transition rather than keyframes, so a double-click reverses from
+   wherever the swap has got to instead of restarting it. */
+.theme-toggle-icon {
+  display: grid;
+}
+
+.theme-toggle-icon > span {
+  grid-area: 1 / 1;
+  display: flex;
+  transition: opacity 300ms var(--ease-out);
+}
+
+.theme-toggle-moon,
+.dark .theme-toggle-sun {
+  opacity: 0;
+}
+
+.dark .theme-toggle-moon {
+  opacity: 1;
+}
+
+/* The outgoing glyph turns a quarter clockwise and shrinks away while the
+   incoming one turns in from a quarter behind, so the pair reads as one
+   dial turning. Going back, the transitions run in reverse and the dial
+   turns the other way. Under reduced motion only the cross-fade is left. */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-toggle-icon > span {
+    transition:
+      opacity 300ms var(--ease-out),
+      transform 300ms var(--ease-out);
+  }
+
+  .theme-toggle-moon {
+    transform: rotate(-90deg) scale(0.5);
+  }
+
+  .dark .theme-toggle-sun {
+    transform: rotate(90deg) scale(0.5);
+  }
+
+  .dark .theme-toggle-moon {
+    transform: none;
+  }
+}
+
 /* Case study layout.
 
    The column is centred in the viewport exactly like .page, and the sidebar
