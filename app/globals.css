@@ -759,6 +759,30 @@ body {
   padding: 0.75rem 0;
 }
 
+/* Below this the title and the read time stop fitting on one line, and the
+   title wraps. Wrapping is what breaks it: the title is an inline-block so
+   the underline has a box to measure 100% against, and a wrapped
+   inline-block draws a single rule under its last line spanning the whole
+   box. Measured at a 343px column, the longest title here breaks to a
+   second line carrying one 25px word under a 263px rule.
+
+   So the row stacks instead — the title takes the full column and stays on
+   one line, and the read time drops beneath it at the same 2px the project
+   rows put between a name and its description.
+
+   30rem rather than the 24.9rem where it actually breaks (the widest row
+   needs 366px of the 343 a 375px phone gives it): the margin is there so a
+   title a few words longer than today's does not quietly start wrapping
+   again. It is a length limit, not a solution — stacked at 375px there is
+   room for about 50 characters before the underline breaks the same way. */
+@media (max-width: 30rem) {
+  .note-row {
+    grid-template-columns: 1fr;
+    align-items: start;
+    row-gap: 0.125rem;
+  }
+}
+
 /* .note-title is the grid item and stretches; .link-underline is the
    inline-block inside it and shrinks to the words. That nesting is load
    bearing — as a grid item, .link-underline would blockify to a full-width
