@@ -54,8 +54,14 @@ export default async function Work() {
                         key={index}
                         src={src}
                         alt=""
-                        width={64}
-                        height={64}
+                        /* The largest card's rendered size, not the
+                           240x320 the files are exported at: these are what
+                           next/image builds a srcset from, and declaring the
+                           export size fetched a 640px-wide file for a 33px
+                           card. Same 3:4 either way. CSS sets each card's
+                           real box. */
+                        width={33}
+                        height={44}
                       />
                     ))}
                   </span>

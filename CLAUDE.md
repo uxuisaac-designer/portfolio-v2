@@ -72,7 +72,9 @@ both directions — deliberately unlike the 100/200 house hover, because this
 is travel rather than a colour, and a fan that snapped shut on exit would
 read as a collapse. The row's fill still snaps in at 100ms and the cards
 drift behind it. Cards carry the same --border hairline as the logos, doing
-the separating a drop shadow would do elsewhere. At rest the fan is wholly
+the separating a drop shadow would do elsewhere — checked by eye on the
+Klekt pair, whose fans are white screens overlapping white screens, which
+is the hardest case the hairline has to carry. At rest the fan is wholly
 inside the box; at hover it reaches 1.2px left and 1.8px right, into the
 row's 12px bleed and the 16px gap to the text, so nothing clips it. Under
 reduced motion the fan comes off entirely rather than arriving instantly —
@@ -251,12 +253,10 @@ rediscovered or re-litigated.
   specified. The cost is real now that Writing and Lab are reachable: no
   middle-click, no open-in-new-tab, nothing for a crawler to follow.
   Styled <Link>s look identical if that becomes worth it.
-- **Dark-mode row thumbnails are bright.** placeholder.png is a light
-  block, so each row shows three white rectangles on the dark background.
-  Goes away when real case-study images land. Worth a second look then: the
-  cards separate from each other on the --border hairline alone, and a
-  shadow is not available to help. If it reads weak, the fix is a --bg
-  keyline inside the border, still no shadow.
+- **Dark-mode row thumbnails are bright.** Kick Game and Klekt carry real
+  cards now; Car & Classic's three are still placeholder.png, a light block,
+  so each shows three white rectangles on the dark background. Goes away as
+  the last case-study images land.
 - **Route change is a CSS fade, not the View Transitions API.** Reasoning
   under Tokens above. Revisit when ViewTransition ships in a stable React.
 - **CJK and Arabic greetings fall back to system fonts.** Noted under Hard

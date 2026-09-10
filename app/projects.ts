@@ -3,6 +3,18 @@
    updates both. */
 
 const placeholder = "/placeholder.png";
+const fanned = [placeholder, placeholder, placeholder] as const;
+
+/* The three cards live together under the case study's own slug, named for
+   the position they take in the fan rather than for what they show: the
+   front card is the only one read whole, and the outer two are chosen for
+   the strip of their outer edge that shows past it. */
+const cards = (slug: string) =>
+  [
+    `/work/${slug}/card-1-left.png`,
+    `/work/${slug}/card-2-front.png`,
+    `/work/${slug}/card-3-right.png`,
+  ] as const;
 
 export type Project = {
   name: string;
@@ -37,19 +49,19 @@ export const groups: Group[] = [
       {
         name: "Car insurance",
         description: "Insurance quote flow for classic car owners",
-        thumbnails: [placeholder, placeholder, placeholder],
+        thumbnails: fanned,
         href: "/work/car-insurance",
       },
       {
         name: "Design system",
         description: "A system for designers, developers and agents",
-        thumbnails: [placeholder, placeholder, placeholder],
+        thumbnails: fanned,
         href: "/work/design-system",
       },
       {
         name: "Dealer experience",
         description: "A selling dashboard for professional dealers",
-        thumbnails: [placeholder, placeholder, placeholder],
+        thumbnails: fanned,
         href: "/work/dealer-experience",
       },
     ],
@@ -65,13 +77,13 @@ export const groups: Group[] = [
       {
         name: "Consignment app",
         description: "An app for consignors selling luxury goods",
-        thumbnails: [placeholder, placeholder, placeholder],
+        thumbnails: cards("consignment-app"),
         href: "/work/consignment-app",
       },
       {
         name: "Buyer experience",
         description: "Purchase flow for authenticated premium goods",
-        thumbnails: [placeholder, placeholder, placeholder],
+        thumbnails: cards("kick-game-buyer-experience"),
         href: "/work/kick-game-buyer-experience",
       },
     ],
@@ -88,13 +100,13 @@ export const groups: Group[] = [
       {
         name: "Bidding flow",
         description: "Bidding on a sneaker and streetwear marketplace",
-        thumbnails: [placeholder, placeholder, placeholder],
+        thumbnails: cards("bidding-flow"),
         href: "/work/bidding-flow",
       },
       {
         name: "Marketplace improvements",
         description: "Listings, drops and search",
-        thumbnails: [placeholder, placeholder, placeholder],
+        thumbnails: cards("marketplace-improvements"),
         href: "/work/marketplace-improvements",
       },
     ],
