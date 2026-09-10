@@ -60,6 +60,25 @@ eight are stacked in one grid cell so the box reserves the widest and
 nothing reflows; each keeps its own dir, so Arabic types right to left
 from its own right edge. Under reduced motion it is a static "Hello" with
 a steady cursor.
+Project row thumbnails are three 3:4 cards fanned in the 64px column, the
+way a hand of cards sits before it is dealt — 24x32, 33x44 and 30x40, each
+absolutely centred on the box and placed by its own --x, --y and --r, drawn
+in one transform. The box stays the 64px the single thumbnail held, so
+nothing else in the row moves. On hover the outer two spread and turn
+further out while the middle card, which is the one on top, does not travel
+at all: it lifts 3px and grows 3%, so the fan opens around something rather
+than sliding sideways as a unit. 380ms on the entrance curve, the same in
+both directions — deliberately unlike the 100/200 house hover, because this
+is travel rather than a colour, and a fan that snapped shut on exit would
+read as a collapse. The row's fill still snaps in at 100ms and the cards
+drift behind it. Cards carry the same --border hairline as the logos, doing
+the separating a drop shadow would do elsewhere. At rest the fan is wholly
+inside the box; at hover it reaches 1.2px left and 1.8px right, into the
+row's 12px bleed and the 16px gap to the text, so nothing clips it. Under
+reduced motion the fan comes off entirely rather than arriving instantly —
+the resting fan is already the finished picture, so with the movement gone
+there is nothing left to show, and the fill is still the signal.
+
 Route change: cross-fades .section-content only, 200ms on the wipe curve.
 Everything above it lives in the layout and never re-renders.
 This is a CSS fade by choice, not for want of the View Transitions API.
@@ -233,8 +252,11 @@ rediscovered or re-litigated.
   middle-click, no open-in-new-tab, nothing for a crawler to follow.
   Styled <Link>s look identical if that becomes worth it.
 - **Dark-mode row thumbnails are bright.** placeholder.png is a light
-  block, so each row shows a white rectangle on the dark background. Goes
-  away when real case-study images land.
+  block, so each row shows three white rectangles on the dark background.
+  Goes away when real case-study images land. Worth a second look then: the
+  cards separate from each other on the --border hairline alone, and a
+  shadow is not available to help. If it reads weak, the fix is a --bg
+  keyline inside the border, still no shadow.
 - **Route change is a CSS fade, not the View Transitions API.** Reasoning
   under Tokens above. Revisit when ViewTransition ships in a stable React.
 - **CJK and Arabic greetings fall back to system fonts.** Noted under Hard

@@ -43,13 +43,22 @@ export default async function Work() {
             {group.items.map((project) => {
               const content = (
                 <>
-                  <Image
-                    className="row-thumbnail"
-                    src={project.thumbnail}
-                    alt=""
-                    width={64}
-                    height={64}
-                  />
+                  {/* Three cards fanned in the thumbnail column. Each is
+                      decorative — the name and description already say what
+                      the work is, and three alt texts on one row would read
+                      as three separate things. */}
+                  <span className="row-shots">
+                    {project.thumbnails.map((src, index) => (
+                      <Image
+                        className="row-shot"
+                        key={index}
+                        src={src}
+                        alt=""
+                        width={64}
+                        height={64}
+                      />
+                    ))}
+                  </span>
                   <span className="row-name">{project.name}</span>
                   <span className="row-description">{project.description}</span>
                 </>

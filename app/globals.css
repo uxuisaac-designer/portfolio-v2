@@ -577,12 +577,90 @@ body {
   outline-offset: 2px;
 }
 
-.row-thumbnail {
+/* Three cards fanned in the thumbnail column, the way a hand of cards sits
+   before it is dealt. The box stays the 64px the single thumbnail held, so
+   nothing else in the row moves; the cards themselves are 3:4 and centred on
+   it, each placed by its own --x, --y and --r. At rest the fan is wholly
+   inside the box; at full hover it reaches 1.2px past the left edge and
+   1.8px past the right, and never leaves it vertically. Nothing clips it —
+   the row carries 12px of bleed to its left and a 16px gap to the text on
+   its right, so the cards open into space that is already empty. */
+.row-shots {
   grid-row: span 2;
+  position: relative;
   width: 64px;
   height: 64px;
-  border-radius: 4px;
+}
+
+.row-shot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 3px;
   object-fit: cover;
+  /* One transform, composited: centre, place, turn, lift. */
+  transform: translate(-50%, -50%) translate(var(--x), var(--y))
+    rotate(var(--r)) scale(var(--s, 1));
+  /* Deliberately unlike the house hover, which is 100ms in and 200ms out:
+     this is travel, not a colour, so it takes the entrance curve and the
+     same duration in both directions. The row's fill still snaps in at
+     100ms and the cards drift behind it. A fan that snapped shut on exit
+     would read as a collapse rather than a fan. */
+  transition: transform 380ms var(--ease-out);
+}
+
+/* The middle card is the one on top and the one that does not travel — it
+   lifts and grows 3%, so the fan opens around something instead of sliding
+   sideways as a unit. */
+.row-shot:nth-child(1) {
+  z-index: 1;
+  width: 24px;
+  height: 32px;
+  --x: -13px;
+  --y: 0px;
+  --r: -10deg;
+}
+
+.row-shot:nth-child(2) {
+  z-index: 3;
+  width: 33px;
+  height: 44px;
+  --x: -1.5px;
+  --y: 0px;
+  --r: 0deg;
+}
+
+.row-shot:nth-child(3) {
+  z-index: 2;
+  width: 30px;
+  height: 40px;
+  --x: 11px;
+  --y: 0px;
+  --r: 7deg;
+}
+
+/* The fan opens. This is the one hover state on the page that comes off
+   entirely under reduced motion rather than arriving instantly: the resting
+   fan is already the finished picture, so with the movement gone there is
+   nothing left to show, and the row's fill is still the signal. */
+@media (hover: hover) and (pointer: fine) and
+  (prefers-reduced-motion: no-preference) {
+  .row:hover .row-shot:nth-child(1) {
+    --x: -17.5px;
+    --y: -3px;
+    --r: -15deg;
+  }
+
+  .row:hover .row-shot:nth-child(2) {
+    --y: -3px;
+    --s: 1.03;
+  }
+
+  .row:hover .row-shot:nth-child(3) {
+    --x: 15px;
+    --y: -2px;
+    --r: 12deg;
+  }
 }
 
 /* Only one logo variant is visible at a time; the other is not laid out. */
@@ -598,9 +676,11 @@ body {
   display: block;
 }
 
-/* Hairline so light-edged images keep a boundary against the page. */
+/* Hairline so light-edged images keep a boundary against the page. On the
+   fanned cards it does the job a drop shadow would do elsewhere: separate
+   each card from the one behind it. */
 .group-logo,
-.row-thumbnail {
+.row-shot {
   outline: 1px solid var(--border);
   outline-offset: -1px;
 }

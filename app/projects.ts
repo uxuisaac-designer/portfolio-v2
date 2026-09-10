@@ -7,7 +7,10 @@ const placeholder = "/placeholder.png";
 export type Project = {
   name: string;
   description: string;
-  thumbnail: string;
+  /* Three, fanned in the row. Exactly three: the fan's offsets and
+     rotations are written per card, so a fourth would have nowhere to sit
+     and two would leave a hole where the third belongs. */
+  thumbnails: readonly [string, string, string];
   /* Every project has a page. Whether it is linked depends on the case
      study's own `draft` flag — see app/case-studies.ts. */
   href: string;
@@ -34,19 +37,19 @@ export const groups: Group[] = [
       {
         name: "Car insurance",
         description: "Insurance quote flow for classic car owners",
-        thumbnail: placeholder,
+        thumbnails: [placeholder, placeholder, placeholder],
         href: "/work/car-insurance",
       },
       {
         name: "Design system",
         description: "A system for designers, developers and agents",
-        thumbnail: placeholder,
+        thumbnails: [placeholder, placeholder, placeholder],
         href: "/work/design-system",
       },
       {
         name: "Dealer experience",
         description: "A selling dashboard for professional dealers",
-        thumbnail: placeholder,
+        thumbnails: [placeholder, placeholder, placeholder],
         href: "/work/dealer-experience",
       },
     ],
@@ -62,13 +65,13 @@ export const groups: Group[] = [
       {
         name: "Consignment app",
         description: "An app for consignors selling luxury goods",
-        thumbnail: placeholder,
+        thumbnails: [placeholder, placeholder, placeholder],
         href: "/work/consignment-app",
       },
       {
         name: "Buyer experience",
         description: "Purchase flow for authenticated premium goods",
-        thumbnail: placeholder,
+        thumbnails: [placeholder, placeholder, placeholder],
         href: "/work/kick-game-buyer-experience",
       },
     ],
@@ -85,13 +88,13 @@ export const groups: Group[] = [
       {
         name: "Bidding flow",
         description: "Bidding on a sneaker and streetwear marketplace",
-        thumbnail: placeholder,
+        thumbnails: [placeholder, placeholder, placeholder],
         href: "/work/bidding-flow",
       },
       {
         name: "Marketplace improvements",
         description: "Listings, drops and search",
-        thumbnail: placeholder,
+        thumbnails: [placeholder, placeholder, placeholder],
         href: "/work/marketplace-improvements",
       },
     ],
