@@ -121,7 +121,15 @@ recording is many times smaller as video and a GIF cannot be paused at all.
 recordings need — 16:9 with object-fit cover would crop them to a strip.
 
 The contents list carries a 6px square at the active label, --text and
-square-cornered. It travels a quadratic Bézier whose control point sits
+square-cornered, beside a label that takes weight 500 when active. That
+weight sets a constraint on the writing: a heavier weight is wider, so a
+heading close to the column width rewraps as it becomes active and the list
+jumps while you scroll past it. Headings stay under about 24 characters so
+they sit on one line. The list also reserves 14px at its end — the 8px gap
+plus the square — because the sidebar scrolls, so overflow-x computes to
+auto and a label filling the column would push the square out of sight. It
+travels a quadratic Bézier whose
+control point sits
 beside the midpoint of the straight line, pushed right by 12px at a
 one-step move and further with distance, capped at 32px — so it bows toward
 the content column rather than back through the text. The path is diagonal
@@ -188,6 +196,11 @@ and prepends it to the contents list, so a file starts straight into its
 prose and cannot forget one. A file that writes its own `## Overview` keeps
 it and the template stands down — two headings at id="overview" would break
 both the contents link and the scroll spy.
+The writing standard for case studies and anything else on the site is
+docs/tone-of-voice.md — metaphor, sentence rhythm, the banned
+constructions, how to handle evidence, and why headings stay under about 24
+characters. It is the source; the case-study skill points at it rather than
+restating it, so the two cannot drift.
 
 ## Icons
 Lucide is the icon library. Every icon renders through the Icon wrapper in

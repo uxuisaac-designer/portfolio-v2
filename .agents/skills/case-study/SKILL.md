@@ -32,10 +32,15 @@ because it is plausible enough to ship.
 
 ### 2. Read the house voice before writing a word
 
-Read `content/work/kick-game-buyer-experience.mdx` and
+Read `docs/tone-of-voice.md`. It is the writing standard for this portfolio
+and it is the source — this skill does not restate it, so the two cannot drift
+apart.
+
+Then read `content/work/kick-game-buyer-experience.mdx` and
 `content/work/consignment-app.mdx`. These are the two written by hand and they
-are the standard. Match their rhythm, heading style and honesty. Reading them
-beats any description of them, and they stay current as the writing evolves.
+are the standard in practice. Match their rhythm, heading style and honesty.
+Reading them beats any description of them, and they stay current as the
+writing evolves.
 
 Also read the "Case studies" section of `CLAUDE.md` for the rules that the
 build actually enforces.
@@ -108,44 +113,16 @@ Then tell the user, briefly: which sections still have no evidence, which
 claims are still unquantified, and which single asset would most improve the
 page. End on what is missing, not on a summary of what you did.
 
-## Voice
+## Voice and structure
 
-Confident, pragmatic, clear. Storytelling with rigour under it.
+Both live in `docs/tone-of-voice.md`: the physical-metaphor rule, the ceiling
+on dry asides, sentence-level tone, the banned "not just X, it's Y"
+construction, how to be honest about evidence without apologising for it, and
+why headings stay under about 24 characters.
 
-- **Objective.** Constraints, research, and outcomes — not design jargon or
-  self-praise. Words that do not appear here: delightful, seamless, leveraged,
-  passionate, user-centric, synergy, journey of discovery, elevate, curated.
-- **Honest.** Trade-offs, iterations that failed, what was learned from a
-  wrong turn. A case study where everything went to plan reads as fiction, and
-  the reader is specifically looking for judgement under constraint.
-- **Conversational but professional.** A smart colleague walking a design
-  manager through the whiteboard, not a press release.
-- **Active, first person.** "I interviewed consignors from Kick Game's own
-  list" — never "user interviews were conducted".
-- **Show, don't tell.** Replace "improved engagement" with the change made and
-  the number it moved.
-- **Short paragraphs**, two to four sentences. Declarative. Few subordinate
-  clauses.
-- **Lead with impact.** The opening prose carries the outcome. Nobody should
-  read three sections of research to learn whether the work succeeded.
-
-## Structure
-
-Prose, not bullets. Bullets belong on a CV; this site is a single column of
-paragraphs and lists fight it.
-
-Headings are specific to the story, never generic process labels. "Consignors
-were leaving", "Sellers aren't shoppers", "A system first" — not "Research",
-"Ideation", "Solution". A generic heading tells the reader nothing and makes
-every case study look like every other one.
-
-- Opening prose with **no heading**. The template renders an "Overview"
-  heading itself and prepends it to the contents list; a file that writes its
-  own `## Overview` produces two elements with `id="overview"` and breaks both
-  the contents link and the scroll spy.
-- Four to six `##` sections after it. `##` only — no `#`, no `###`. The
-  contents list appears at four headings including the auto-Overview.
-- Close reflectively: "What I'd do differently", or similar.
+Read it before drafting rather than working from memory. It is expected to
+evolve, and anything you learn about the voice while writing belongs there, not
+in this file.
 
 ## The file
 

@@ -768,6 +768,11 @@ body {
   flex-direction: column;
   gap: 0.5rem;
   margin-top: var(--space-stack);
+  /* Room for the marker, which sits 8px past the end of a label and is 6px
+     wide. The sidebar scrolls, so overflow-x computes to auto and anything
+     past the content edge is clipped — a label filling the column would push
+     the square out of sight. Labels wrap 14px earlier instead. */
+  padding-inline-end: 14px;
 }
 
 /* The anchor stretches to the column so the target stays easy to hit; the
@@ -806,6 +811,12 @@ body {
   transition: color var(--duration-hover-out) var(--ease-hover);
 }
 
+/* The weight is what carries the active state, with the square beside it.
+   It costs something: a heavier weight is wider, so a label close to the
+   column width would rewrap as it became active and the list would jump while
+   you scrolled past it. Case study headings stay short enough to sit on one
+   line — around 24 characters in this column — which is what keeps that from
+   happening. */
 .case-toc-item[data-active] {
   color: var(--text);
   font-weight: 500;
