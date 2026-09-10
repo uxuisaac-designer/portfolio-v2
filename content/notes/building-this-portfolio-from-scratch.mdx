@@ -130,19 +130,18 @@ that curve, called it fine, and moved on with the stutter still in it.
 
 ## What is still wrong with it
 
-Six things, and they are written down.
+Five things, and they are written down.
 
 Three of the project rows still show placeholder images, which in dark mode
 means three white rectangles glowing on a dark background. The nav segments are
 buttons rather than links, so you cannot middle-click them, open them in a new
 tab, or crawl them. The greeting cycles eight languages and three of them fall
 back to system fonts, because the typeface I chose has no CJK or Arabic glyphs
-and I am not loading three more font families for three words. Six of the seven
-project rows are not links yet, because the case studies behind them are not
-written. The resting underline is under contrast. Route changes are a CSS
-fade rather than the View Transitions API, because reaching React’s version of
-it currently means depending on a packaging detail that would break at runtime
-rather than at build.
+and I am not loading three more font families for three words. The resting
+underline is under contrast. Route changes are a CSS fade rather than the View
+Transitions API, because reaching React’s version of it currently means
+depending on a packaging detail that would break at runtime rather than at
+build.
 
 None of those is a bug I have not noticed. Each one has a line in `CLAUDE.md`
 saying what it costs and what would unblock it, which is the only reason I can

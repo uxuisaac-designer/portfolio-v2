@@ -300,10 +300,6 @@ suppressHydrationWarning because of it.
 Known-open, deliberately. Each says what unblocks it, so none of these get
 rediscovered or re-litigated.
 
-- **Six of the seven project rows are still not links.** Buyer experience
-  points at its case study; the rest render the same markup as a div, so
-  the hover fill, name underline, press state and focus ring already read
-  identically either way. Each becomes a link as its case study lands.
 - **Nav segments are buttons, not links.** Driven by router.push, as
   specified. The cost is real now that Notes and Lab are reachable: no
   middle-click, no open-in-new-tab, nothing for a crawler to follow.
