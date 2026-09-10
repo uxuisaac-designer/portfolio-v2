@@ -1,7 +1,7 @@
 # Tone of voice
 
 The writing standard for everything on this portfolio — case studies now, the
-writing section later. One source, so the rules cannot drift between places.
+notes later. One source, so the rules cannot drift between places.
 
 Influenced by Benji Taylor's writing: grounded, dry, specific. Confident and
 pragmatic, storytelling with rigour under it.

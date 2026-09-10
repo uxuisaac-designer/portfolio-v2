@@ -52,6 +52,13 @@ span, not text-decoration: a resting line plus a Text line that wipes in
 from the left over 300ms on cubic-bezier(0.32, 0.72, 0, 1) and exits off
 the right. No skip-ink, so the offset is measured against the type scale to
 clear descenders — re-measure it if that scale moves.
+Note titles are prose links, not project rows: body size, body weight, that
+same underline, and the wipe firing from the title. A note row is therefore
+not built on .row at all — a project row's hover state is its fill, which
+needs the whole band, and a note's is the underline, which belongs to the
+title. Sharing .row would mean inheriting a fill and a press only to
+override both. The row keeps the geometry, drops the --row-bleed with the
+fill, and sits flush with the paragraph above it.
 Greeting cycles eight languages, English first, each trailing "..." except
 Arabic: 80ms per character in,
 6000ms held, 40ms per character out, 800ms empty. A 1px cursor blinks at
@@ -249,8 +256,19 @@ rediscovered or re-litigated.
   points at its case study; the rest render the same markup as a div, so
   the hover fill, name underline, press state and focus ring already read
   identically either way. Each becomes a link as its case study lands.
+- **None of the five note rows are links.** No note is written yet, so each
+  is a div wearing the markup a link will wear — the wipe and the press
+  already read identically. This one costs more than the project rows do:
+  note titles wear the prose-link underline, which is visible at rest, so a
+  row reads as a link before it is one. They also have no focus ring, since
+  a div is not focusable; .page a:focus-visible picks them up the moment
+  they become anchors. Accepted deliberately —
+  the rows are the point of the page and a page of unmarked text would read
+  as a list of nothing. The read times in app/notes.ts are written by hand
+  for the same reason; they become a word count once there is prose to
+  count. Each row becomes a link as its note lands.
 - **Nav segments are buttons, not links.** Driven by router.push, as
-  specified. The cost is real now that Writing and Lab are reachable: no
+  specified. The cost is real now that Notes and Lab are reachable: no
   middle-click, no open-in-new-tab, nothing for a crawler to follow.
   Styled <Link>s look identical if that becomes worth it.
 - **Dark-mode row thumbnails are bright.** Kick Game and Klekt carry real

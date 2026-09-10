@@ -467,7 +467,7 @@ body {
 
 /* Headings sit at body size; hierarchy comes from weight and spacing. */
 .group-company,
-.writing-heading {
+.section-heading {
   margin: 0;
   font-size: var(--font-size-body);
   font-weight: 600;
@@ -703,19 +703,78 @@ body {
   text-wrap: pretty;
 }
 
-.writing-heading {
+.section-heading {
   margin-bottom: 0.75rem;
 }
 
-.writing-empty {
+.section-empty {
   padding: 0.75rem 0;
   border-block: 1px solid var(--border);
   color: var(--muted);
   text-wrap: pretty;
 }
 
-/* Sits a section away, like .writing. Body size, muted, left-aligned with
-   everything else — it is a caption, not a chrome bar. */
+/* Notes. Text rows, never cards, and closer to a paragraph of prose than
+   to a project row: the title is a link in body size and body weight, and
+   the underline carries the whole hover on its own. Nothing here is a link
+   yet, so each row is a div wearing the markup a link will wear — the wipe
+   and the press already read identically the day an href arrives. */
+.notes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Deliberately not built on .row. A project row's hover state IS its fill,
+   so the fill needs the whole band to land on; a note's hover state is the
+   underline, which belongs to the title alone. Sharing .row would mean
+   inheriting a fill and a press only to override both. This borrows the
+   geometry and none of the feedback.
+
+   No --row-bleed either: nothing paints behind the text now, so the row
+   sits flush with the paragraph above it instead of hanging 12px wider. */
+.note-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 1.5rem;
+  align-items: center;
+  padding: 0.75rem 0;
+}
+
+/* .note-title is the grid item and stretches; .link-underline is the
+   inline-block inside it and shrinks to the words. That nesting is load
+   bearing — as a grid item, .link-underline would blockify to a full-width
+   box and draw its rule across the whole column.
+
+   The wipe fires from the inner span, exactly as it does in the prose.
+   With no fill behind it there is nothing for the rest of the band to say,
+   and a title that lit up while the pointer sat in empty space to its
+   right would be answering a gesture aimed at nothing. */
+@media (hover: hover) and (pointer: fine) {
+  .note-row .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* Touch never fires hover. The line arrives finished, no travel — the same
+   acknowledgement a prose link gives a tap. */
+.note-row .link-underline:active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+  transition-duration: 0s;
+}
+
+/* Label size and muted, the same pair the dates take. It is metadata about
+   the title, not a second thing to read. */
+.note-time {
+  font-size: var(--font-size-label);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Sits a section away from whatever is above it. Body size, muted, and
+   left-aligned with everything else — it is a caption, not a chrome bar. */
 .footer {
   margin-top: calc(var(--space-section) - var(--space-stack));
   color: var(--muted);

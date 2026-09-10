@@ -11,7 +11,7 @@ import SegmentedPill, { type Segment } from "./segmented-pill";
    selected on the deployed site. */
 const SEGMENTS: (Segment & { segment: string | null })[] = [
   { value: "/", label: "Work", segment: null },
-  { value: "/writing", label: "Writing", segment: "writing" },
+  { value: "/notes", label: "Notes", segment: "notes" },
   { value: "/lab", label: "Lab", segment: "lab" },
 ];
 
