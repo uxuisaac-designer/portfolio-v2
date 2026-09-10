@@ -1064,58 +1064,20 @@ EOF
 
 ---
 
-### Task 9: Write "Consensus is where good ideas go to get safe"
+### Task 9: DROPPED — "Consensus is where good ideas go to get safe"
 
-**Files:**
-- Modify: `content/notes/consensus-is-where-good-ideas-go-to-get-safe.mdx`
+Cut on the author's instruction, and the file deleted rather than left as a
+draft. The note needed at least one real incident behind it — a sign-off
+process, an idea that got sanded down, a time the committee was right — and
+none was available. A consensus essay written from position alone would have
+been indistinguishable from a hundred others and would have sat next to three
+notes full of measurements and named trade-offs.
 
-**Interfaces:**
-- Consumes: the writing standard from Task 5.
-- Produces: the fourth published note.
+`app/notes.ts` reads the content directory, so deleting the file was the entire
+change: it leaves the list, the Newer/Older chain and `generateStaticParams` on
+its own. The four remaining notes re-link across the gap.
 
-**Subject, from the source table:** *"On committees, sign-off, and the slow death of good ideas by agreement. Why the best products usually have a single accountable author."*
-
-This is the note where the attribution constraint bites hardest. It describes real sign-off at real employers whose case studies sit on the same site. Anonymised but real, and no colleague described closely enough to identify.
-
-- [ ] **Step 1: Interview**
-
-Ask these five, one message, and wait.
-
-1. Describe the specific meeting or sign-off process that made you believe this.
-2. What was the idea that got sanded down? What did it look like going in, and what shipped?
-3. Where has consensus been right and you were wrong? Without this the essay is a complaint.
-4. Have you ever had single-author control over something? What happened — including if it went badly?
-5. What is the mechanism you would actually put in place? Not the objection, the replacement.
-
-- [ ] **Step 2: Draft the essay into the file**
-
-Keep the `meta` block, set `draft: false`, write beneath it. Check every sentence naming a person or a company against the attribution rule before moving on.
-
-- [ ] **Step 3: Verify the chain**
-
-```bash
-npm run build && npm run start &
-sleep 4
-curl -s http://localhost:3000/notes | grep -c 'href="/notes/'
-```
-
-Expected: `4`. Stop the server afterwards.
-
-- [ ] **Step 4: Read it against the standard**
-
-Same explicit check as Task 6 Step 5, plus one more: no employer named, no colleague identifiable. Fix what fails.
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add content/notes/consensus-is-where-good-ideas-go-to-get-safe.mdx
-git commit -m "$(cat <<'EOF'
-Write "Consensus is where good ideas go to get safe"
-
-Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
-EOF
-)"
-```
+Recoverable from git history if it is ever wanted back.
 
 ---
 
@@ -1153,7 +1115,7 @@ curl -s http://localhost:3000/notes | grep -c 'href="/notes/'
 grep -rl 'draft: true' content/notes/ | grep -v '_note.mdx'
 ```
 
-Expected: `5` rows, and the second command returns **nothing** — no note file still carries `draft: true`, only the template does. Then confirm the ends of the chain: the newest note has no Newer, the oldest has no Older, and neither renders an empty column.
+Expected: `4` rows (five minus the dropped Task 9 note), and the second command returns **nothing** — no note file still carries `draft: true`, only the template does. Then confirm the ends of the chain: the newest note has no Newer, the oldest has no Older, and neither renders an empty column.
 
 - [ ] **Step 4: Read it against the standard**
 
@@ -1166,14 +1128,13 @@ npx tsc --noEmit && npm run lint && npm run build && npm run start &
 sleep 4
 for s in everything-is-a-first-draft-now deciding-is-the-job \
          building-this-portfolio-from-scratch \
-         consensus-is-where-good-ideas-go-to-get-safe \
          nobody-was-hired-for-their-figma-file; do
   curl -s -o /dev/null -w "$s %{http_code}\n" "http://localhost:3000/notes/$s"
 done
 curl -s -o /dev/null -w 'template %{http_code}\n' http://localhost:3000/notes/_note
 ```
 
-Expected: `200` for all five, `404` for the template. Then check by eye at a wide viewport and at 375px, where the `.note-row` stacking breakpoint lives, in both light and dark. Stop the server afterwards.
+Expected: `200` for all four, `404` for the template. Then check by eye at a wide viewport and at 375px, where the `.note-row` stacking breakpoint lives, in both light and dark. Stop the server afterwards.
 
 - [ ] **Step 6: Commit**
 
