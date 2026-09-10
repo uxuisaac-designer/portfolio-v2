@@ -434,7 +434,7 @@ Note this sits at `app/notes/[slug]/`, **not** inside `app/(site)/`. `(site)` is
 npm run build && ls .next/server/app/notes/
 ```
 
-Expected: FAIL with "No such file or directory". The `/notes` index prerenders to `.next/server/app/notes.html` — a file, not a directory — because a route group contributes no path segment. There is no note route yet, so no directory beside it.
+Expected: FAIL with "No such file or directory". The `/notes` index prerenders to `.next/server/app/notes.html` — a file, not a directory — because a route group contributes no *URL* path segment. (`(site)` does appear in the build output as a compiled-module directory, `.next/server/app/(site)/notes/`; it is the prerendered HTML that lands at the URL path. Do not confuse the two.) There is no note route yet, so no `notes/` directory beside the html.
 
 - [ ] **Step 2: Add the two CSS rules**
 
@@ -567,7 +567,7 @@ export default async function NotePage({
 npm run build && ls .next/server/app/notes/
 ```
 
-Expected: PASS, listing the five slugs. Note the output path is `app/notes/`, not `app/(site)/notes/` — route groups contribute no path segment, so `(site)` never appears in the build output.
+Expected: PASS, listing the five `.html` files. The prerendered HTML follows the URL, so it lands at `app/notes/<slug>.html` with no `(site)` in the path — even though `(site)` does exist in the same tree as a compiled-module directory.
 
 - [ ] **Step 5: Verify a bad slug is a 404, not a 500**
 
