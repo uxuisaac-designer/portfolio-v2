@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { notes } from "../../notes";
 
 export default async function Notes() {
@@ -9,9 +11,13 @@ export default async function Notes() {
     <ul className="list notes">
       {all.map((note) => (
         <li key={note.slug}>
-          {/* A div until the route exists, carrying the markup a link will
-              carry, so nothing moves when the href arrives. */}
-          <div className="note-row">
+          {/* .note-row is a grid; an anchor takes display: grid as happily
+              as a div did, so the swap needs no CSS. The hover wipe and the
+              :active line are written against .note-row .link-underline and
+              never cared what element carried them. The focus ring arrives
+              on its own — .page a:focus-visible was always waiting for
+              these to become anchors. */}
+          <Link className="note-row" href={note.href}>
             {/* Two spans, the same nesting a prose link uses. The outer one
                 is the grid item and takes the whole column; the inner one
                 is the inline-block the underline measures itself against,
@@ -20,7 +26,7 @@ export default async function Notes() {
               <span className="link-underline">{note.title}</span>
             </span>
             <span className="note-time">{note.readTime}</span>
-          </div>
+          </Link>
         </li>
       ))}
     </ul>
