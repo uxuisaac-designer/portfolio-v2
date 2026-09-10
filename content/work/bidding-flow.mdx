@@ -10,10 +10,10 @@ export const meta = {
   draft: false,
 };
 
-Klekt sells authenticated sneakers and streetwear, and during the pandemic
-resale boom it had one way to buy: pay the asking price. Competitors let people
-bid. Klekt had not found a way to build it, and the business forecast bidding
-would bring in up to 70% more orders.
+Klekt sells authenticated sneakers and streetwear. During the pandemic resale
+boom it had one way to buy: pay the asking price. Competitors let people bid.
+Klekt had not found a way to build it, and the business forecast bidding would
+bring in up to 70% more orders.
 
 I designed the feature end to end — research, flows, and low and high fidelity
 screens for app, mobile web and desktop. It launched on the app in May 2022 and
@@ -31,10 +31,10 @@ I started with a competitor analysis across nine platforms — StockX, GOAT,
 Stadium Goods, eBay, Depop, Grailed, Laced, Wethenew and Kick Game — looking at
 how each handled bidding and what else they offered around it.
 
-StockX had solved it best for the same audience as Klekt — a bid and ask
-structure that read as a market rather than an auction. eBay, though, was
-doing things StockX wasn’t: messaging between buyer and seller, and a set of
-offer mechanics that gave people room to negotiate rather than just to lose.
+StockX had solved it best for the same audience as Klekt: a bid and ask
+structure that read as a market, not an auction. eBay was doing things StockX
+wasn’t — messaging between buyer and seller, and offer mechanics that let the
+two sides move toward each other.
 
 That mattered for scope. The obvious move was to copy StockX. The more useful
 finding was that bidding is one of several ways to let a buyer make the first
@@ -48,24 +48,23 @@ move, and the others were cheaper to build.
 ## Not paying full price
 
 I wrote the research questions before doing any of it, so the study had
-something to answer rather than a general curiosity to satisfy: how do people
-bid now, how do they want to bid, what do they need to know before bidding,
-and where does bidding hurt.
+something to answer rather than a general curiosity to satisfy: how people bid
+now, how they want to bid, what they need to know before bidding, and where
+bidding hurts.
 
-Then a survey, plus one-to-one interviews with members of Klekt and Crep
-Protect. Five findings came out of it, and they were more specific than I
-expected:
+Then a survey, and one-to-one interviews with members of Klekt and Crep
+Protect. Five findings came out, more specific than I expected.
 
-Price is the deciding factor in how someone chooses to buy at all. People bid
-when they don’t want to pay full price — usually at least £20 off, against an
-average item price of £180. Roughly 11%, and specific enough to design a
-suggested bid range around. They want to know what a good bid range is before
-placing one, because a bid
-that is obviously too low is embarrassing rather than strategic. They want
-transparency about when payment is actually taken. They also want control over
-both the value and the time frame.
+Price decides how someone buys at all. People bid when they don’t want to pay
+full price — usually at least £20 off, against an average item price of £180.
+Roughly 11%, and specific enough to design a suggested bid range around.
 
-I grouped the findings on an affinity map, which settled into seven clusters.
+The rest were about control. Buyers want to know what a good bid range is
+before placing one, because a bid that is obviously too low is embarrassing
+rather than strategic. They want to know when payment is actually taken. They
+want to set both the value and the time frame.
+
+I grouped the findings on an affinity map. It settled into seven clusters.
 
 <Figure
   src="/placeholder.png"
@@ -74,13 +73,12 @@ I grouped the findings on an affinity map, which settled into seven clusters.
 
 ## Every way a bid ends
 
-Working with the product manager, I moved to navigation and flows next, because
-a bid is not a screen — it is a state that changes over time and can end in
-several ways at once.
+Working with the product manager, I moved to flows next. A bid is not a screen.
+It is something you leave running, and it can finish while you are not looking.
 
 I mapped the flows with their edge cases: a bid accepted, expired, outbid,
-withdrawn, or beaten while the buyer is mid-checkout. Each of those needed a
-place for the user to land and something true to tell them.
+withdrawn, or beaten while the buyer is mid-checkout. Each needed somewhere for
+the buyer to land and something true to tell them.
 
 I designed it to adapt between app and web from the start, because it was not
 settled which would ship.
@@ -96,10 +94,10 @@ I designed low and high fidelity wireframes for app, mobile web and desktop.
 Then the project came under a time constraint and bids were stripped back to an
 app-exclusive feature. The mobile web and desktop work was cut.
 
-Designing for adaptability first is what made that survivable — the app
-designs were not a rescue job, they were one of three cases I had already
-worked through. If I had designed for desktop first and adapted afterwards, the
-cut would have cost the whole timeline rather than two of the three surfaces.
+Designing for adaptability first is what made that survivable. The app screens
+were one of three cases I had already worked through, not a rescue job.
+Designing for desktop first would have cost the whole timeline instead of two
+surfaces.
 
 <Figure
   src="/placeholder.png"
@@ -109,35 +107,34 @@ cut would have cost the whole timeline rather than two of the three surfaces.
 ## What changed
 
 Bids launched in May 2022, on the app only. Order volume rose 65–75% month to
-month against a forecast of up to 70%.
+month, against a forecast of up to 70%.
 
 A forecast landing that close usually means the mechanism was understood before
-anyone drew a screen. The competitor work had already established that bid and
-ask was a proven pattern for this audience rather than a bet, which is the part
-of the research that paid for itself.
+anyone drew a screen. The competitor work had established bid and ask as a
+proven pattern for this audience, not a bet. That is the part of the research
+that paid for itself.
 
-The £20 finding held: accepted bids clustered around the 11% the research
-predicted. What it had not predicted was the tail underneath — a set of buyers
-bidding well below that, hunting a bargain rather than negotiating a price.
-They were not the people the suggested bid range was designed for, and it did
-not stop them.
+The £20 finding held. Accepted bids clustered around the 11% the research
+predicted. What it had not predicted was the tail underneath — buyers bidding
+well below that, hunting a bargain rather than negotiating a price. The
+suggested bid range was not built for them, and it did not stop them.
 
 The flows behaved as mapped. None of the edge cases I had worried about —
-expiry, being outbid, a bid beaten mid-checkout — turned into a problem after
+expiry, being outbid, a bid beaten mid-checkout — became a problem after
 launch.
 
 ## What I’d do differently
 
 The number I have is order volume. I don’t have bid-to-purchase rate, the
-spread on accepted bids, or whether a first-time bidder came back — so I can
-tell you bidding worked, but not which part of the design did the work.
+spread on accepted bids, or whether a first-time bidder came back, so I can
+tell you bidding worked without telling you which part of the design did the
+work.
 
 The bargain-hunting tail is what I’d design for now. I built a suggested bid
 range to stop bids too low to be taken seriously, and a group of buyers ignored
 it and bid low anyway. That is a signal about what they came for, not a failure
-to read the guidance, and there was probably a product in it.
+to read the guidance.
 
 I’d also push harder on the app-only decision. It was the right call under the
-deadline, but I accepted it as a constraint rather than asking what it cost in
-buyers who were on desktop — and with the feature performing that well, that
-question was worth more than it looked at the time.
+deadline, and I accepted it as a constraint rather than asking what it cost in
+buyers on desktop. Two of the three surfaces I designed never shipped.
