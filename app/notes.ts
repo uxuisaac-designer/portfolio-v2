@@ -20,15 +20,15 @@ export const notes: Note[] = [
     readTime: "8 min read",
   },
   {
-    title: "Nothing should teleport",
-    readTime: "5 min read",
+    title: "Building this portfolio from scratch",
+    readTime: "10 min read",
   },
   {
-    title: "Ten interviews is enough",
+    title: "Consensus is where good ideas go to get safe",
     readTime: "7 min read",
   },
   {
-    title: "The system nobody adopted",
-    readTime: "11 min read",
+    title: "Nobody was hired for their Figma file",
+    readTime: "5 min read",
   },
 ];
