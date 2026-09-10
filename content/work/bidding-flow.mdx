@@ -2,60 +2,142 @@ export const meta = {
   title: "Bidding flow",
   company: "Klekt",
   tagline:
-    "Bidding and asking on a marketplace where every pair is someone else’s.",
+    "Letting buyers name their price on a marketplace that only sold at the asking price.",
   role: "UX/UI Designer",
   timeline: "2021–2022",
-  team: "Design and engineering",
-  software: "Figma, Sketch, Hotjar",
+  team: "Two designers, product and engineering",
+  software: "Figma, Jira, Hotjar",
   draft: false,
 };
 
-Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-Aenean lacinia bibendum nulla sed consectetur.
+Klekt sells authenticated sneakers and streetwear, and during the pandemic
+resale boom it had one way to buy: pay the asking price. Competitors let people
+bid. Klekt had not found a way to build it, and the business forecast bidding
+would bring in up to 70% more orders.
 
-## Bids and asks
-
-Maecenas sed diam eget risus varius blandit sit amet non magna. Donec
-ullamcorper nulla non metus auctor fringilla. Nullam quis risus eget urna
-mollis ornare vel eu leo, cum sociis natoque penatibus et magnis dis
-parturient montes, nascetur ridiculus mus.
-
-## Where people stalled
-
-Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta
-gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat
-porttitor ligula, eget lacinia odio sem nec elit.
+I designed the feature end to end — research, flows, and low and high fidelity
+screens for app, mobile web and desktop. It launched on the app in May 2022 and
+lifted orders by 65–75%, depending on the month. The forecast was close to
+right.
 
 <Figure
   src="/placeholder.png"
-  caption="Drop-off across the bidding steps."
+  caption="Klekt’s marketplace before bids: one price, take it or leave it."
 />
 
-Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac
-cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-amet risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Pellentesque ornare sem lacinia quam venenatis vestibulum.
+## What the competition had worked out
 
-## Making the spread legible
+I started with a competitor analysis across nine platforms — StockX, GOAT,
+Stadium Goods, eBay, Depop, Grailed, Laced, Wethenew and Kick Game — looking at
+how each handled bidding and what else they offered around it.
 
-Curabitur blandit tempus porttitor. Nullam id dolor id nibh ultricies
-vehicula ut id elit.
+StockX had solved it best for the same audience as Klekt — a bid and ask
+structure that read as a market rather than an auction. But eBay was doing
+things StockX wasn’t: messaging between buyer and seller, and a set of offer
+mechanics that gave people room to negotiate rather than just to lose.
 
-## Confirming a bid
-
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla.
+That mattered for scope. The obvious move was to copy StockX. The more useful
+finding was that bidding is one of several ways to let a buyer make the first
+move, and the others were cheaper to build.
 
 <Figure
   src="/placeholder.png"
-  caption="The confirmation step, rebuilt."
+  caption="The competitor analysis: how StockX, eBay and Depop each let a buyer name a price."
 />
 
-Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-Aenean lacinia bibendum nulla sed consectetur.
+## Bidding is about not paying full price
 
-## After launch
+I wrote the research questions before doing any of it, so the study had
+something to answer rather than a general curiosity to satisfy: how do people
+bid now, how do they want to bid, what do they need to know before bidding,
+and where does bidding hurt.
 
-Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque
-ornare sem lacinia quam venenatis vestibulum. Integer posuere erat a ante
-venenatis dapibus posuere velit aliquet.
+Then a survey, plus one-to-one interviews with members of Klekt and Crep
+Protect. Five findings came out of it, and they were more specific than I
+expected:
+
+Price is the deciding factor in how someone chooses to buy at all. People bid
+when they don’t want to pay full price — usually at least £20 off, against an
+average item price of £180. Roughly 11%, and specific enough to design a
+suggested bid range around. They want to know what a good bid range is before
+placing one, because a bid
+that is obviously too low is embarrassing rather than strategic. They want
+transparency about when payment is actually taken. And they want control over
+both the value and the time frame.
+
+I grouped the findings on an affinity map, which settled into seven clusters.
+
+<Figure
+  src="/placeholder.png"
+  caption="The affinity map: survey and interview findings grouped into seven clusters."
+/>
+
+## Mapping every way a bid can end
+
+Working with the product manager, I moved to navigation and flows next, because
+a bid is not a screen — it is a state that changes over time and can end in
+several ways at once.
+
+I mapped the flows with their edge cases: a bid accepted, expired, outbid,
+withdrawn, or beaten while the buyer is mid-checkout. Each of those needed a
+place for the user to land and something true to tell them.
+
+I designed it to adapt between app and web from the start, because it was not
+settled which would ship.
+
+<Figure
+  src="/placeholder.png"
+  caption="Bid flows with their edge cases — accepted, expired, outbid, withdrawn."
+/>
+
+## Cut to app only
+
+I designed low and high fidelity wireframes for app, mobile web and desktop.
+Then the project came under a time constraint and bids were stripped back to an
+app-exclusive feature. The mobile web and desktop work was cut.
+
+Designing for adaptability first is what made that survivable — the app
+designs were not a rescue job, they were one of three cases I had already
+worked through. If I had designed for desktop first and adapted afterwards, the
+cut would have cost the whole timeline rather than two of the three surfaces.
+
+<Figure
+  src="/placeholder.png"
+  caption="The cut desktop and mobile web screens, designed before bids became app-only."
+/>
+
+## What changed
+
+Bids launched in May 2022, on the app only. Order volume rose 65–75% month to
+month against a forecast of up to 70%.
+
+A forecast landing that close usually means the mechanism was understood before
+anyone drew a screen. The competitor work had already established that bid and
+ask was a proven pattern for this audience rather than a bet, which is the part
+of the research that paid for itself.
+
+The £20 finding held: accepted bids clustered around the 11% the research
+predicted. What it had not predicted was the tail underneath — a set of buyers
+bidding well below that, hunting a bargain rather than negotiating a price.
+They were not the people the suggested bid range was designed for, and it did
+not stop them.
+
+The flows behaved as mapped. None of the edge cases I had worried about —
+expiry, being outbid, a bid beaten mid-checkout — turned into a problem after
+launch.
+
+## What I’d do differently
+
+The number I have is order volume. I don’t have bid-to-purchase rate, the
+spread on accepted bids, or whether a first-time bidder came back — so I can
+tell you bidding worked, but not which part of the design did the work.
+
+The bargain-hunting tail is what I’d design for now. I built a suggested bid
+range to stop bids too low to be taken seriously, and a group of buyers ignored
+it and bid low anyway. That is a signal about what they came for, not a failure
+to read the guidance, and there was probably a product in it.
+
+I’d also push harder on the app-only decision. It was the right call under the
+deadline, but I accepted it as a constraint rather than asking what it cost in
+buyers who were on desktop — and with the feature performing that well, that
+question was worth more than it looked at the time.

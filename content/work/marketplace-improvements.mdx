@@ -2,69 +2,121 @@ export const meta = {
   title: "Marketplace improvements",
   company: "Klekt",
   tagline:
-    "Listings, drops and search on Europe’s oldest sneaker marketplace.",
+    "Rebuilding how people browse a marketplace they mostly arrived at already knowing what they wanted.",
   role: "UX/UI Designer",
-  timeline: "2021",
-  team: "Solo design",
-  software: "Figma, Sketch, Google Analytics",
+  timeline: "2021–2022",
+  team: "Two designers, product and engineering",
+  software: "Figma, Jira, Hotjar",
   draft: false,
 };
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
-erat a ante venenatis dapibus posuere velit aliquet. Cras mattis consectetur
-purus sit amet fermentum, vestibulum id ligula porta felis euismod.
+Klekt was competing in a resale market that was growing faster than its own
+browsing experience. People could buy, but only if they already knew what they
+were looking for and where to find it.
 
-## Three problems, one funnel
-
-Maecenas sed diam eget risus varius blandit sit amet non magna. Donec
-ullamcorper nulla non metus auctor fringilla. Nullam quis risus eget urna
-mollis ornare vel eu leo, cum sociis natoque penatibus et magnis dis
-parturient montes, nascetur ridiculus mus.
+Rather than one large redesign, we split it into four projects that each
+attacked the same problem from a different side: drops pages, brand landing
+pages, the site navigation, and the design system underneath all of them.
 
 <Figure
   src="/placeholder.png"
-  caption="Listings, drops and search, and where they overlapped."
+  caption="Klekt’s browsing experience before the work."
 />
 
-Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque
-ornare sem lacinia quam venenatis vestibulum. Integer posuere erat a ante
-venenatis dapibus posuere velit aliquet.
+## Four projects, one problem
 
-## Listings
+Splitting it up was the decision that made the rest possible. A single
+“improve the marketplace” project has no edge and no end; four named projects
+each have a thing they are for.
 
-Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac
-cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-amet risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Pellentesque ornare sem lacinia quam venenatis vestibulum.
+They were not equal in size, and they were not independent — the navigation
+needed the brand pages to exist before it could point at them, and all of them
+needed the design system to stop being a source of inconsistency. Sequencing
+mattered more than scope.
+
+## Buying on the day of release
+
+Drops pages let people see what is coming out and when, and sometimes buy or
+sell ahead of the official release date.
+
+I validated the idea by interviewing 30 members of the sneaker community, who
+said two things clearly: they wanted to be told about upcoming releases, and
+they wanted a way to buy before the release date rather than racing everyone
+else at the moment it landed.
+
+The analytics agreed from a different direction: logins concentrated on
+release days, and the people arriving were coming for one product rather than
+to browse. That is what moved drops onto the homepage rather than leaving it as
+a section people had to find. If someone arrives on the day for one product,
+the shortest path to it belongs on the first screen.
 
 <Figure
   src="/placeholder.png"
-  caption="A listing, with the seller’s detail brought forward."
+  caption="Drops, with the release calendar surfaced on the homepage."
 />
 
-Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta
-gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat
-porttitor ligula, eget lacinia odio sem nec elit.
+## Brands had no pages
 
-## Drops
+Klekt sold products from over 300 brands and had a page for none of them, and
+no all-brands page either. Someone who wanted to browse Nike had nowhere to
+go.
 
-Curabitur blandit tempus porttitor. Nullam id dolor id nibh ultricies
-vehicula ut id elit.
+The brand pages carry popular items, hot picks, specific models and
+information about the brand itself. They gave browsing a destination it had
+been missing, and they gave the navigation something worth linking to.
 
 <Figure
   src="/placeholder.png"
-  caption="The drops calendar."
+  caption="A brand landing page: popular items, hot picks and models in one place."
 />
 
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla.
+## A menu built around what people search for
 
-Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-Aenean lacinia bibendum nulla sed consectetur.
+The site navigation was the first problem I was handed when I joined, and it
+was a menu that listed what the company was organised around rather than what
+people were looking for.
 
-## Search
+I designed a mega menu built from popular searches and popular items, with the
+new brand pages and the blog reachable from it. The organising principle
+changed from the shape of the catalogue to the shape of the demand.
 
-Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac
-cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-amet risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Pellentesque ornare sem lacinia quam venenatis vestibulum.
+<Figure
+  src="/placeholder.png"
+  caption="The mega menu, built from popular searches rather than catalogue structure."
+/>
+
+## A system nobody had followed
+
+Klekt already had a design system. It had aged, and more to the point it had
+stopped being followed, so the site was inconsistent in a lot of places — which
+is worse than having no system, because it looks like a decision.
+
+Another designer and I rebuilt it for web and app, carrying over the
+components that still earned their place rather than starting from nothing.
+Doing it alongside the other three projects meant each one shipped against the
+new system instead of adding to the drift.
+
+<Figure
+  src="/placeholder.png"
+  caption="The rebuilt design system, web and app."
+/>
+
+## What I’d do differently
+
+I don’t have the numbers. I can tell you what shipped and why, but not what any
+of it did to browsing depth, to the share of sessions that started at a brand
+page, or to sales on release days — which is the one drops was built for and
+the easiest of the three to have measured.
+
+The release-day concentration was visible in the analytics at the time and it
+is what put drops on the homepage. I can’t produce the figure now, which is the
+difference between a decision I can explain and one I can evidence.
+
+If I ran this again I’d instrument each of the four separately before shipping
+any of them. Running them as one programme made them easier to sequence and
+impossible to attribute, and I could not now tell you which of the four was
+worth the time.
+
+The other thing I would change is the order. The design system came last in
+practice and should have come first — every project that shipped before it was
+built on components we were still arguing about.
