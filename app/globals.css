@@ -8,8 +8,14 @@
   /* The resting underline is light on purpose: the wipe line is --text,
      and the gap between the two IS the animation. Against --muted the
      pair sits at 2.3:1 and the wipe is invisible at speed; here it is
-     6.6:1. */
-  --underline: oklch(0.700 0.003 58);
+     7.9:1.
+
+     The cost is at the other end. This line is the only thing marking a
+     link — .page a inherits the body colour — and at 2.1:1 against --bg
+     it is under the 3:1 non-text floor. Softening it past oklch(0.700)
+     was a deliberate call; 0.640 is where it would clear 3:1 if that
+     trade is ever reopened. */
+  --underline: oklch(0.750 0.003 58);
   --press: oklch(0.930 0.003 58);
 
   /* Segmented nav. The active pill is --bg cut out of the track, so no
@@ -54,9 +60,19 @@
   --duration-hover-in: 100ms;
   --duration-hover-out: 200ms;
   /* The wipe is travel, not a colour change, so it gets a stronger curve
-     and more room than a hover — the line has a distance to cover. */
+     and more room than a hover — the line has a distance to cover.
+
+     Only .link-underline::after reads --duration-wipe; the segmented pill
+     and the section fade share the curve but carry their own durations, so
+     this number moves the underline alone.
+
+     Note that the curve, not this number, is what governs how much of the
+     travel is legible: --ease-wipe is heavily front-loaded, so 90% of the
+     distance is covered in the first 146ms of the 400 and the rest is a
+     sub-pixel settle. Raising the duration lengthens the tail more than
+     the stroke. */
   --ease-wipe: cubic-bezier(0.32, 0.72, 0, 1);
-  --duration-wipe: 300ms;
+  --duration-wipe: 400ms;
   --duration-section: 200ms; /* route cross-fade */
   --duration-entrance: 400ms;
   --duration-entrance-fade: 150ms; /* reduced-motion entrance, no travel */
@@ -79,7 +95,9 @@
   --border: oklch(0.290 0.004 58);
   --hover: oklch(0.245 0.004 58);
   --press: oklch(0.285 0.004 58);
-  --underline: oklch(0.480 0.004 58);
+  /* Softened alongside the light value, the same 17% of the way toward
+     the page. 2.3:1 against --bg, 6.8:1 against --text. */
+  --underline: oklch(0.430 0.004 58);
 }
 
 * {

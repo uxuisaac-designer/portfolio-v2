@@ -32,9 +32,12 @@ The track has to be Border, not Hover: against Hover the pill sits at
 1.08:1 and disappears on a phone.
 Pill slides 250ms on cubic-bezier(0.32, 0.72, 0, 1) — transform and width
 only, never scale, and off entirely under reduced motion.
-Underline (link resting): oklch(0.700 0.003 58) — the wipe line is Text.
+Underline (link resting): oklch(0.750 0.003 58) — the wipe line is Text.
 Keep the resting line light: the gap between the two IS the animation, and
-against Muted it drops to 2.3:1 and stops reading.
+against Muted it drops to 2.3:1 and stops reading. The floor is the other
+way: the line is the only thing marking a link, and at 0.750 it sits at
+2.1:1 against Background, under the 3:1 non-text minimum. Softening it that
+far was a deliberate call — see Deferred.
 Palette is desaturated Tailwind stone at hue 58. Two text colours only:
 --text and --muted, nothing in between.
 Dark palette lives under .dark in globals.css, set outright rather than
@@ -49,8 +52,9 @@ Hover is asymmetric: 100ms in, 200ms out
 Entrance 400ms, 8px Y, 40ms stagger (150ms fade only under reduced motion)
 Prose links are a two-layer pseudo-element underline on an inline-block
 span, not text-decoration: a resting line plus a Text line that wipes in
-from the left over 300ms on cubic-bezier(0.32, 0.72, 0, 1) and exits off
-the right. No skip-ink, so the offset is measured against the type scale to
+from the left over 400ms on cubic-bezier(0.32, 0.72, 0, 1) and exits off
+the right. The curve is front-loaded enough that 90% of the travel lands in
+the first 146ms — the duration sets the tail, the curve sets the stroke. No skip-ink, so the offset is measured against the type scale to
 clear descenders — re-measure it if that scale moves.
 Note titles are prose links, not project rows: body size, body weight, that
 same underline, and the wipe firing from the title. A note row is therefore
@@ -275,6 +279,14 @@ rediscovered or re-litigated.
   cards now; Car & Classic's three are still placeholder.png, a light block,
   so each shows three white rectangles on the dark background. Goes away as
   the last case-study images land.
+- **The resting underline is under the 3:1 non-text contrast floor.**
+  oklch(0.750 0.003 58) sits at 2.1:1 against Background in light and 2.3:1
+  in dark. Because .page a inherits the body colour, that line is the only
+  thing distinguishing a link from prose, so the shortfall is real rather
+  than decorative. Chosen for how the wipe reads — the resting line has to
+  be faint for the Text line to register as movement. Unblocked by giving
+  links a second non-colour affordance, at which point the line is free to
+  be as light as it likes; oklch(0.640) is where it clears 3:1 unaided.
 - **Route change is a CSS fade, not the View Transitions API.** Reasoning
   under Tokens above. Revisit when ViewTransition ships in a stable React.
 - **CJK and Arabic greetings fall back to system fonts.** Noted under Hard
