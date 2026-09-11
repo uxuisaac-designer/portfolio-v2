@@ -280,19 +280,22 @@ file exports a `meta` with title, published and draft — three fields, not
 the case study's eight. A note belongs to nobody, so there is no company
 eyebrow and no fact strip.
 
-The reading page is a plain centred column: .case-column with no sidebar
-beside it and no contents list. A case study is scanned by someone hunting
-for evidence, so it earns a jump list; a note is read top to bottom. That
+The reading page is a centred .case-column with a sidebar that holds only
+the way back, and no contents list. Back sits where a case study's Index
+link does — in .case-sidebar from 64rem, and at the top of the column as
+.case-index-inline below that, where the sidebar is gone — so the way out
+of a reading page is in the same place whichever kind it is. A case study
+is scanned by someone hunting for evidence, so it earns a jump list; a
+note is read top to bottom. That
 also lifts the 24-character heading limit, which exists only to stop the
 contents list rewrapping as it gains weight 500 — a note's headings are
 free to run long, or to be absent entirely.
 
 The reading-page classes are shared rather than copied: .case-column,
-.case-body, .case-title, .case-header, .case-index and .case-nav all carry
-both routes. The case- prefix is inaccurate for half of what it now styles,
-and that is preferred to renaming twenty selectors for a name nobody reads.
-Two classes are the note's own — .note-index, which is .case-index-inline's
-margin without its hiding, and .note-date.
+.case-body, .case-title, .case-header, .case-sidebar, .case-index and
+.case-nav all carry both routes. The case- prefix is inaccurate for half of
+what it now styles, and that is preferred to renaming twenty selectors for
+a name nobody reads. One class is the note's own: .note-date.
 
 app/notes.ts reads the directory rather than listing the notes by hand,
 the way app/case-studies.ts reads the work. Read time is the body's word
@@ -361,9 +364,12 @@ Newer/Older. Newer/Older runs across the whole catalogue, not within a
 category. Share cards are the house card with the question as the detail,
 not the poster.
 
-An entry's page is a plain .case-column, like a note: Back, then the header
-— number and category, the title, and the question directly under it in
---text where a case study's tagline is muted — then the frame 24px below,
+An entry's page is laid out like a note's, with Back in the sidebar from
+64rem and at the top of the column below it — 48px above the header there,
+not the 24px it takes on a note, or it matches the header-to-frame gap and
+reads as the first line of the label. Then the header — number and
+category, the title, and the question directly under it in --text where
+a case study's tagline is muted — then the frame 24px below,
 then the writeup 48px below the frame, a step further because it is about
 the artefact rather than part of it. The header is .lab-header, not
 .case-header, whose 96px would split the question from its image. No date

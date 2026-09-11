@@ -1438,20 +1438,14 @@ button.case-figure-frame:focus-visible {
 
 /* Note pages.
 
-   A plain centred column — .case-column with no sidebar beside it, which
-   that class already supports: it is centred on its own and does not know
-   the sidebar exists. No contents list either. A case study is scanned by
-   someone looking for evidence, so it earns a jump list; a note is read
-   top to bottom. Dropping it also lifts the 24-character heading limit,
-   which exists only to stop the contents list rewrapping as you scroll. */
-
-/* The case route splits the Index link in two: .case-index styles it, and
-   .case-index-inline adds the bottom margin and then hides it above 64rem
-   where the sidebar takes the link over. A note has no sidebar, so it
-   needs the margin without the hiding. */
-.note-index {
-  margin-bottom: var(--space-stack);
-}
+   A centred .case-column, with a sidebar that holds only the way back —
+   the same .case-index / .case-index-inline pair a case study uses, so
+   Back sits beside the column from 64rem and at its top below that. No
+   contents list. A case study is scanned by someone looking for evidence,
+   so it earns a jump list; a note is read top to bottom. Dropping it also
+   lifts the 24-character heading limit, which exists only to stop the
+   contents list rewrapping as you scroll. Lab entry pages share all of
+   this. */
 
 /* Date and read time on one line under the title, at label size and muted
    — the same pair the row's read time takes. It is metadata about the
@@ -1685,6 +1679,15 @@ button.case-figure-frame:focus-visible {
    so only the 24px between blocks sits between them. */
 .lab-header {
   margin-bottom: var(--space-stack);
+}
+
+/* Below 64rem Back sits at the top of the column. At the 24px it takes on
+   a note or a case study, it sat as far from the header as the header sits
+   from the frame, and read as the first line of the specimen's label. A
+   note's bold title and a case study's 96px below its header keep those
+   pages clear of this; here Back takes twice the gap inside the group. */
+.lab-index-inline {
+  margin-bottom: var(--space-group);
 }
 
 /* Directly under the title, where a case study's tagline sits, and in

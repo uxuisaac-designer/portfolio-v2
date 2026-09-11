@@ -74,33 +74,43 @@ export default async function NotePage({
      "· 4 min read" reads as a missing field. */
   const byline = [note.date, note.readTime].filter(Boolean).join(" · ");
 
+  /* Back to the list rather than to the index. A case study returns to the
+     homepage because that is where the work is listed; a note's list is
+     /notes, so that is where "back" means. It sits where a case study's
+     Index link does: in the sidebar from 64rem, and at the top of the
+     column below that, where the sidebar is gone. */
+  const back = (className: string) => (
+    <Link className={className} href="/notes">
+      <Icon name="return" />
+      Notes
+    </Link>
+  );
+
   return (
-    <article className="case-column">
-      {/* Back to the list rather than to the index. A case study returns to
-          the homepage because that is where the work is listed; a note's
-          list is /notes, so that is where "back" means. */}
-      <Link className="case-index note-index" href="/notes">
-        <Icon name="return" />
-        Notes
-      </Link>
+    <>
+      <aside className="case-sidebar">{back("case-index")}</aside>
 
-      <header className="case-header">
-        <h1 className="case-title">{note.title}</h1>
-        <p className="note-date">{byline}</p>
-      </header>
+      <article className="case-column">
+        {back("case-index case-index-inline")}
 
-      <div className="case-body">
-        <Content />
-      </div>
+        <header className="case-header">
+          <h1 className="case-title">{note.title}</h1>
+          <p className="note-date">{byline}</p>
+        </header>
 
-      {(newer || older) && (
-        <nav className="case-nav" aria-label="Other notes">
-          {newer ? <NoteNavLink note={newer} direction="Newer" /> : null}
-          {older ? <NoteNavLink note={older} direction="Older" /> : null}
-        </nav>
-      )}
+        <div className="case-body">
+          <Content />
+        </div>
 
-      <Footer initial={londonTime(new Date())} />
-    </article>
+        {(newer || older) && (
+          <nav className="case-nav" aria-label="Other notes">
+            {newer ? <NoteNavLink note={newer} direction="Newer" /> : null}
+            {older ? <NoteNavLink note={older} direction="Older" /> : null}
+          </nav>
+        )}
+
+        <Footer initial={londonTime(new Date())} />
+      </article>
+    </>
   );
 }
