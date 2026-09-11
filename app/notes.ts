@@ -45,7 +45,12 @@ function stripMeta(source: string): string {
     if (source[i] === "{") depth++;
     else if (source[i] === "}") {
       depth--;
-      if (depth === 0) return source.slice(0, start) + source.slice(i + 1);
+      /* The statement's semicolon goes with it, or it is left behind as a
+         paragraph of its own. */
+      if (depth === 0) {
+        const end = source[i + 1] === ";" ? i + 2 : i + 1;
+        return source.slice(0, start) + source.slice(end);
+      }
     }
   }
 
