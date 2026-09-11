@@ -77,48 +77,57 @@ export default async function LabEntryPage({
   );
 
   return (
-    <article className="case-column">
-      <LabBackLink />
+    <>
+      {/* Back sits where a case study's Index link does: in the sidebar
+          from 64rem, and at the top of the column below that, where the
+          sidebar is gone. */}
+      <aside className="case-sidebar">
+        <LabBackLink className="case-index" />
+      </aside>
 
-      {/* The specimen label first — number, category, title and the
-          question — then the artefact it describes, then the writeup. The
-          header and the frame are one group, 24px apart; the writeup is
-          48px below, a step further, because it is about the thing rather
-          than part of it. */}
-      <header className="lab-header">
-        <p className="lab-meta">
-          <span className="lab-id">{entry.id}</span>
-          <span>{entry.category}</span>
-        </p>
-        <h1 className="case-title">{entry.title}</h1>
-        {/* The point of the entry, in the tagline's place. In --text where
-            a case study's tagline is muted: the question is read, not
-            skimmed. */}
-        <p className="lab-question">{entry.question}</p>
-      </header>
+      <article className="case-column">
+        <LabBackLink className="case-index case-index-inline" />
 
-      {/* 60% of the column: 350px at full width. It is the page's largest
-          image, so its poster is preloaded. */}
-      <LabFrame
-        entry={entry}
-        trigger="view"
-        sizes="(max-width: 38.5rem) 60vw, 350px"
-        preload
-        className="lab-detail-frame"
-      />
+        {/* The specimen label first — number, category, title and the
+            question — then the artefact it describes, then the writeup. The
+            header and the frame are one group, 24px apart; the writeup is
+            48px below, a step further, because it is about the thing rather
+            than part of it. */}
+        <header className="lab-header">
+          <p className="lab-meta">
+            <span className="lab-id">{entry.id}</span>
+            <span>{entry.category}</span>
+          </p>
+          <h1 className="case-title">{entry.title}</h1>
+          {/* The point of the entry, in the tagline's place. In --text where
+              a case study's tagline is muted: the question is read, not
+              skimmed. */}
+          <p className="lab-question">{entry.question}</p>
+        </header>
 
-      <div className="case-body">
-        <Content />
-      </div>
+        {/* 60% of the column: 350px at full width. It is the page's largest
+            image, so its poster is preloaded. */}
+        <LabFrame
+          entry={entry}
+          trigger="view"
+          sizes="(max-width: 38.5rem) 60vw, 350px"
+          preload
+          className="lab-detail-frame"
+        />
 
-      {(newer || older) && (
-        <nav className="case-nav" aria-label="Other experiments">
-          {newer ? <LabNavLink entry={newer} direction="Newer" /> : null}
-          {older ? <LabNavLink entry={older} direction="Older" /> : null}
-        </nav>
-      )}
+        <div className="case-body">
+          <Content />
+        </div>
 
-      <Footer initial={londonTime(new Date())} />
-    </article>
+        {(newer || older) && (
+          <nav className="case-nav" aria-label="Other experiments">
+            {newer ? <LabNavLink entry={newer} direction="Newer" /> : null}
+            {older ? <LabNavLink entry={older} direction="Older" /> : null}
+          </nav>
+        )}
+
+        <Footer initial={londonTime(new Date())} />
+      </article>
+    </>
   );
 }
