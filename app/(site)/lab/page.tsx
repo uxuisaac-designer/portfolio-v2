@@ -1,5 +1,9 @@
-import { getAllEntries } from "../../lab";
+import { Suspense } from "react";
+
+import { getAllEntries, getCategories } from "../../lab";
 import { pageMetadata } from "../../site";
+import CategoryFilter, { type FilterOption } from "./category-filter";
+import LabBrowser from "./lab-browser";
 import LabCard from "./lab-card";
 import LabGrid from "./lab-grid";
 
@@ -20,6 +24,15 @@ export default async function Lab() {
     );
   }
 
+  const options: FilterOption[] = [
+    { category: null, label: "All", count: entries.length },
+    ...(await getCategories()).map(({ category, count }) => ({
+      category,
+      label: category,
+      count,
+    })),
+  ];
+
   const items = entries.map((entry) => ({
     id: entry.id,
     category: entry.category,
@@ -28,13 +41,26 @@ export default async function Lab() {
 
   return (
     /* No page heading, as on Notes: the nav directly above already says
-       Lab. The intro is two sentences with no eyebrow over them. */
+       Lab. The intro is two sentences with no eyebrow over them.
+
+       The fallback is what the build prerenders: every card, unfiltered.
+       A production build fails outright if useSearchParams is read outside
+       a Suspense boundary on a static page. */
     <>
       <p className="lab-intro">
         Small interface experiments, each built to answer one question. Every
         entry says what I tried and what I found.
       </p>
-      <LabGrid items={items} active={null} />
+      <Suspense
+        fallback={
+          <>
+            <CategoryFilter options={options} active={null} />
+            <LabGrid items={items} active={null} />
+          </>
+        }
+      >
+        <LabBrowser options={options} items={items} />
+      </Suspense>
     </>
   );
 }
