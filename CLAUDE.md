@@ -111,7 +111,9 @@ it. Revisit when ViewTransition ships in a stable React.
   labels, in the flow. Track one step off --bg, active pill --bg so the
   selection reads as cut out — no shadow. Never full width, never chrome
 - No accent colour anywhere
-- Projects and writing are text rows, never cards
+- Projects and writing are text rows, never cards. Lab entries are the
+  exception: cards in a two-column grid inside the column, because an
+  experiment is looked at before it is read about
 - Hierarchy comes from weight and opacity, not size
 - One typeface. The exception is the greeting: Geist has no CJK or
   Arabic glyphs, so those three fall back to system fonts
@@ -316,6 +318,57 @@ because that is where the work is listed, and a note's list is its own page.
 and the chain in production, linked as normal in development, and the route
 built either way so a draft is always reachable by URL.
 
+## Lab
+Content is MDX in content/lab/*.mdx, rendered by app/(site)/lab and
+app/lab/[slug]. Each file exports a `meta` with id, title, category, tags,
+question, date, poster and optional media, featured and draft;
+content/lab/README.md is the authoring guide and _entry.mdx the blank.
+app/lab.ts reads the directory and validates every field, reporting every
+problem in a file in one message naming it, and a duplicate id names both
+files. Unlike notes and case studies, drafts are validated in full — a
+draft still renders as a card in development. Paths are checked for shape,
+never existence: public/ is not on disk when Vercel regenerates a page.
+app/lab-category.ts holds the half the client needs, because app/lab.ts
+imports node:fs.
+
+Cards are two columns inside the 36.375rem column, one below 30rem. The
+frame is 3:2 at radius 12px on --figure, the case-study mat, so the Lab
+adds no grey; the artefact sits in the middle 60% (inset: 20%). Rows are
+48px apart (--space-group) against a 16px column gap: a caption sits 12px
+under its own frame, and at 24px the next frame pulled the question towards
+it. The caption sits below the frame on the page: id and category at label
+size apart by a 0.75rem gap and no separator, the title at 500 carrying the
+house underline so the wipe fires from anywhere on the card, the question
+muted and clamped to two lines. Titles stay on one line, cut with an
+ellipsis, because a wrapped inline-block draws one rule the width of the
+box. The card never moves. A loop plays on hover and on keyboard focus,
+never on touch, with its source attached only within 200px of the viewport;
+on an entry's page it plays while a quarter is on screen. Under reduced
+motion no source is ever attached — the deliberate opposite of <Clip>,
+whose motion is a case study's evidence. A Lab poster is already the
+finished picture.
+
+The filter is plain text links, colour marking the active one, because a
+weight change would shove its neighbours along. State is ?category= in the
+URL, read by lab-browser.tsx inside a Suspense boundary whose fallback is
+the unfiltered grid, so /lab prerenders with the first 24 cards in its
+HTML. 24 cards render, then Show more. Every card's markup still travels
+in the RSC payload, serialised once — about 700 bytes a card, so the slice
+limits the DOM and the image requests, not the payload. An entry's Back
+link restores the filter from sessionStorage rather than a query on the
+entry URL, so an entry has one address and the filter survives
+Newer/Older. Newer/Older runs across the whole catalogue, not within a
+category. Share cards are the house card with the question as the detail,
+not the poster.
+
+An entry's page is a plain .case-column, like a note: Back, then the header
+— number and category, the title, and the question directly under it in
+--text where a case study's tagline is muted — then the frame 24px below,
+then the writeup 48px below the frame, a step further because it is about
+the artefact rather than part of it. The header is .lab-header, not
+.case-header, whose 96px would split the question from its image. No date
+or tags render; date feeds the sitemap and tags are validated but unread.
+
 ## Icons
 Lucide is the icon library. Every icon renders through the Icon wrapper in
 app/icons.tsx and is referenced by name — nothing else imports
@@ -376,21 +429,22 @@ new one that forgets goes out with the index card, not with none.
 A draft carries noindex, nofollow and is left out of the sitemap. It is
 not disallowed in robots.txt: a disallowed URL can still be listed from a
 link elsewhere, and a crawler refused the page never sees the noindex. The
-sitemap reads the same lists the pages render, so it follows new work and
-notes on its own, and only a note claims a lastModified — build time would
-be a guess.
+sitemap reads the same lists the pages render, so it follows new work,
+notes and Lab entries on its own. Notes and Lab entries claim a
+lastModified from their own dates; a case study claims none — build time
+would be a guess.
 
 Share cards are next/og, drawn at build: app/opengraph-image.tsx for the
-index, Notes and Lab, and one per case study and per note, each exporting
-generateStaticParams so none is drawn on request. app/share-card.tsx is the
-one layout. Every line sits at one size, 48px, separating on weight and
-colour as the site does; the longest tagline, 99 characters, fits three
-lines at that size, so a much longer one would crowd the card. A note's
-card has no description — the title is what earns the click, and the
-unfurl prints the description beside it. Light palette only, as hex, since
-Satori reads neither oklch nor the viewer's theme. The Geist faces are
-vendored in assets/fonts as TTF, because Satori takes no WOFF2 and cannot
-synthesise the 600.
+index, Notes and Lab, and one per case study, per note and per Lab entry,
+each exporting generateStaticParams so none is drawn on request.
+app/share-card.tsx is the one layout. Every line sits at one size, 48px,
+separating on weight and colour as the site does; the longest tagline, 99
+characters, fits three lines at that size, so a much longer one would
+crowd the card. A note's card has no description — the title is what earns
+the click, and the unfurl prints the description beside it. Light palette
+only, as hex, since Satori reads neither oklch nor the viewer's theme. The
+Geist faces are vendored in assets/fonts as TTF, because Satori takes no
+WOFF2 and cannot synthesise the 600.
 
 No theme-color. It can only follow the system preference, not the
 toggle, so it would disagree with the page whenever someone had chosen the
@@ -426,6 +480,17 @@ rediscovered or re-litigated.
 - **CJK and Arabic greetings fall back to system fonts.** Noted under Hard
   constraints. Only fixable by dropping those languages or loading Noto
   faces for three words.
+- **A filtered Lab link paints All before it filters.** /lab is
+  prerendered with the unfiltered grid as the Suspense fallback, so
+  opening /lab?category=motion directly shows every card until hydration.
+  Chosen to keep the page static. Unblocked by rendering /lab dynamically,
+  or by a proxy rewrite of ?category= to prerendered per-category pages, if
+  the flash is ever visible on a real connection.
+- **Show more resets on Back.** /lab/[slug] lives outside the (site)
+  group, so opening an entry unmounts the grid and its shown count; Back
+  lands on the first 24 with the scroll position past their end. Invisible
+  until there are 25 entries. Unblocked by keeping the count in
+  sessionStorage per category, beside the remembered filter.
 
 ## Working style
 Ask before adding any dependency.

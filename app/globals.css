@@ -1461,3 +1461,242 @@ button.case-figure-frame:focus-visible {
   font-size: var(--font-size-label);
   color: var(--muted);
 }
+
+/* Lab.
+
+   The one place on the index where work is shown as cards rather than
+   text rows. An experiment is a thing to look at before it is a thing to
+   read about, and a row's 64px thumbnail is too small to show one.
+
+   Two columns inside the page column, one below 30rem. The cards stay
+   inside the 36.375rem measure like everything else under the nav. */
+
+/* Muted: it belongs to the section below the nav, not to the copy above
+   it, and the colour is what says so. */
+.lab-intro {
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* minmax(0, 1fr), not 1fr: a long unbroken title would otherwise widen its
+   column past half. Column gap is the 16px a row puts between thumbnail
+   and text.
+
+   Row gap is the 48px between employers, not the 24px between blocks. A
+   caption sits 12px under its own frame, and at 24px the next frame — a
+   solid block — pulled the question towards it; the two captions read as
+   belonging to the row below as much as the row above. At 48px the space
+   between cards is four times the space inside one. */
+.lab-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-group) 1rem;
+}
+
+/* Below this a card would be under 216px and its artefact under 130px. */
+@media (max-width: 30rem) {
+  .lab-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* One link per card. It does not move, scale, lift or shadow on hover —
+   the only thing that animates is the artefact inside the frame, and the
+   title's underline. The radius is for the focus ring, which follows it. */
+.lab-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-tight);
+  border-radius: 12px;
+}
+
+.page .lab-card:focus-visible {
+  outline-offset: 4px;
+}
+
+/* The same mat as a case-study figure, so the Lab introduces no grey of
+   its own. Flat colour, not an image: nothing extra to load. */
+.lab-frame {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--figure);
+}
+
+/* Percentage insets resolve against the frame's width on the sides and its
+   height on the top and bottom, so 20% all round leaves a box 60% by 60% —
+   itself 3:2, which is the shape posters are exported at. The artefact
+   never reaches the frame's edge. */
+.lab-artefact {
+  position: absolute;
+  inset: 20%;
+}
+
+.lab-artefact img,
+.lab-artefact video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+/* Over the poster, invisible until it is actually playing. The fade is
+   short: the first frame is the poster, so there is nothing to cross-fade
+   between but the moment playback starts. */
+.lab-video {
+  opacity: 0;
+  transition: opacity 150ms var(--ease-hover);
+}
+
+.lab-video[data-playing] {
+  opacity: 1;
+}
+
+/* Belt to lab-media.tsx's braces, which never attaches a source here. */
+@media (prefers-reduced-motion: reduce) {
+  .lab-video {
+    display: none;
+  }
+}
+
+.lab-card-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+/* Number and category, apart by spacing alone — no dot between them. The
+   number is a catalogue label, so it sits at label size like a date, and
+   tabular so 011 and 100 take the same width. */
+.lab-meta {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0;
+  font-size: var(--font-size-label);
+  color: var(--muted);
+}
+
+.lab-id {
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-card-title {
+  min-width: 0;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* The underline measures the inline-block it sits on, and a wrapped
+   inline-block draws one rule the width of the whole box — the same
+   failure .note-row stacks to avoid. So a title stays on one line and is
+   cut with an ellipsis rather than wrapping. vertical-align: top because
+   an overflow-hidden inline-block takes its baseline from its bottom edge. */
+.lab-card-title .link-underline {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: top;
+}
+
+.lab-card-question {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* Plain text, left-aligned under the grid: a way to keep reading, not a
+   call to action. */
+.lab-more {
+  align-self: start;
+  padding: 0.25rem 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color var(--duration-hover-out) var(--ease-hover);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lab-more:hover {
+    color: var(--text);
+    transition-duration: var(--duration-hover-in);
+  }
+}
+
+.lab-more:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* The filter sits closer to the grid it switches than to the intro above
+   it — the same rule the section nav follows. 12px below, against the
+   section's 24px gap above. */
+.lab-filter-nav {
+  margin-bottom: calc(var(--space-tight) - var(--space-stack));
+}
+
+.lab-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+/* .page .lab-filter-item rather than the bare class: .page a sets
+   color: inherit and outranks a single class. */
+.page .lab-filter-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.375rem;
+  padding-block: 0.25rem;
+  color: var(--muted);
+  transition: color var(--duration-hover-out) var(--ease-hover);
+}
+
+.page .lab-filter-item[aria-current="page"] {
+  color: var(--text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .page .lab-filter-item:hover {
+    color: var(--text);
+    transition-duration: var(--duration-hover-in);
+  }
+}
+
+.lab-filter-count {
+  font-size: var(--font-size-label);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Lab entry pages. A plain centred column, as a note is: the header, the
+   artefact, then the writeup. The meta line and the frame are the card's
+   own classes. */
+
+/* The header and the frame are one group — the label and the specimen —
+   so only the 24px between blocks sits between them. */
+.lab-header {
+  margin-bottom: var(--space-stack);
+}
+
+/* Directly under the title, where a case study's tagline sits, and in
+   --text rather than muted. */
+.lab-question {
+  margin: 0;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+/* The writeup is about the artefact rather than part of it, so it sits a
+   step further off: 48px, twice the gap above the frame. */
+.lab-detail-frame {
+  margin-bottom: var(--space-group);
+}

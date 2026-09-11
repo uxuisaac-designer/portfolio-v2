@@ -1,0 +1,33 @@
+export const meta = {
+  id: "006",
+  title: "Image viewer",
+  category: "Pattern",
+  tags: ["images", "motion"],
+  question: "Can an image open full size without leaving the page?",
+  date: "2026-09-11",
+  poster: "/lab/006/poster.png",
+  media: "/lab/006/demo.mp4",
+  featured: false,
+  draft: false,
+};
+
+Every image in a case study opens full size. Its frame is a button that
+opens a native dialog, so focus, the inert page behind it and Escape all
+come from the browser rather than from code I would have to get right.
+
+The picture grows out of its own place in the column into the largest box
+the viewport allows, over 400ms on the entrance curve, and shrinks back into
+it on close. Its spot on the page is emptied while it is away, so it reads
+as one picture lifted off the page rather than a copy appearing over it. It
+grows from the visible picture, not the frame, so an image inset on its mat
+does not jump at the start. A close halfway through the grow reverses from
+where it has got to.
+
+The scrim is the page colour over a 12px blur, so a light page stays light
+instead of flipping to black. The viewer shows the copy the page has already
+loaded and fades the full-size file in over it, so the grow never runs on an
+empty frame. The page’s scroll is locked, with the scrollbar’s width paid
+back as padding, so the column behind does not shift sideways as it opens.
+
+The close button is 32px at a 16px radius — the largest radius this site
+allows.

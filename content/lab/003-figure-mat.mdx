@@ -1,0 +1,27 @@
+export const meta = {
+  id: "003",
+  title: "Figure mat",
+  category: "Pattern",
+  tags: ["images", "layout"],
+  question: "Can a figure hold its shape before its image arrives?",
+  date: "2026-09-11",
+  poster: "/lab/003/poster.png",
+  featured: false,
+  draft: false,
+};
+
+Case-study images sit in a frame that holds 16:9 whatever the file is. The
+block is the right size before the image loads, so the page never jumps when
+it lands.
+
+The first version cropped anything that was not 16:9 to fill the frame, so a
+screenshot of another shape lost its edges. Now a source of another shape is
+contained, sitting whole on a flat mat. The mat is oklch(0.940), the
+lightness of the grey placeholder it replaced, so a figure reads the same
+before and after its image arrives.
+
+A contained screenshot touching the frame’s edge looked cramped, so an inset
+option pads it 4% of the frame’s width on every side. I set it by hand on
+each figure. Reading the file’s size at render would work in the build and
+fail later: pages regenerate on Vercel, where the image files are not on
+disk, and the first revalidation would quietly drop every inset.

@@ -1,0 +1,30 @@
+export const meta = {
+  id: "005",
+  title: "Theme toggle",
+  category: "Component",
+  tags: ["motion", "theme"],
+  question: "Can a two-state toggle turn like a dial instead of swapping?",
+  date: "2026-09-11",
+  poster: "/lab/005/poster.png",
+  media: "/lab/005/demo.mp4",
+  featured: false,
+  draft: false,
+};
+
+The theme toggle shows the theme you are in: a sun in light, a moon in dark.
+Both glyphs are always rendered, stacked in one grid cell, and the theme
+class on the page picks which one is up. The choice is made in CSS rather
+than in JavaScript, so the right icon is there from the first paint.
+
+The swap is a dial. The outgoing glyph turns a quarter clockwise, shrinks to
+half and fades, while the incoming one turns in from a quarter behind. It
+takes 300ms on the entrance curve. Going back, it turns the other way.
+
+It is a transition, not keyframes. A double-click reverses from wherever the
+swap has got to instead of jumping to the end and starting again. That
+depends on the theme library’s disableTransitionOnChange staying off —
+turned on, it would kill the dial along with every other transition on the
+page.
+
+Under reduced motion the turn and the shrink come off, and only the
+cross-fade is left.

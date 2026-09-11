@@ -1,0 +1,35 @@
+export const meta = {
+  id: "004",
+  title: "Contents marker",
+  category: "Motion",
+  tags: ["motion", "navigation"],
+  question: "Can a scroll-spy marker be interrupted without restarting?",
+  date: "2026-09-09",
+  poster: "/lab/004/poster.png",
+  media: "/lab/004/demo.mp4",
+  featured: false,
+  draft: false,
+};
+
+The contents list beside a case study marks the section you are reading with
+a 6px square. When the section changes, the square travels to the new label.
+
+The labels are ragged and the square sits after the text, so every move is
+diagonal. It travels a quadratic curve that bows right, toward the content
+column, by 12px on a one-step move and up to 32px on a longer one, instead
+of cutting back through the words. It turns a quarter clockwise on the way.
+A square looks the same at both ends of a quarter turn, so the turn is only
+ever seen in flight.
+
+Scrolling interrupts it constantly, and that shaped the rest. The first
+version added 90° to wherever the angle had got to, and a move cut short at
+45° left the square resting as a diamond from then on. Now the angle always
+lands on the next multiple of 90. Progress runs on a critically damped
+spring rather than a fixed duration, so an interruption bends the path
+instead of restarting it from a standstill. Carried velocity is clamped
+below the square root of the stiffness, which guarantees no overshoot rather
+than making it unlikely.
+
+Half the path is covered in 133ms and 90% of it by 317ms. Clicking a label
+holds the observer for 700ms, so a smooth scroll past four headings is one
+move rather than five.
