@@ -3,6 +3,9 @@ export const meta = {
   title: "Note title",
   /* ISO date. Sorts the list and renders as "10 September 2026". */
   published: "2026-01-01",
+  /* Optional. The search-result and share-card text, about 160 characters
+     at most. Left out, the opening paragraph is used instead, trimmed. */
+  description: "",
   /* true keeps it out of the /notes rows and the Newer/Older chain in
      production. The route is still built, so it stays reachable by URL. */
   draft: true,

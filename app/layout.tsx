@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 
+import { DESCRIPTION, NAME, SITE_URL, X_HANDLE } from "./site";
 import ThemeProvider from "./theme-provider";
 import ThemeToggle from "./theme-toggle";
 
@@ -10,9 +11,26 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+/* Pages below override title, description, canonical and, for articles,
+   the Open Graph type. Everything else here is inherited. The share image
+   is the opengraph-image beside each page, which Next links on its own. */
 export const metadata: Metadata = {
-  title: "Isaac",
-  description: "Personal portfolio of Isaac.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: NAME, template: `%s — ${NAME}` },
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: NAME,
+    title: NAME,
+    description: DESCRIPTION,
+    locale: "en_GB",
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: X_HANDLE,
+  },
 };
 
 /* The footer prints the London time into the HTML, so the page is
