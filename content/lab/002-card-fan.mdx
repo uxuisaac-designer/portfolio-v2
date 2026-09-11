@@ -1,0 +1,32 @@
+export const meta = {
+  id: "002",
+  title: "Card fan",
+  category: "Motion",
+  tags: ["motion", "thumbnails"],
+  question: "Can three thumbnails open around a centre instead of sliding?",
+  date: "2026-09-10",
+  poster: "/lab/002/poster.png",
+  media: "/lab/002/demo.mp4",
+  featured: false,
+  draft: false,
+};
+
+A project row on the homepage held a single 64px thumbnail. I replaced it
+with three 3:4 cards, fanned the way a hand sits before it is dealt — 24×32,
+33×44 and 30×40, each placed by its own offset and rotation in one
+transform. The box stayed 64px, so nothing else in the row moved.
+
+On hover the outer two spread and turn further out. The middle card, the one
+on top, does not travel at all: it lifts 3px and grows 3%. The fan opens
+around something instead of sliding sideways as a unit.
+
+It runs 380ms on the entrance curve in both directions, which breaks the
+site’s 100ms-in, 200ms-out hover. That asymmetry is for colour. This is
+travel, and a fan that snapped shut on exit read as a collapse. The row’s
+fill still arrives at 100ms, and the cards drift in behind it.
+
+There are no shadows on this site, so a hairline in the border colour does
+the separating. I checked it on the Klekt fan, white screens overlapping
+white screens, which is the hardest case it has to carry. At full spread the
+fan reaches 1.8px past the right of its box, into space the row already
+leaves empty.

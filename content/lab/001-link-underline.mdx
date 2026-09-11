@@ -1,0 +1,35 @@
+export const meta = {
+  id: "001",
+  title: "Link underline",
+  category: "Component",
+  tags: ["links", "motion"],
+  question: "Can a hover read as travel instead of a colour change?",
+  date: "2026-09-08",
+  poster: "/lab/001/poster.png",
+  media: "/lab/001/demo.mp4",
+  featured: false,
+  draft: false,
+};
+
+Every link on this site carries two lines. The first rests under the words
+at all times, light enough to mark the link without competing with the text.
+The second is the text colour, and on hover it wipes in from the left along
+the first.
+
+Most underlines change colour on hover. I wanted this one to move, so the
+dark line is a pseudo-element scaled from zero to full width rather than a
+recoloured text-decoration. On the way out it keeps going and leaves by the
+right edge instead of retracting. The trick is transform-origin: it is left
+out of the transition, so it flips instantly, and it only flips while the
+line sits at full width or none — where a left and a right origin draw the
+same box.
+
+The resting line is where it nearly failed. Set at the muted text colour,
+the two lines sat 2.3:1 apart and the wipe vanished at speed. Lightening it
+to oklch(0.750) made the movement legible, and put the line at 2.1:1 against
+the page — under the 3:1 floor for non-text contrast. I kept it, and logged
+the shortfall as something to fix with a second affordance rather than a
+darker line.
+
+The curve does more of the work than the duration. On cubic-bezier(0.32,
+0.72, 0, 1), 90% of the travel lands in the first 146ms of the 400.
