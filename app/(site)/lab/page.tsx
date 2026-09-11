@@ -1,5 +1,7 @@
 import { getAllEntries } from "../../lab";
 import { pageMetadata } from "../../site";
+import LabCard from "./lab-card";
+import LabGrid from "./lab-grid";
 
 export const metadata = pageMetadata({
   title: "Lab",
@@ -18,11 +20,21 @@ export default async function Lab() {
     );
   }
 
+  const items = entries.map((entry) => ({
+    id: entry.id,
+    category: entry.category,
+    card: <LabCard entry={entry} />,
+  }));
+
   return (
-    <ul className="list">
-      {entries.map((entry) => (
-        <li key={entry.id}>{`${entry.id} ${entry.title}`}</li>
-      ))}
-    </ul>
+    /* No page heading, as on Notes: the nav directly above already says
+       Lab. The intro is two sentences with no eyebrow over them. */
+    <>
+      <p className="lab-intro">
+        Small interface experiments, each built to answer one question. Every
+        entry says what I tried and what I found.
+      </p>
+      <LabGrid items={items} active={null} />
+    </>
   );
 }
