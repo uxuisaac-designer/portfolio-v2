@@ -42,7 +42,7 @@ Palette is desaturated Tailwind stone at hue 58. Two text colours only:
 --text and --muted, nothing in between.
 Dark palette lives under .dark in globals.css, set outright rather than
 derived from the light values so the two tune independently. It covers
---press and --underline as well as the core five; the --segmented-* tokens
+--press, --underline and --figure as well as the core five; the --segmented-* tokens
 point at --border, --bg and --text and follow on their own.
 Body: 14px / 20px / -0.011em, Geist
 Label: 12px (dates, meta). Only two sizes — headings sit at body size
@@ -148,7 +148,15 @@ in the HTML and its links match the heading ids; only the active item is
 client work. The list appears at four headings or more.
 Images go through <Figure>, which is exposed to MDX via mdx-components.tsx.
 The frame holds a 16:9 ratio, so a block is the right size before the image
-loads and the layout never depends on the file's own dimensions.
+loads and the layout never depends on the file's own dimensions. A source
+of another shape is contained rather than cropped, sitting whole on a
+--figure mat: oklch(0.940 0.003 58), the lightness of the #ebebeb
+placeholder it replaces, so a figure reads the same before and after its
+image lands. In dark it is --hover's value. `inset` pads such a source 4%
+of the frame's width off every edge so it sits on the mat rather than
+touching it. It is set by hand, not read from the file: pages regenerate on
+Vercel, where public/ is not on disk, so a size check at render would work
+in the build and drop the inset on the first revalidation.
 The company sits above the title as an eyebrow at label size in --muted, so
 the title stays the first thing read. The tagline below is a sentence saying
 what the work was for, not a subtitle naming the employer and year — the
@@ -163,8 +171,9 @@ and nothing runs behind the reader. It does not stand down under reduced
 motion — a deliberate exception, since the motion is the evidence rather
 than decoration. GIFs are converted rather than embedded; a screen
 recording is many times smaller as video and a GIF cannot be paused at all.
-`ratio` overrides the 16:9 frame per figure, which is what portrait phone
-recordings need — 16:9 with object-fit cover would crop them to a strip.
+`ratio` overrides the 16:9 frame per figure, for when the mat would be
+most of it — a portrait phone recording is better in a frame of its own
+shape than as a sliver between two wide bands.
 
 The contents list carries a 6px square at the active label, --text and
 square-cornered, beside a label that takes weight 500 when active. That
