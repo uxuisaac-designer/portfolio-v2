@@ -1480,11 +1480,17 @@ button.case-figure-frame:focus-visible {
 
 /* minmax(0, 1fr), not 1fr: a long unbroken title would otherwise widen its
    column past half. Column gap is the 16px a row puts between thumbnail
-   and text; row gap is the 24px between blocks. */
+   and text.
+
+   Row gap is the 48px between employers, not the 24px between blocks. A
+   caption sits 12px under its own frame, and at 24px the next frame — a
+   solid block — pulled the question towards it; the two captions read as
+   belonging to the row below as much as the row above. At 48px the space
+   between cards is four times the space inside one. */
 .lab-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-stack) 1rem;
+  gap: var(--space-group) 1rem;
 }
 
 /* Below this a card would be under 216px and its artefact under 130px. */
