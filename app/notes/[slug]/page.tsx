@@ -56,6 +56,7 @@ export async function generateMetadata({
     path: note.href,
     published: note.published || undefined,
     draft: note.draft,
+    ownCard: true,
   });
 }
 

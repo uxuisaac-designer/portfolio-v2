@@ -29,6 +29,7 @@ export function pageMetadata({
   path,
   published,
   draft = false,
+  ownCard = false,
 }: {
   title: string;
   description?: string;
@@ -39,6 +40,8 @@ export function pageMetadata({
   /* A draft is built and reachable by its URL, only unlinked. Unlinked is
      not enough to keep a crawler that finds the URL from listing it. */
   draft?: boolean;
+  /* True where the route has an opengraph-image of its own beside it. */
+  ownCard?: boolean;
 }): Metadata {
   const fullTitle = `${title} — ${NAME}`;
 
@@ -53,6 +56,20 @@ export function pageMetadata({
       url: path,
       title: fullTitle,
       description,
+      /* The root's card, named outright. A page that sets openGraph stops
+         inheriting the root's opengraph-image file, so Notes and Lab would
+         otherwise go out with no image. It also outranks a page's own
+         opengraph-image file, so a route that draws its card says so. */
+      ...(ownCard
+        ? {}
+        : {
+            images: {
+              url: "/opengraph-image",
+              width: 1200,
+              height: 630,
+              alt: `${NAME}, senior product designer`,
+            },
+          }),
       ...(published
         ? { type: "article", publishedTime: published, authors: [NAME] }
         : { type: "website" }),

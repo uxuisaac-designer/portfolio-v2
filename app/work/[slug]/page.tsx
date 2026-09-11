@@ -128,6 +128,7 @@ export async function generateMetadata({
     description: meta.tagline || undefined,
     path: `/work/${slug}`,
     draft: Boolean(meta.draft),
+    ownCard: true,
   });
 }
 
