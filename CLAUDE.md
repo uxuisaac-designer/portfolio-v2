@@ -117,10 +117,24 @@ it. Revisit when ViewTransition ships in a stable React.
   Arabic glyphs, so those three fall back to system fonts
 
 ## Do not use
-No gradients. No box-shadows. No component
+No gradients in the site UI. No box-shadows. No component
 libraries (shadcn, MUI, etc). No border-radius above 16px.
 No stock illustration. No emoji, except the flag in the footer — which
 is the one piece of colour on the page and a deliberate exception.
+
+The favicon is the explicit exception to the gradient rule: a two-colour
+orb, diagonal from top-left to bottom-right, pale lilac oklch(0.88 0.06
+315) to mauve oklch(0.62 0.09 320). It lives in the browser chrome, not on
+the page, so it does not break the monochrome page or count against the
+flag being its one colour. The mauve is darker than the source swatch on
+purpose — the gap is widened so the gradient still reads at 16px. The
+stops are written as hex (#e7ccf3, #9e74a8) because favicon renderers do
+not all parse oklch; both are inside sRGB, so nothing is lost.
+app/icon.svg is the orb at 32 with 1px padding on a transparent ground.
+app/apple-icon.png is the same gradient full-bleed at 180, with no orb
+edge, because iOS applies its own mask and paints any transparency black.
+app/favicon.ico carries the orb at 16, 32 and 48 for browsers that
+still ask for it, Safari among them — regenerate it if the orb changes.
 
 ## Case studies
 Content is MDX in content/work/*.mdx, rendered by app/work/[slug]. Each
