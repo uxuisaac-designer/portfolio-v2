@@ -210,7 +210,9 @@ body {
 
 /* Width is fixed; height follows the image's own ratio. next/image gets
    the intrinsic dimensions so the browser reserves the right box, and
-   sizes="40px" keeps it from pulling the full-resolution file. */
+   sizes="36px" keeps it from pulling the full-resolution file. The src
+   still names the 3840w variant — Next's fallback for browsers without
+   srcset — but no current browser fetches it. */
 .avatar {
   width: 36px;
   height: auto;
