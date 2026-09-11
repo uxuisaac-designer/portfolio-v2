@@ -1,6 +1,13 @@
 import Link from "next/link";
 
 import { notes } from "../../notes";
+import { pageMetadata } from "../../site";
+
+export const metadata = pageMetadata({
+  title: "Notes",
+  description: "Writing on product design by Isaac Taiwo.",
+  path: "/notes",
+});
 
 export default async function Notes() {
   const all = await notes();

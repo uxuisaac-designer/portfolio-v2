@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import Footer from "../../footer";
 import Icon from "../../icons";
 import { londonTime } from "../../london-time";
 import { neighboursFor, noteFor, noteSlugs, type Note } from "../../notes";
+import { pageMetadata } from "../../site";
 
 /* Only the slugs below are served. Without this a URL with no file behind
    it reaches the dynamic import and fails as a 500 rather than a 404 — and
@@ -38,6 +40,23 @@ function NoteNavLink({
       <span className="case-nav-company">{note.readTime}</span>
     </Link>
   );
+}
+
+/* A note is the one page that is an article, so it is the one that carries
+   a published date into the share card's metadata. */
+export async function generateMetadata({
+  params,
+}: PageProps<"/notes/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const note = await noteFor(slug);
+
+  return pageMetadata({
+    title: note.title,
+    description: note.description || undefined,
+    path: note.href,
+    published: note.published || undefined,
+    draft: note.draft,
+  });
 }
 
 export default async function NotePage({

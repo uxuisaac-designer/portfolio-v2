@@ -12,6 +12,8 @@ export type Note = {
   /* "10 September 2026". */
   date: string;
   readTime: string;
+  /* The meta's own if it has one, otherwise the opening paragraph. */
+  description: string;
   draft: boolean;
 };
 
@@ -45,7 +47,12 @@ function stripMeta(source: string): string {
     if (source[i] === "{") depth++;
     else if (source[i] === "}") {
       depth--;
-      if (depth === 0) return source.slice(0, start) + source.slice(i + 1);
+      /* The statement's semicolon goes with it, or it is left behind as a
+         paragraph of its own. */
+      if (depth === 0) {
+        const end = source[i + 1] === ";" ? i + 2 : i + 1;
+        return source.slice(0, start) + source.slice(end);
+      }
     }
   }
 
@@ -65,6 +72,34 @@ function wordCount(source: string): number {
     .replace(/[*_`>]/g, " ");
 
   return prose.split(/\s+/).filter(Boolean).length;
+}
+
+/* Search results cut a description at about 160 characters. Trimming it
+   here, at a word, means the ellipsis lands where it was put rather than
+   wherever the engine's cut falls. */
+const DESCRIPTION_LIMIT = 160;
+
+/* The fallback for a note whose meta carries no description: the first
+   block of prose, which is where a note opens with no heading above it.
+   Headings, components, imports and code are skipped rather than
+   described. */
+function excerptFor(source: string): string {
+  const paragraph = stripMeta(source)
+    .split(/\n\s*\n/)
+    .map((block) => block.trim())
+    .find((block) => block && !/^(#|<|import |export |```|>|[-*] )/.test(block));
+
+  if (!paragraph) return "";
+
+  const text = paragraph
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/[*_`]/g, "")
+    .replace(/\s+/g, " ");
+
+  if (text.length <= DESCRIPTION_LIMIT) return text;
+
+  const cut = text.slice(0, DESCRIPTION_LIMIT - 1);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:.—–-]+$/, "")}…`;
 }
 
 export function readTimeFor(source: string): string {
@@ -132,6 +167,9 @@ export async function noteFor(slug: string): Promise<Note> {
        parts it has rather than rendering a leading separator. */
     date: published ? dateFormat.format(new Date(published)) : "",
     readTime: readTimeFor(source),
+    description: meta.description
+      ? String(meta.description)
+      : excerptFor(source),
     draft: Boolean(meta.draft),
   };
 }

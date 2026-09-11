@@ -321,14 +321,60 @@ only the cross-fade is left. This relies on the provider not setting
 disableTransitionOnChange, which would kill the swap along with everything
 else.
 
+## Metadata
+app/site.ts holds the address, the name and the default description, and
+pageMetadata() builds every page's set from them. The address is the
+vercel.app one until there is a custom domain; changing SITE_URL moves the
+canonicals, the sitemap, robots and the share-card URLs together.
+
+Titles carry the full name, Isaac Taiwo, where the page says only Isaac: a
+title is read out of context, in a tab or a result or a shared link. The
+template is "%s — Isaac Taiwo" and the index takes the bare name. A case
+study's title is "Buyer experience at Kick Game" — out of the page, the
+title has lost the company eyebrow that told you whose buyers — and its
+description is the tagline. A note's description is the optional
+`description` in its meta, falling back to the opening paragraph trimmed
+at a word under 160 characters.
+
+Every page builds its full metadata through pageMetadata() rather than
+overriding the root's piecemeal. Next merges shallowly: a page's openGraph
+replaces the root's whole object, and a page that sets only a title leaves
+og:title saying the root's. The title template does not reach openGraph
+either, so the name is joined on there by hand. A note is og:type article
+with its published date; everything else is website.
+
+A draft carries noindex, nofollow and is left out of the sitemap. It is
+not disallowed in robots.txt: a disallowed URL can still be listed from a
+link elsewhere, and a crawler refused the page never sees the noindex. The
+sitemap reads the same lists the pages render, so it follows new work and
+notes on its own, and only a note claims a lastModified — build time would
+be a guess.
+
+Share cards are next/og, drawn at build: app/opengraph-image.tsx for the
+index, Notes and Lab, and one per case study and per note, each exporting
+generateStaticParams so none is drawn on request. app/share-card.tsx is the
+one layout. Every line sits at one size, 48px, separating on weight and
+colour as the site does; the longest tagline, 99 characters, fits three
+lines at that size, so a much longer one would crowd the card. A note's
+card has no description — the title is what earns the click, and the
+unfurl prints the description beside it. Light palette only, as hex, since
+Satori reads neither oklch nor the viewer's theme. The Geist faces are
+vendored in assets/fonts as TTF, because Satori takes no WOFF2 and cannot
+synthesise the 600.
+
+No theme-color. It can only follow the system preference, not the
+toggle, so it would disagree with the page whenever someone had chosen the
+other theme.
+
 ## Deferred
 Known-open, deliberately. Each says what unblocks it, so none of these get
 rediscovered or re-litigated.
 
 - **Nav segments are buttons, not links.** Driven by router.push, as
   specified. The cost is real now that Notes and Lab are reachable: no
-  middle-click, no open-in-new-tab, nothing for a crawler to follow.
-  Styled <Link>s look identical if that becomes worth it.
+  middle-click, no open-in-new-tab, nothing for a crawler to follow. The
+  sitemap now hands crawlers /notes and /lab directly, so what is left is
+  the people. Styled <Link>s look identical if that becomes worth it.
 - **Dark-mode row thumbnails are bright.** Kick Game and Klekt carry real
   cards now; Car & Classic's three are still placeholder.png, a light block,
   so each shows three white rectangles on the dark background. Goes away as
@@ -341,6 +387,10 @@ rediscovered or re-litigated.
   be faint for the Text line to register as movement. Unblocked by giving
   links a second non-colour affordance, at which point the line is free to
   be as light as it likes; oklch(0.640) is where it clears 3:1 unaided.
+- **Share-card word spacing is uneven.** Satori lays out each word
+  separately to wrap them, so some gaps render wider than Geist sets them
+  in a browser, and it ignores word-spacing. Slight at the size an unfurl
+  shows. Unblocked by a Satori release that shapes whole runs.
 - **Route change is a CSS fade, not the View Transitions API.** Reasoning
   under Tokens above. Revisit when ViewTransition ships in a stable React.
 - **CJK and Arabic greetings fall back to system fonts.** Noted under Hard

@@ -1,3 +1,11 @@
+import { pageMetadata } from "../../site";
+
+export const metadata = pageMetadata({
+  title: "Lab",
+  description: "Experiments and fun ideas by Isaac Taiwo.",
+  path: "/lab",
+});
+
 export default function Lab() {
   return (
     <section>

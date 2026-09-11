@@ -2,6 +2,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
 import GithubSlugger from "github-slugger";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import Footer from "../../footer";
@@ -9,6 +10,7 @@ import Icon from "../../icons";
 import { londonTime } from "../../london-time";
 import { hiddenHrefs } from "../../case-studies";
 import { neighboursFor, type TimelineEntry } from "../../projects";
+import { pageMetadata } from "../../site";
 
 import CaseSidebar, { type Heading } from "./case-sidebar";
 
@@ -109,6 +111,24 @@ function assertPublishable(slug: string, meta: Record<string, unknown>) {
     `content/work/${slug}.mdx is published but missing ${missing.join(", ")}. ` +
       `Add the field, or set draft: true while it is unfinished.`,
   );
+}
+
+/* "Buyer experience" is a heading on the page, under the company eyebrow; in
+   a tab or a shared link it has lost that eyebrow and names nothing, so the
+   company is joined back on. The tagline already says what the work was
+   for, which is what a description is. */
+export async function generateMetadata({
+  params,
+}: PageProps<"/work/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const { meta } = await import(`../../../content/work/${slug}.mdx`);
+
+  return pageMetadata({
+    title: meta.company ? `${meta.title} at ${meta.company}` : meta.title,
+    description: meta.tagline || undefined,
+    path: `/work/${slug}`,
+    draft: Boolean(meta.draft),
+  });
 }
 
 export default async function CaseStudy({
