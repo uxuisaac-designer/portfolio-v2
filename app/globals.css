@@ -17,6 +17,10 @@
      trade is ever reopened. */
   --underline: oklch(0.750 0.003 58);
   --press: oklch(0.930 0.003 58);
+  /* The mat behind a case-study image that is not 16:9. The lightness of
+     the placeholder it replaces (#ebebeb, 0.940) at the palette's hue, so
+     a figure reads the same before and after its image lands. */
+  --figure: oklch(0.940 0.003 58);
 
   /* Segmented nav. The active pill is --bg cut out of the track, so no
      shadow is needed to lift it — but that only works if the two are far
@@ -95,6 +99,7 @@
   --border: oklch(0.290 0.004 58);
   --hover: oklch(0.245 0.004 58);
   --press: oklch(0.285 0.004 58);
+  --figure: oklch(0.245 0.004 58);
   /* Softened alongside the light value, the same 17% of the way toward
      the page. 2.3:1 against --bg, 6.8:1 against --text. */
   --underline: oklch(0.430 0.004 58);
@@ -1173,18 +1178,30 @@ body {
   aspect-ratio: 16 / 9;
   border-radius: 8px;
   overflow: hidden;
-  background: var(--hover);
+  background: var(--figure);
 }
 
 /* A clip fills the frame the way an Image with `fill` does, so the two are
-   interchangeable inside it. */
+   interchangeable inside it. Contained rather than covered: a source that is
+   not 16:9 sits whole on the --figure mat instead of being cropped to fit,
+   and a 16:9 one fills the frame exactly either way. */
 .case-figure-frame img,
 .case-figure-frame video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+/* Padding on the element shrinks its content box, and object-fit contains
+   the source within that, so the inset holds on every side whichever way
+   the source is off 16:9. A percentage resolves against the frame's width
+   on all four sides — 23px at the column's full width, 14px on a phone —
+   so the inset scales with the frame rather than eating a small one. */
+.case-figure-inset img,
+.case-figure-inset video {
+  padding: 4%;
 }
 
 .case-caption {
