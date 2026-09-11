@@ -1,6 +1,9 @@
 import Image from "next/image";
 
 import Clip from "./clip";
+import FigureViewer from "./figure-viewer";
+
+const PLACEHOLDER = "/placeholder.png";
 
 /* .mp4 and .webm render as a muted, looping clip; anything else as an image.
    One component either way, so MDX writes <Figure> and the frame, ratio and
@@ -37,23 +40,39 @@ export default function Figure({
   poster?: string;
   inset?: boolean;
 }) {
+  const className = inset ? "case-figure-frame case-figure-inset" : "case-figure-frame";
+  const style = ratio ? { aspectRatio: ratio } : undefined;
+
+  const image = (
+    <Image src={src} alt={alt} fill sizes="(min-width: 40rem) 36rem, 100vw" />
+  );
+
+  /* Images open full size in a viewer. A clip stays where it is, already
+     playing, and a placeholder has nothing to enlarge. */
+  let frame;
+  if (VIDEO.test(src)) {
+    frame = (
+      <div className={className} style={style}>
+        <Clip src={src} poster={poster} />
+      </div>
+    );
+  } else if (src === PLACEHOLDER) {
+    frame = (
+      <div className={className} style={style}>
+        {image}
+      </div>
+    );
+  } else {
+    frame = (
+      <FigureViewer src={src} alt={alt} caption={caption} className={className} style={style}>
+        {image}
+      </FigureViewer>
+    );
+  }
+
   return (
     <figure className="case-figure">
-      <div
-        className={inset ? "case-figure-frame case-figure-inset" : "case-figure-frame"}
-        style={ratio ? { aspectRatio: ratio } : undefined}
-      >
-        {VIDEO.test(src) ? (
-          <Clip src={src} poster={poster} />
-        ) : (
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            sizes="(min-width: 40rem) 36rem, 100vw"
-          />
-        )}
-      </div>
+      {frame}
       {caption ? (
         <figcaption className="case-caption">{caption}</figcaption>
       ) : null}
