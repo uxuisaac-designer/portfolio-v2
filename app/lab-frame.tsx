@@ -26,8 +26,8 @@ export default function LabFrame({
   return (
     <div className={className ? `lab-frame ${className}` : "lab-frame"}>
       <div className="lab-artefact">
-        {/* alt is empty: the title sits directly beside it on the card and
-            directly below it on the page, and says the same thing. */}
+        {/* alt is empty: the title sits directly below it on the card and
+            directly above it on the page, and says the same thing. */}
         <Image src={entry.poster} alt="" fill sizes={sizes} preload={preload} />
         {entry.media ? <LabMedia src={entry.media} trigger={trigger} /> : null}
       </div>

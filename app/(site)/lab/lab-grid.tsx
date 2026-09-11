@@ -5,8 +5,9 @@ import { useState, type ReactNode } from "react";
 import type { Category } from "../../lab-category";
 
 /* The card arrives already rendered by the server. Only the choosing of
-   which cards to show happens here, so the client boundary holds a list
-   of ids and categories, not the cards' markup or their images. */
+   which cards to show happens here: no card is rendered in the browser.
+   Every card's markup is still in the RSC payload, serialised once, so the
+   slice below limits the DOM and the image requests, not the payload. */
 export type LabGridItem = { id: string; category: Category; card: ReactNode };
 
 /* Enough to fill several screens at two columns. Rendering all hundred at

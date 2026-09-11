@@ -351,12 +351,15 @@ finished picture.
 The filter is plain text links, colour marking the active one, because a
 weight change would shove its neighbours along. State is ?category= in the
 URL, read by lab-browser.tsx inside a Suspense boundary whose fallback is
-the unfiltered grid, so /lab prerenders with every card. 24 cards render,
-then Show more. An entry's Back link restores the filter from
-sessionStorage rather than a query on the entry URL, so an entry has one
-address and the filter survives Newer/Older. Newer/Older runs across the
-whole catalogue, not within a category. Share cards are the house card
-with the question as the detail, not the poster.
+the unfiltered grid, so /lab prerenders with the first 24 cards in its
+HTML. 24 cards render, then Show more. Every card's markup still travels
+in the RSC payload, serialised once — about 700 bytes a card, so the slice
+limits the DOM and the image requests, not the payload. An entry's Back
+link restores the filter from sessionStorage rather than a query on the
+entry URL, so an entry has one address and the filter survives
+Newer/Older. Newer/Older runs across the whole catalogue, not within a
+category. Share cards are the house card with the question as the detail,
+not the poster.
 
 An entry's page is a plain .case-column, like a note: Back, then the header
 — number and category, the title, and the question directly under it in
@@ -426,21 +429,22 @@ new one that forgets goes out with the index card, not with none.
 A draft carries noindex, nofollow and is left out of the sitemap. It is
 not disallowed in robots.txt: a disallowed URL can still be listed from a
 link elsewhere, and a crawler refused the page never sees the noindex. The
-sitemap reads the same lists the pages render, so it follows new work and
-notes on its own, and only a note claims a lastModified — build time would
-be a guess.
+sitemap reads the same lists the pages render, so it follows new work,
+notes and Lab entries on its own. Notes and Lab entries claim a
+lastModified from their own dates; a case study claims none — build time
+would be a guess.
 
 Share cards are next/og, drawn at build: app/opengraph-image.tsx for the
-index, Notes and Lab, and one per case study and per note, each exporting
-generateStaticParams so none is drawn on request. app/share-card.tsx is the
-one layout. Every line sits at one size, 48px, separating on weight and
-colour as the site does; the longest tagline, 99 characters, fits three
-lines at that size, so a much longer one would crowd the card. A note's
-card has no description — the title is what earns the click, and the
-unfurl prints the description beside it. Light palette only, as hex, since
-Satori reads neither oklch nor the viewer's theme. The Geist faces are
-vendored in assets/fonts as TTF, because Satori takes no WOFF2 and cannot
-synthesise the 600.
+index, Notes and Lab, and one per case study, per note and per Lab entry,
+each exporting generateStaticParams so none is drawn on request.
+app/share-card.tsx is the one layout. Every line sits at one size, 48px,
+separating on weight and colour as the site does; the longest tagline, 99
+characters, fits three lines at that size, so a much longer one would
+crowd the card. A note's card has no description — the title is what earns
+the click, and the unfurl prints the description beside it. Light palette
+only, as hex, since Satori reads neither oklch nor the viewer's theme. The
+Geist faces are vendored in assets/fonts as TTF, because Satori takes no
+WOFF2 and cannot synthesise the 600.
 
 No theme-color. It can only follow the system preference, not the
 toggle, so it would disagree with the page whenever someone had chosen the
@@ -482,6 +486,11 @@ rediscovered or re-litigated.
   Chosen to keep the page static. Unblocked by rendering /lab dynamically,
   or by a proxy rewrite of ?category= to prerendered per-category pages, if
   the flash is ever visible on a real connection.
+- **Show more resets on Back.** /lab/[slug] lives outside the (site)
+  group, so opening an entry unmounts the grid and its shown count; Back
+  lands on the first 24 with the scroll position past their end. Invisible
+  until there are 25 entries. Unblocked by keeping the count in
+  sessionStorage per category, beside the remembered filter.
 
 ## Working style
 Ask before adding any dependency.

@@ -9,7 +9,7 @@ import LabGrid, { type LabGridItem } from "./lab-grid";
 
 /* The only component that reads the query string. It sits inside a
    Suspense boundary on the page, whose fallback is the same pair unfiltered,
-   so /lab still prerenders with every card in its HTML.
+   so /lab still prerenders, with the first 24 cards in its HTML.
 
    The grid is keyed on the category so switching filters starts the count
    of shown cards again from 24. */

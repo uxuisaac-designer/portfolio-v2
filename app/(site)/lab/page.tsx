@@ -43,7 +43,8 @@ export default async function Lab() {
     /* No page heading, as on Notes: the nav directly above already says
        Lab. The intro is two sentences with no eyebrow over them.
 
-       The fallback is what the build prerenders: every card, unfiltered.
+       The fallback is what the build prerenders: the first 24 cards,
+       unfiltered.
        A production build fails outright if useSearchParams is read outside
        a Suspense boundary on a static page. */
     <>
