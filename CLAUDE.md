@@ -365,7 +365,9 @@ category. Share cards are the house card with the question as the detail,
 not the poster.
 
 An entry's page is laid out like a note's, with Back in the sidebar from
-64rem and at the top of the column below it. Then the header — number and
+64rem and at the top of the column below it — 48px above the header there,
+not the 24px it takes on a note, or it matches the header-to-frame gap and
+reads as the first line of the label. Then the header — number and
 category, the title, and the question directly under it in --text where
 a case study's tagline is muted — then the frame 24px below,
 then the writeup 48px below the frame, a step further because it is about

@@ -1681,6 +1681,15 @@ button.case-figure-frame:focus-visible {
   margin-bottom: var(--space-stack);
 }
 
+/* Below 64rem Back sits at the top of the column. At the 24px it takes on
+   a note or a case study, it sat as far from the header as the header sits
+   from the frame, and read as the first line of the specimen's label. A
+   note's bold title and a case study's 96px below its header keep those
+   pages clear of this; here Back takes twice the gap inside the group. */
+.lab-index-inline {
+  margin-bottom: var(--space-group);
+}
+
 /* Directly under the title, where a case study's tagline sits, and in
    --text rather than muted. */
 .lab-question {

@@ -86,7 +86,7 @@ export default async function LabEntryPage({
       </aside>
 
       <article className="case-column">
-        <LabBackLink className="case-index case-index-inline" />
+        <LabBackLink className="case-index case-index-inline lab-index-inline" />
 
         {/* The specimen label first — number, category, title and the
             question — then the artefact it describes, then the writeup. The
