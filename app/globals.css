@@ -1676,3 +1676,27 @@ button.case-figure-frame:focus-visible {
   font-size: var(--font-size-label);
   font-variant-numeric: tabular-nums;
 }
+
+/* Lab entry pages. A plain centred column, as a note is: the header, the
+   artefact, then the writeup. The meta line and the frame are the card's
+   own classes. */
+
+/* The header and the frame are one group — the label and the specimen —
+   so only the 24px between blocks sits between them. */
+.lab-header {
+  margin-bottom: var(--space-stack);
+}
+
+/* Directly under the title, where a case study's tagline sits, and in
+   --text rather than muted. */
+.lab-question {
+  margin: 0;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+/* The writeup is about the artefact rather than part of it, so it sits a
+   step further off: 48px, twice the gap above the frame. */
+.lab-detail-frame {
+  margin-bottom: var(--space-group);
+}
