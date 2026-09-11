@@ -33,7 +33,7 @@ export default function CategoryFilter({
               className="lab-filter-item"
               href={labHref(option.category)}
               scroll={false}
-              aria-current={option.category === active ? "true" : undefined}
+              aria-current={option.category === active ? "page" : undefined}
             >
               {option.label}
               <span className="lab-filter-count">{option.count}</span>

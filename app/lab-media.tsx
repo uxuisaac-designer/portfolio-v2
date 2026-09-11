@@ -61,7 +61,12 @@ export default function LabMedia({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (trigger === "hover") {
-          if (entry.isIntersecting) attach();
+          /* Its only job on a card is the lazy attach, so it stops once
+             that is done rather than firing on every scroll past. */
+          if (entry.isIntersecting) {
+            attach();
+            observer.disconnect();
+          }
           return;
         }
         if (entry.isIntersecting) play();
@@ -73,16 +78,21 @@ export default function LabMedia({
     );
     observer.observe(video);
 
-    /* The card is the link around the frame. Touch is left out: a tap is a
-       navigation, and starting a clip under the finger as the page leaves
-       would be motion nobody sees. */
+    /* The card is the link around the frame. Touch is left out — here and
+       in onFocus below: a tap is a navigation, and starting a clip under
+       the finger as the page leaves would be motion nobody sees. */
     const card = trigger === "hover" ? video.closest("a") : null;
     const onEnter = (event: PointerEvent) => {
       if (event.pointerType !== "touch") play();
     };
+    /* Keyboard focus only. A tap focuses the link on Android, and without
+       this the clip would start under the finger as the page leaves. */
+    const onFocus = () => {
+      if (card?.matches(":focus-visible")) play();
+    };
     card?.addEventListener("pointerenter", onEnter);
     card?.addEventListener("pointerleave", stop);
-    card?.addEventListener("focusin", play);
+    card?.addEventListener("focusin", onFocus);
     card?.addEventListener("focusout", stop);
 
     return () => {
@@ -91,7 +101,7 @@ export default function LabMedia({
       video.removeEventListener("pause", onPause);
       card?.removeEventListener("pointerenter", onEnter);
       card?.removeEventListener("pointerleave", stop);
-      card?.removeEventListener("focusin", play);
+      card?.removeEventListener("focusin", onFocus);
       card?.removeEventListener("focusout", stop);
     };
   }, [src, trigger]);

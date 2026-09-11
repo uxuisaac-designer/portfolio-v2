@@ -1661,7 +1661,7 @@ button.case-figure-frame:focus-visible {
   transition: color var(--duration-hover-out) var(--ease-hover);
 }
 
-.page .lab-filter-item[aria-current="true"] {
+.page .lab-filter-item[aria-current="page"] {
   color: var(--text);
 }
 
