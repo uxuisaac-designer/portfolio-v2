@@ -171,6 +171,21 @@ and nothing runs behind the reader. It does not stand down under reduced
 motion — a deliberate exception, since the motion is the evidence rather
 than decoration. GIFs are converted rather than embedded; a screen
 recording is many times smaller as video and a GIF cannot be paused at all.
+An image's frame is a button that opens it in a viewer, app/figure-viewer.tsx
+— a native <dialog> via showModal(), so focus, the inert page and Escape come
+from the browser. The picture grows out of its place in the column into the
+largest box the viewport allows, 400ms on the entrance curve, and shrinks
+back into it; its own spot is emptied while it is away, so it reads as one
+picture lifted off the page. It grows from the visible picture, not the
+frame, so an inset source does not jump. A close mid-grow reverses from where
+it has got to. The scrim is --bg over a 12px blur, so the viewer follows the
+theme rather than flipping a light page to black. It shows the page's
+already-loaded copy first and fades the full-size file in over it, so the
+grow never runs on an empty frame. Any click closes it; the round close button
+is 32px at radius 16px, the ceiling exactly. The page scroll is locked, with
+the scrollbar's width paid back as padding so the column does not shift.
+Under reduced motion it fades. Clips and the placeholder are not openable.
+
 `ratio` overrides the 16:9 frame per figure, for when the mat would be
 most of it — a portrait phone recording is better in a frame of its own
 shape than as a sliver between two wide bands.

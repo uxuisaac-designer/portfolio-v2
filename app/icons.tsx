@@ -1,4 +1,4 @@
-import { CornerUpLeft, Moon, Sun } from "lucide-react";
+import { CornerUpLeft, Moon, Sun, X } from "lucide-react";
 
 /* The only place lucide-react is imported. Icons are referenced by name so
    nothing else in the app touches the library, and the defaults live here
@@ -13,6 +13,7 @@ const ICONS = {
   return: CornerUpLeft,
   sun: Sun,
   moon: Moon,
+  close: X,
 } as const;
 
 export type IconName = keyof typeof ICONS;

@@ -1204,6 +1204,161 @@ body {
   padding: 4%;
 }
 
+/* An image's frame is the button that opens the viewer. Reset to the
+   block the div frame was, so nothing about the figure moves. */
+button.case-figure-frame {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  appearance: none;
+  cursor: zoom-in;
+}
+
+button.case-figure-frame:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* While the picture is out in the viewer its place is left empty — the mat
+   stays — so it reads as one picture lifted off the page. */
+.case-figure-frame.is-lifted img {
+  opacity: 0;
+}
+
+/* Full-size image viewer. A native modal dialog laid over the whole
+   viewport; the dialog itself is transparent and the scrim inside it does
+   the dimming, so the scrim can fade with the picture rather than the
+   ::backdrop snapping in. */
+.viewer {
+  /* The page's own 16px gutter on a phone, so the picture is never smaller
+     in the viewer than it was in the column; 64px once there is room. */
+  --viewer-pad: clamp(1rem, 8vw - 1rem, 4rem);
+  --viewer-block: 3.5rem; /* clears the close button, top and bottom alike */
+  --viewer-caption: 0rem;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  overflow: hidden;
+  cursor: zoom-out;
+}
+
+.viewer::backdrop {
+  background: transparent;
+}
+
+/* The page's own colour over a blur of the page, so the viewer follows the
+   theme: near-white in light, the dark ground in dark. */
+.viewer-scrim {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in oklch, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.viewer-stage {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--viewer-block) var(--viewer-pad);
+}
+
+/* Room for up to two lines of caption under the picture. */
+.viewer-stage.has-caption {
+  --viewer-caption: calc(var(--space-tight) + 2.5rem);
+}
+
+/* As large as the viewport allows at the picture's own ratio: the full
+   width, unless that would be too tall, in which case the height decides.
+   The caption shares the width, so it lines up under the picture. */
+.viewer-figure {
+  width: min(
+    100%,
+    calc(
+      (100dvh - var(--viewer-block) * 2 - var(--viewer-caption)) *
+        var(--viewer-aspect, 1.7778)
+    )
+  );
+  margin: 0;
+}
+
+.viewer-picture {
+  position: relative;
+  aspect-ratio: var(--viewer-aspect, 1.7778);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--figure);
+  outline: 1px solid var(--border);
+  outline-offset: -1px;
+  transform-origin: 0 0;
+}
+
+.viewer-picture img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The full-size file lands over the copy the page already had. */
+.viewer-picture img + img {
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+}
+
+.viewer-picture img.is-sharp {
+  opacity: 1;
+}
+
+.viewer-caption {
+  margin-top: var(--space-tight);
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* 32px round — radius 16px, the site's ceiling exactly. */
+.viewer-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: var(--hover);
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color var(--duration-hover-out) var(--ease-hover);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .viewer-close:hover {
+    background: var(--press);
+    transition-duration: var(--duration-hover-in);
+  }
+}
+
+.viewer-close:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
 .case-caption {
   margin-top: var(--space-tight);
   color: var(--muted);
