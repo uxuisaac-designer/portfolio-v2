@@ -343,6 +343,12 @@ og:title saying the root's. The title template does not reach openGraph
 either, so the name is joined on there by hand. A note is og:type article
 with its published date; everything else is website.
 
+Setting openGraph also cuts a page off from the root's opengraph-image, so
+pageMetadata() names that card outright. Config outranks a route's own
+opengraph-image file in this version rather than the other way round, so a
+route that draws its own card passes ownCard: true to leave it alone — a
+new one that forgets goes out with the index card, not with none.
+
 A draft carries noindex, nofollow and is left out of the sitemap. It is
 not disallowed in robots.txt: a disallowed URL can still be listed from a
 link elsewhere, and a crawler refused the page never sees the noindex. The
