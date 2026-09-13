@@ -159,6 +159,14 @@ of the frame's width off every edge so it sits on the mat rather than
 touching it. It is set by hand, not read from the file: pages regenerate on
 Vercel, where public/ is not on disk, so a size check at render would work
 in the build and drop the inset on the first revalidation.
+Images are exported on a solid ground; transparency is for rounded corners
+only. The mat is light in one theme and dark in the other, so dark text drawn
+straight onto a transparent ground vanishes in dark mode. It is not painted
+over in CSS, because a backing would square off every screenshot's corners.
+scripts/check-images.mjs warns about any image in public/work or public/lab
+more than 5% transparent — corners measure 0–2% — and runs before every
+build. It warns and never fails, so a judgement about an image cannot block a
+deploy.
 The company sits above the title as an eyebrow at label size in --muted, so
 the title stays the first thing read. The tagline below is a sentence saying
 what the work was for, not a subtitle naming the employer and year — the
