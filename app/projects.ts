@@ -61,7 +61,7 @@ export const groups: Group[] = [
       {
         name: "Boost your listing",
         description: "Paid promotion for sellers’ listings",
-        thumbnails: fanned,
+        thumbnails: cards("boost-your-listing"),
         href: "/work/boost-your-listing",
       },
     ],
