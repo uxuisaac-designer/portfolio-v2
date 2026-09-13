@@ -55,7 +55,7 @@ export const groups: Group[] = [
       {
         name: "Design system",
         description: "A system for designers, developers and agents",
-        thumbnails: fanned,
+        thumbnails: cards("design-system"),
         href: "/work/design-system",
       },
       {
