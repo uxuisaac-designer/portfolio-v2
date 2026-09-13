@@ -192,6 +192,15 @@ Under reduced motion it fades. Clips and the placeholder are not openable.
 most of it — a portrait phone recording is better in a frame of its own
 shape than as a sliver between two wide bands.
 
+A still image takes one of three frames, chosen by the source's own shape
+rather than by eye: 16:9 for anything wider than about 1.6, 3:2 between
+about 1.1 and 1.6 — a desktop and a phone side by side — and 1:1 for a
+phone screenshot. Three shapes still read as a set; one per image makes the
+column ragged. 3:2 is already the Lab's frame, so it adds no new shape to
+the site. A phone still is square rather than portrait because at the
+column's width 4:5 stands over 700px tall for a single screen. Clips keep
+their own shape, since a recording is watched rather than glanced at.
+
 The contents list carries a 6px square at the active label, --text and
 square-cornered, beside a label that takes weight 500 when active. That
 weight sets a constraint on the writing: a heavier weight is wider, so a

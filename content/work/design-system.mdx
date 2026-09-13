@@ -2,54 +2,132 @@ export const meta = {
   title: "Design system",
   company: "Car & Classic",
   tagline:
-    "A shared language for designers, developers and the agents now writing code alongside them.",
+    "One system to design two marketplaces from, clear enough for people and agents to read.",
   role: "Senior Product Designer",
   timeline: "2024–Present",
-  team: "Design and engineering",
-  software: "Figma, Storybook, GitHub",
+  team: "Product team",
+  software: "Figma, Claude Code",
   draft: false,
 };
 
-Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-Aenean lacinia bibendum nulla sed consectetur.
+The design team at Car & Classic designs for two sites: Car & Classic, and
+its French counterpart, LesAnciennes. When I joined, the design system under
+them was dated, inconsistent and missing parts.
 
-## The sprawl
+I rebuilt it from scratch. It now runs three themes across web, the app, the
+dealer platform and LesAnciennes from around 210 semantic tokens, and it reads
+simply enough that both product managers and the CTO design with it.
 
-Maecenas sed diam eget risus varius blandit sit amet non magna. Donec
-ullamcorper nulla non metus auctor fringilla. Nullam quis risus eget urna
-mollis ornare vel eu leo, cum sociis natoque penatibus et magnis dis
-parturient montes, nascetur ridiculus mus.
-
-## Tokens first
-
-Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac
-cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-amet risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Pellentesque ornare sem lacinia quam venenatis vestibulum.
-
+{/* Image slot. The same page in all three themes, side by side. */}
 <Figure
   src="/placeholder.png"
-  caption="The token layers, from primitive to semantic."
+  caption="One page in Car & Classic light, Car & Classic dark and LesAnciennes."
 />
 
-Curabitur blandit tempus porttitor. Nullam id dolor id nibh ultricies
-vehicula ut id elit.
+## Gaps in every flow
 
-## Documenting for agents
+There was a design system already. It had fallen behind the UI our competitors
+were shipping and behind what we wanted to build. Components were
+inconsistent, and some were missing entirely — which we found out one flow at
+a time, by designing into the gap.
 
-Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta
-gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat
-porttitor ligula, eget lacinia odio sem nec elit.
+Every gap cost time on every flow that reached it. LesAnciennes added a second
+problem: we designed all its work too, and I wanted a way to bridge the two
+systems so one piece of work could serve both sites.
 
+Our head of design and I had been raising a rebuild for a while. Sooner was
+cheaper than later.
+
+## Icons first
+
+A rebuild competes with feature work, so it needed stakeholder sign-off before
+it could take a place in the workload. I made the case with something smaller
+I had already finished.
+
+The old icon set had fewer than 100 icons, inconsistent in size and weight,
+with gaps where icons should have been. I replaced it with an organised set
+from Font Awesome, in regular and filled. The head of design and I each
+saved a few minutes a day with it, which adds up. Showing that saving is what got the full system
+prioritised, and once my workload allowed, I took it on.
+
+{/* Image slot. The old icon set beside the Font Awesome set. */}
 <Figure
   src="/placeholder.png"
-  caption="A component page, written to be read by both."
+  caption="The old icon set, inconsistent in size and weight, beside its replacement."
 />
 
-## Adoption
+## From scratch
 
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla.
+I rebuilt the system rather than patching it, carrying over the parts of the
+old one that still held up. Most of the work was mine, with the head of
+design contributing.
 
-Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-Aenean lacinia bibendum nulla sed consectetur.
+It is atomic — more than 100 components built up from smaller ones — and every
+layer of every component is tokenised: colour, spacing, size, border width and
+radius.
+
+The developers told us the naming structure they wanted for components, and I
+built to it. I improved the documentation for the same reader, so a component
+in Figma arrives in Storybook and code already described in their terms.
+
+{/* Image slot. A component's documentation page, tokens labelled. */}
+<Figure
+  src="/placeholder.png"
+  caption="A component with every layer tokenised, documented for the developers building it."
+/>
+
+## One switch, two sites
+
+Between the components and the brands sits a semantic appearance layer of
+around 210 tokens, set up as Figma variables. There are three themes: Car &
+Classic in light and dark, and LesAnciennes in light.
+
+Changing the variable mode in the appearance panel re-themes anything from a
+single component to a whole page. The components are the building and the
+theme is the paint. Repainting moves no walls.
+
+{/* Clip slot. Swap src for /clips/theme-switch.mp4 — a page changing
+    variable mode in Figma. */}
+<Figure
+  src="/placeholder.png"
+  caption="A page switching from Car & Classic to LesAnciennes by changing the variable mode."
+/>
+
+We use it on real work, though a design rarely crosses sites untouched. Our SEO
+team found that sites which look too alike rank badly, so some designs take
+deliberate changes before they go live on the second one.
+
+## Built with agents
+
+I used AI agents while setting the system up. An agent designed the token
+structure, and agents helped shape the system as a whole and work out colour
+when I added dark mode.
+
+I also wanted the system clear enough for an agent to read, so that AI could
+work inside it. It does now. We have agents connected to the system that design
+variations of components, pages and flows from its own parts.
+
+{/* Image slot. Variations an agent produced from the system's components. */}
+<Figure
+  src="/placeholder.png"
+  caption="Variations of a component, designed by an agent from the system’s own tokens."
+/>
+
+## Who uses it now
+
+The system is live across web, the app, the dealer platform and LesAnciennes.
+Like any design system, it keeps changing.
+
+It made the team faster. The clearest sign is who can use it: it reads simply
+enough that our two product managers and the CTO now create designs with it
+themselves.
+
+## What I’d do differently
+
+I would take more time over the set-up. Colour is where I would spend it,
+since the palette has to carry two brands and a dark mode, and I would look
+for ways to make the system more concise.
+
+Next time I would measure before the system landed and after: how long a flow
+takes from brief to handoff, how often components are detached in design
+files, and how many questions come back from developers during a build.

@@ -171,6 +171,9 @@ Figures:
 - Motion is `.mp4` or `.webm`, never GIF. `<Figure>` renders video as a muted
   looping clip that plays only while on screen; a GIF cannot be paused at all
   and is many times larger.
+- Still images take `ratio="3 / 2"` for in-between shapes and
+  `ratio="1 / 1"` for phone screenshots; wide ones keep the default. The
+  rule is in `CLAUDE.md` under Case studies.
 - `ratio="9 / 16"` for portrait phone recordings. The frame is 16:9 and would
   otherwise crop them to a strip.
 - With no asset yet, use `/placeholder.png` and leave a comment naming the

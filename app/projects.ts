@@ -59,10 +59,10 @@ export const groups: Group[] = [
         href: "/work/design-system",
       },
       {
-        name: "Dealer experience",
-        description: "A selling dashboard for professional dealers",
+        name: "Boost your listing",
+        description: "Paid promotion for sellers’ listings",
         thumbnails: fanned,
-        href: "/work/dealer-experience",
+        href: "/work/boost-your-listing",
       },
     ],
   },
