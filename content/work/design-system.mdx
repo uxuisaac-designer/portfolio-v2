@@ -24,7 +24,7 @@ simply enough that both product managers and the CTO design with it.
   caption="One page in Car & Classic light, Car & Classic dark and LesAnciennes."
 />
 
-## Gaps in every flow
+## Old gaps
 
 There was a design system already. It had fallen behind the UI our competitors
 were shipping and behind what we wanted to build. Components were
@@ -38,29 +38,40 @@ systems so one piece of work could serve both sites.
 Our head of design and I had been raising a rebuild for a while. Sooner was
 cheaper than later.
 
-## Icons first
+## Proving the case
 
 A rebuild competes with feature work, so it needed stakeholder sign-off before
-it could take a place in the workload. I made the case with something smaller
-I had already finished.
+it could take a place in the workload. I made the case from inside the old
+system.
 
-The old icon set had fewer than 100 icons, inconsistent in size and weight,
-with gaps where icons should have been. I replaced it with an organised set
-from Font Awesome, in regular and filled. The head of design and I each
-saved a few minutes a day with it, which adds up. Showing that saving is what got the full system
-prioritised, and once my workload allowed, I took it on.
+Its icon set had fewer than 100 icons, inconsistent in size and weight, with
+gaps where icons should have been. I replaced it with an organised set from
+Font Awesome, in regular and filled. The head of design and I each saved a few
+minutes a day with it, which adds up. One corner of the old system, fixed,
+showed what fixing the rest would be worth. That got the rebuild prioritised,
+and once my workload allowed, I took it on.
 
 {/* Image slot. The old icon set beside the Font Awesome set. */}
 <Figure
   src="/placeholder.png"
-  caption="The old icon set, inconsistent in size and weight, beside its replacement."
+  caption="The old icon set beside its replacement, made before the rebuild began."
 />
 
-## From scratch
+## Primitives first
 
 I rebuilt the system rather than patching it, carrying over the parts of the
 old one that still held up. Most of the work was mine, with the head of
 design contributing.
+
+I started with the primitives: the colours, the token values, and the semantic
+layers that sit on top of them. Components came after, built on decisions
+already made.
+
+{/* Image slot. Colour primitives with the semantic layer mapped onto them. */}
+<Figure
+  src="/placeholder.png"
+  caption="Colour primitives, and the semantic layer that names what each one is for."
+/>
 
 It is atomic — more than 100 components built up from smaller ones — and every
 layer of every component is tokenised: colour, spacing, size, border width and
