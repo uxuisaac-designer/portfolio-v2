@@ -2,42 +2,116 @@ export const meta = {
   title: "Boost your listing",
   company: "Car & Classic",
   tagline:
-    "Letting sellers pay to put their car in front of more buyers.",
+    "Giving sellers a paid way above the crowd, without charging for the free listing.",
   role: "Senior Product Designer",
+  timeline: "Late 2024–Early 2025",
+  team: "Product manager, developers",
+  software: "Figma",
   draft: false,
 };
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
-erat a ante venenatis dapibus posuere velit aliquet. Cras mattis consectetur
-purus sit amet fermentum, vestibulum id ligula porta felis euismod.
+Listing a car on Car & Classic is free, and that is what sets it apart. The
+business needed another source of revenue that left the free listing whole.
 
-## First section
+Boost lets a seller pay to put their listing above other people’s in search. I
+designed it, working with a product manager and our developers, and it shipped
+in early 2025 on web, the app and the dealer platform. Around 15% of listings
+are now boosted.
 
-Maecenas sed diam eget risus varius blandit sit amet non magna. Donec
-ullamcorper nulla non metus auctor fringilla. Nullam quis risus eget urna
-mollis ornare vel eu leo, cum sociis natoque penatibus et magnis dis
-parturient montes, nascetur ridiculus mus.
+{/* Image slot. Swap for /work/boost-your-listing/tiers.png, ratio 3/2 — the
+    Spotlight and Featured cards. */}
+<Figure
+  src="/placeholder.png"
+  ratio="3 / 2"
+  caption="The two paid tiers, as a seller sees them at the end of the listing flow."
+/>
 
-<Figure src="/placeholder.png" />
+## Every car felt equal
 
-Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque
-ornare sem lacinia quam venenatis vestibulum.
+Search had no hierarchy beyond what the buyer typed. Search for a BMW M3 and
+every M3 came back on the same footing, however much its seller wanted it
+found. It was a car park with no front row.
 
-## Second section
+Several revenue streams were in the pipeline, and the C-suite chose this one.
+Paying for position suits a marketplace where listing costs nothing. The free
+route stays as it was, and a seller who wants more can buy it.
 
-Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta
-gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat
-porttitor ligula, eget lacinia odio sem nec elit.
+## Pricing a place
 
-## Third section
+We looked at how other car marketplaces sell promotion — Auto Trader,
+PistonHeads and Collecting Cars — and at sites outside cars that promote
+people’s adverts, including eBay, Depop and Vinted.
 
-Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac
-cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-amet risus.
+To set the price, we asked a handful of sellers we had worked with before how
+much they would pay to put their listing above everyone else’s.
 
-<Figure src="/placeholder.png" />
+## Two tiers, not three
 
-## Fourth section
+There are two paid tiers above Basic. Featured lifts a listing above Basic
+adverts in search. Spotlight puts it above Featured and Basic both. At launch
+they cost £29.99 and £69.99.
 
-Curabitur blandit tempus porttitor. Nullam id dolor id nibh ultricies
-vehicula ut id elit.
+Buyers see the difference on the listing card, which carries a Featured or
+Spotlight tag.
+
+{/* Image slot. Swap for /work/boost-your-listing/tags.png — a results page
+    with a Spotlight card, a Featured card and a Basic card. */}
+<Figure
+  src="/placeholder.png"
+  caption="Search results with a Spotlight, a Featured and a Basic listing."
+/>
+
+During discovery we also considered a third tier, Spotlight Pro, at a much
+higher price. We cut it as unnecessary. The paid extra that took its place was
+professional photography of the seller’s car.
+
+## Offered last
+
+The choice comes towards the end of the listing flow, once the seller has
+entered everything about their car. By then the details are done, and a boost
+is an add-on to a finished listing rather than one more decision in the middle
+of them.
+
+Basic stays selected by default. The paid tiers have to win the seller over on
+what they offer, and a seller who passes can boost later from their account.
+
+{/* Image slot. Swap for /work/boost-your-listing/flow.png — the boost step
+    in place at the end of the listing flow, Basic selected. Add ratio="1 / 1"
+    if it is a phone screen, ratio="3 / 2" for desktop and phone together. */}
+<Figure
+  src="/placeholder.png"
+  caption="The boost step at the end of the listing flow, with Basic selected."
+/>
+
+## What sellers chose
+
+A paid step inside a free flow could have cost free listings. It barely did:
+listing completion fell by less than 2% in the first week, then returned to
+normal.
+
+Around 15% of listings are now boosted. We estimate boosted cars sell three to
+five times faster than basic ones, varying by vehicle, since demand differs
+from one kind of car to another.
+
+## Priced by the crowd
+
+After launch we moved to dynamic pricing. One price everywhere treated every
+search the same, and they are not. Rising above a crowd of listings is worth
+more than rising above a few, and charging a seller whose car has little
+competition the same as one whose car has plenty did not seem fair. The front row costs more when the car
+park is full.
+
+Spotlight still costs more than Featured, but both now move with the listing.
+One seller might see Featured at £34.99 and Spotlight at £49.99. Another sees
+£19.99 and £29.99.
+
+## What I’d do differently
+
+I designed Boost from the seller’s side, and buyers got a tag. Next time I
+would design for the buyer as deliberately: how boosted listings sit among the
+rest of the results, and how a paid position reads to someone searching. A
+buyer who stops trusting the order of results stops being worth ranking above.
+
+I would measure that alongside the sales: enquiries on Basic listings in
+results that carry boosted ones, and whether buyers scroll past the top of the
+page.
